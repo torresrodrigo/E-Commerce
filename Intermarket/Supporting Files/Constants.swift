@@ -15,3 +15,9 @@ struct Colors {
     }
     
 }
+
+struct Images {
+    static let Slice1 = UIImage(named: "slice1")
+    static let Slice2 = UIImage(named: "slice2")
+    static let Slice3 = UIImage(named: "slice3")
+}
