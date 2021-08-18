@@ -9,9 +9,16 @@ import UIKit
 
 extension UIView {
     @IBInspectable var cornerRadius: CGFloat {
-        get { return cornerRadius }
+        get { return self.cornerRadius}
         set {
             self.layer.cornerRadius = newValue
         }
     }
+    @IBInspectable var borderHeight: CGFloat {
+        get { return self.borderHeight }
+        set {
+            self.layer.borderWidth = newValue
+        }
+    }
+    
 }

@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -57,7 +56,7 @@
                 </pageControl>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bW0-7O-I6Y">
                     <rect key="frame" x="0.0" y="97" width="414" height="489"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="489" id="G1t-eK-Ev3"/>
                     </constraints>
@@ -78,6 +77,9 @@
                     <state key="normal" title="Saltear">
                         <color key="titleColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="touchSkipButton:" destination="-1" eventType="touchUpInside" id="9aq-hz-JD0"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -102,8 +104,5 @@
         <namedColor name="SplashScreenPrimary">
             <color red="0.24705882352941178" green="0.23921568627450981" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

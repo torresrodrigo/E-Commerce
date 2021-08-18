@@ -9,15 +9,19 @@ import Foundation
 import UIKit
 
 struct Colors {
-    
-    struct SplashScreen {
-        static let Primary = UIColor(named: "SplashScreenPrimary")
-    }
-    
+    static let Primary = UIColor(named: "Primary")
+    static let Secondary = UIColor(named: "Secondary")
+    static let ButtonRadiusColor = UIColor(named: "ButtonRadiusColor")?.cgColor
 }
 
 struct Images {
     static let Slice1 = UIImage(named: "slice1")
     static let Slice2 = UIImage(named: "slice2")
     static let Slice3 = UIImage(named: "slice3")
+}
+
+struct Icons {
+    static let Apple = UIImage(named: "apple")
+    static let Google = UIImage(named: "google")
+    static let Facebook = UIImage(named: "facebook")
 }

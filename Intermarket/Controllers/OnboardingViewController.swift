@@ -22,10 +22,13 @@ class OnboardingViewController: UIViewController {
         setupSlicesCollectionView()
     }
 
-
+    @IBAction func touchSkipButton(_ sender: Any) {
+        presentViewController(with: LoginViewController(), barHidden: true)
+    }
+    
     @IBAction func touchStartButton(_ sender: Any) {
         if currentPage == slices.count - 1 {
-            print("Go to next viewController")
+            presentViewController(with: LoginViewController(), barHidden: true)
         } else {
             currentPage += 1
             let indexPath = IndexPath(item: currentPage, section: 0)
@@ -48,7 +51,6 @@ extension OnboardingViewController {
             buttonStart.setTitle("Comenzar", for: .normal)
         }
     }
-    
     
     private func getSlices() -> [Slices] {
         var slicesArray = [Slices]()
@@ -85,11 +87,11 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: slicesCollectionView.frame.width - 10, height: slicesCollectionView.frame.height)
+        return CGSize(width: slicesCollectionView.frame.width - 9 , height: slicesCollectionView.frame.height)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let width = scrollView.frame.width - 10
+        let width = scrollView.frame.width - 9
         currentPage = Int(scrollView.contentOffset.x / width)
         pageControl.currentPage = currentPage
         changeTextButton(forIndex: currentPage)

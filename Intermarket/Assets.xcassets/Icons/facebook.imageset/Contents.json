@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "slice2.png",
+      "filename" : "facebook (6).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "slice2@2x.png",
+      "filename" : "facebook (6)@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "slice2@3x.png",
+      "filename" : "facebook (6)@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
