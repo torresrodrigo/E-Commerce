@@ -16,12 +16,5 @@ class HomeTabController: UITabBarController {
         super.viewDidLoad()
 
     }
-
-    @IBAction func touchLogOutButton(_ sender: Any) {
-        do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print("Some error happen: \(signOutError)")
-        }
-    }
+    
 }

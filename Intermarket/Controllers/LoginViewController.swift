@@ -68,6 +68,13 @@ class LoginViewController: UIViewController {
         signInFacebook.imageEdgeInsets.left = -50
     }
     
+    func goToMainTabBar(withCredential credential: AuthCredential) {
+        Auth.auth().signIn(with: credential) { authResult, error in
+            print("Logged User !!")
+            self.presentViewController(with: MainTabViewController(), barHidden: true)
+        }
+    }
+    
 }
     // Google
 extension LoginViewController {
@@ -76,21 +83,14 @@ extension LoginViewController {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [weak self] user, error in
-
-          if let error = error {
-            print("Some error: \(error)")
-            return
-          }
-
-          guard let authentication = user?.authentication, let idToken = authentication.idToken else { return }
-
-          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                         accessToken: authentication.accessToken)
-            
-            Auth.auth().signIn(with: credential) { authResult, error in
-                print("Logged User !!")
-                self?.presentViewController(with: FirstViewController(), barHidden: true)
+            if let error = error {
+                print("Some error: \(error)")
+                return
             }
+            
+            guard let authentication = user?.authentication, let idToken = authentication.idToken else { return }
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
+            self?.goToMainTabBar(withCredential: credential)
         }
     }
     
@@ -173,11 +173,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             guard let appleIDTokenString = String(data: appleIDToken, encoding: .utf8) else { return }
             
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: appleIDTokenString, rawNonce: nounce)
-            
-            Auth.auth().signIn(with: credential) { authResult, error in
-                print("Logged User !!")
-                self.presentViewController(with: FirstViewController(), barHidden: true)
-            }
+            self.goToMainTabBar(withCredential: credential)
         }
     }
     
@@ -202,12 +198,7 @@ extension LoginViewController {
             case .success(granted: let granted, declined: let declined, token: let token):
                 guard let tokenString = token?.tokenString else { return }
                 let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
-                
-                Auth.auth().signIn(with: credential) { authResult, error in
-                    print("Logged User !!")
-                    self.presentViewController(with: FirstViewController(), barHidden: true)
-                }
-                
+                self.goToMainTabBar(withCredential: credential)
             case .cancelled:
                 print("Cancelled")
             case .failed(_):

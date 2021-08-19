@@ -12,6 +12,7 @@ struct Colors {
     static let Primary = UIColor(named: "Primary")
     static let Secondary = UIColor(named: "Secondary")
     static let ButtonRadiusColor = UIColor(named: "ButtonRadiusColor")?.cgColor
+    static let BarTint = UIColor(named: "BarTint")
 }
 
 struct Images {
@@ -24,4 +25,5 @@ struct Icons {
     static let Apple = UIImage(named: "apple")
     static let Google = UIImage(named: "google")
     static let Facebook = UIImage(named: "facebook")
+    static let Categories = UIImage(named: "list-solid")
 }

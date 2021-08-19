@@ -47,7 +47,7 @@ extension AppDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         let googleHandle = GIDSignIn.sharedInstance.handle(url)
         let facebookHandle = FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
-        return googleHandle
+        return googleHandle || facebookHandle
     }
 }
 

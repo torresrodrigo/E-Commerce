@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  SearchViewController.swift
 //  Intermarket
 //
 //  Created by Rodrigo Torres on 17/08/2021.
@@ -10,8 +10,9 @@ import FirebaseAuth
 import GoogleSignIn
 import FacebookLogin
 
-class FirstViewController: UIViewController {
-
+class SearchViewController: UIViewController {
+    
+    static let identifier = String(describing: SearchViewController.self)
     let firebaseAuth = Auth.auth()
     
     override func viewDidLoad() {
@@ -20,10 +21,17 @@ class FirstViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    @IBAction func touchLogOutButton(_ sender: Any) {
+    @IBAction func logOut(_ sender: Any) {
+        print("Worked")
+    }
+    @IBAction func actionLogOut(_ sender: Any) {
         GIDSignIn.sharedInstance.signOut()
         LoginManager().logOut()
         firebaseLogOut()
+    }
+    
+    @IBAction func touchOtherVcButton(_ sender: Any) {
+        //presentViewController(with: UIViewController(nibName: CartViewController().identifier, bundle: nil), barHidden: false)
     }
     
     func firebaseLogOut() {

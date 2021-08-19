@@ -5,11 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FirstViewController" customModule="Intermarket" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="Intermarket" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -32,14 +31,26 @@
                         <color key="titleColor" name="AccentColor"/>
                     </state>
                     <connections>
-                        <action selector="touchLogOutButton:" destination="-1" eventType="touchUpInside" id="EaQ-Jp-LDy"/>
+                        <action selector="logOut:" destination="-1" eventType="touchUpInside" id="3fK-3G-bfM"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f7D-T8-dpI">
+                    <rect key="frame" x="176.5" y="343" width="61" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Other Vc">
+                        <color key="titleColor" name="AccentColor"/>
+                    </state>
+                    <connections>
+                        <action selector="touchOtherVcButton:" destination="-1" eventType="touchUpInside" id="yux-Ej-DvV"/>
                     </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="f7D-T8-dpI" firstAttribute="centerX" secondItem="HjN-Wc-OJN" secondAttribute="centerX" id="0ed-cI-46v"/>
                 <constraint firstItem="maY-HF-xrP" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XYW-cx-ZXS"/>
+                <constraint firstItem="f7D-T8-dpI" firstAttribute="top" secondItem="HjN-Wc-OJN" secondAttribute="bottom" constant="46" id="bUk-N3-tyD"/>
                 <constraint firstItem="HjN-Wc-OJN" firstAttribute="top" secondItem="maY-HF-xrP" secondAttribute="bottom" constant="51" id="bcx-nf-hi7"/>
                 <constraint firstItem="HjN-Wc-OJN" firstAttribute="centerX" secondItem="maY-HF-xrP" secondAttribute="centerX" id="gD6-IQ-qhT"/>
                 <constraint firstItem="maY-HF-xrP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="151" id="yop-Ep-fwc"/>
@@ -51,8 +62,5 @@
         <namedColor name="AccentColor">
             <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
