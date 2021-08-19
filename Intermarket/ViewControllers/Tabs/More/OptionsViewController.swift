@@ -18,6 +18,9 @@ class OptionsViewController: UIViewController {
     }
 
 
+    @IBAction func testAction(_ sender: Any) {
+        print("Action achieved")
+    }
     /*
     // MARK: - Navigation
 

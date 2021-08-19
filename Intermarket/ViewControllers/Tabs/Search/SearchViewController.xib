@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="Intermarket" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner">
             <connections>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,24 +25,22 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HjN-Wc-OJN">
-                    <rect key="frame" x="184" y="267" width="46" height="30"/>
+                    <rect key="frame" x="127" y="267" width="160" height="32"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="Button">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="0wM-QF-9NP"/>
+                        <constraint firstAttribute="height" constant="32" id="kqK-au-G7s"/>
+                    </constraints>
+                    <state key="normal" title="Logout">
                         <color key="titleColor" name="AccentColor"/>
                     </state>
-                    <connections>
-                        <action selector="logOut:" destination="-1" eventType="touchUpInside" id="3fK-3G-bfM"/>
-                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f7D-T8-dpI">
-                    <rect key="frame" x="176.5" y="343" width="61" height="30"/>
+                    <rect key="frame" x="176.5" y="345" width="61" height="30"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Other Vc">
                         <color key="titleColor" name="AccentColor"/>
                     </state>
-                    <connections>
-                        <action selector="touchOtherVcButton:" destination="-1" eventType="touchUpInside" id="yux-Ej-DvV"/>
-                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

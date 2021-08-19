@@ -71,7 +71,10 @@ class LoginViewController: UIViewController {
     func goToMainTabBar(withCredential credential: AuthCredential) {
         Auth.auth().signIn(with: credential) { authResult, error in
             print("Logged User !!")
-            self.presentViewController(with: MainTabViewController(), barHidden: true)
+//            self.presentViewController(with: MainTabViewController(), barHidden: true)
+            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+            self.navigationController?.pushViewController(destinationVC, animated: true)
         }
     }
     
