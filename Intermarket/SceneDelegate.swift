@@ -11,6 +11,7 @@ import FacebookCore
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    let userDefaults = UserDefaults.standard
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -19,12 +20,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = OnboardingViewController()
-        window.makeKeyAndVisible()
-        self.window = window
+        
+        let isLogged = getUserDefaultsLoggedUser()
+        let onBoardingCheck = getUserDefaultsOnboardingCheck()
+        
+        switch (onBoardingCheck, isLogged) {
+        case (onBoardingCheck == nil, isLogged == nil) :
+            setupViewController(forController: OnboardingViewController(), forWindowScene: windowScene, forWindow: window)
+        case (onBoardingCheck == true, isLogged == nil):
+            setupViewController(forController: LoginViewController(), forWindowScene: windowScene, forWindow: window)
+        case (onBoardingCheck == true, isLogged == true):
+            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+            setupViewController(forController: destinationVC, forWindowScene: windowScene, forWindow: window)
+        default:
+            break
+        }
+//
+//        window.rootViewController = OnboardingViewController()
+//        window.makeKeyAndVisible()
+//        self.window = window
         
     }
     
+    func setupViewController(forController controller: UIViewController, forWindowScene windowScene: UIWindowScene, forWindow window: UIWindow ) {
+        window.rootViewController = controller
+        window.makeKeyAndVisible()
+        self.window = window
+    }
+    
+    func getUserDefaultsLoggedUser() -> Bool? {
+        guard let isLoggedUser = userDefaults.object(forKey: UserDefaultsKeys.LoggedUser) else { return false }
+        return isLoggedUser as? Bool
+    }
+    
+    func getUserDefaultsOnboardingCheck() -> Bool? {
+        guard let onboardingCheck = userDefaults.object(forKey: UserDefaultsKeys.OnboardingCheck) else { return false }
+        return onboardingCheck as? Bool
+    }
     
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

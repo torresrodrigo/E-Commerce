@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     
     func presentViewController(with viewController: UIViewController, barHidden hidden: Bool) {
-        let navigationController = BaseNavigationController(rootViewController: viewController)
+        let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.navigationBar.setupNavBar()
         navigationController.isNavigationBarHidden = hidden
         navigationController.modalTransitionStyle = .crossDissolve

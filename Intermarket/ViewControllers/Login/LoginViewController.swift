@@ -20,11 +20,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signInAppleButton: UIButton!
     @IBOutlet weak var signInFacebook: UIButton!
     
+    let userDefaults = UserDefaults.standard
     var currentNounce: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        onBoardingCheck()
     }
 
     
@@ -42,6 +44,7 @@ class LoginViewController: UIViewController {
     
     private func setupUI() {
         setupButtons()
+        //self.navigationController?.navigationBar.isHidden = true
     }
     
     private func setupButtons() {
@@ -68,15 +71,37 @@ class LoginViewController: UIViewController {
         signInFacebook.imageEdgeInsets.left = -50
     }
     
+    func onBoardingCheck() {
+        userDefaults.set(true, forKey: UserDefaultsKeys.OnboardingCheck)
+    }
+    
+    func setLoggedUser() {
+        userDefaults.set(true, forKey: UserDefaultsKeys.LoggedUser)
+    }
+    
     func goToMainTabBar(withCredential credential: AuthCredential) {
         Auth.auth().signIn(with: credential) { authResult, error in
             print("Logged User !!")
-//            self.presentViewController(with: MainTabViewController(), barHidden: true)
+            self.setLoggedUser()
             let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-            self.navigationController?.pushViewController(destinationVC, animated: true)
+            self.setupRootViewController(forController: destinationVC)
         }
     }
+    
+    private func setupRootViewController(forController controller: UIViewController) {
+        guard let window = self.view.window else { return }
+        window.rootViewController = controller
+        window.makeKeyAndVisible()
+        animationChangeView(forWindow: window)
+    }
+    
+    private func animationChangeView(forWindow window: UIWindow) {
+        let options: UIView.AnimationOptions = .transitionCrossDissolve
+        let duration: TimeInterval = 0.3
+        UIView.transition(with: window, duration: duration, options: options, animations: {}, completion: nil)
+    }
+
     
 }
     // Google

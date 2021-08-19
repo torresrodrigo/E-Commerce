@@ -27,6 +27,8 @@
 		88A974AA26C709FD0085FFB2 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A974A826C709FD0085FFB2 /* OnboardingCollectionViewCell.swift */; };
 		88A974AB26C709FD0085FFB2 /* OnboardingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A974A926C709FD0085FFB2 /* OnboardingCollectionViewCell.xib */; };
 		88A974AD26C70D5C0085FFB2 /* Slices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A974AC26C70D5C0085FFB2 /* Slices.swift */; };
+		88B2B3EB26CED59100A8888F /* SearchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B2B3EA26CED59100A8888F /* SearchStoryboard.storyboard */; };
+		88B2B3ED26CED73C00A8888F /* CategoriesStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B2B3EC26CED73B00A8888F /* CategoriesStoryboard.storyboard */; };
 		88D6FA7526C6C6670025007D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D6FA7426C6C6670025007D /* AppDelegate.swift */; };
 		88D6FA7726C6C6670025007D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D6FA7626C6C6670025007D /* SceneDelegate.swift */; };
 		88D6FA7E26C6C66C0025007D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88D6FA7D26C6C66C0025007D /* Assets.xcassets */; };
@@ -68,6 +70,8 @@
 		88A974A826C709FD0085FFB2 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		88A974A926C709FD0085FFB2 /* OnboardingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingCollectionViewCell.xib; sourceTree = "<group>"; };
 		88A974AC26C70D5C0085FFB2 /* Slices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slices.swift; sourceTree = "<group>"; };
+		88B2B3EA26CED59100A8888F /* SearchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchStoryboard.storyboard; sourceTree = "<group>"; };
+		88B2B3EC26CED73B00A8888F /* CategoriesStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategoriesStoryboard.storyboard; sourceTree = "<group>"; };
 		88D6FA7126C6C6670025007D /* Intermarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Intermarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88D6FA7426C6C6670025007D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88D6FA7626C6C6670025007D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 			children = (
 				8856344D26CC546000FB2710 /* SearchViewController.swift */,
 				8856344E26CC546000FB2710 /* SearchViewController.xib */,
+				88B2B3EA26CED59100A8888F /* SearchStoryboard.storyboard */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 			children = (
 				8846C66526CD8FEB00F539BA /* CategoriesViewController.swift */,
 				8846C66626CD8FEB00F539BA /* CategoriesViewController.xib */,
+				88B2B3EC26CED73B00A8888F /* CategoriesStoryboard.storyboard */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -368,12 +374,14 @@
 				88FACAAD26CE9CD3004A9FCB /* OptionsViewController.xib in Resources */,
 				8846C66F26CD9E5E00F539BA /* CartViewController.xib in Resources */,
 				8846C66826CD8FEB00F539BA /* CategoriesViewController.xib in Resources */,
+				88B2B3ED26CED73C00A8888F /* CategoriesStoryboard.storyboard in Resources */,
 				88A974AB26C709FD0085FFB2 /* OnboardingCollectionViewCell.xib in Resources */,
 				8856344826CC2DB000FB2710 /* GoogleService-Info.plist in Resources */,
 				88A9749F26C702550085FFB2 /* OnboardingViewController.xib in Resources */,
 				88FACAA926CE9C7C004A9FCB /* FavoritesViewController.xib in Resources */,
 				88DC00B526CBE164005B105C /* LoginViewController.xib in Resources */,
 				8B9B96EC26CEB8020052E5DC /* TabBar.storyboard in Resources */,
+				88B2B3EB26CED59100A8888F /* SearchStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,12 +12,14 @@ import FacebookLogin
 
 class SearchViewController: UIViewController {
     
-    static let identifier = String(describing: SearchViewController.self)
+    let userDefaults = UserDefaults.standard
     let firebaseAuth = Auth.auth()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Categorias"
+        
         // Do any additional setup after loading the view.
     }
 
@@ -25,6 +27,7 @@ class SearchViewController: UIViewController {
         print("Worked")
     }
     @IBAction func actionLogOut(_ sender: Any) {
+        removeUserDefaults()
         GIDSignIn.sharedInstance.signOut()
         LoginManager().logOut()
         firebaseLogOut()
@@ -37,9 +40,13 @@ class SearchViewController: UIViewController {
     func firebaseLogOut() {
         do {
             try firebaseAuth.signOut()
-            presentViewController(with: LoginViewController(), barHidden: true)
+            self.navigationController?.presentViewController(with: LoginViewController(), barHidden: true)
         } catch let signOutError as NSError {
             print("Some error happen: \(signOutError)")
         }
+    }
+    
+    func removeUserDefaults() {
+        userDefaults.removeObject(forKey: UserDefaultsKeys.LoggedUser)
     }
 }

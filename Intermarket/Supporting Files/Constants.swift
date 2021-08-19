@@ -27,3 +27,8 @@ struct Icons {
     static let Facebook = UIImage(named: "facebook")
     static let Categories = UIImage(named: "list-solid")
 }
+
+struct UserDefaultsKeys {
+    static let OnboardingCheck = "onboardingCheck"
+    static let LoggedUser = "loggedUser"
+}

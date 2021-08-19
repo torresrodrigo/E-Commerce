@@ -23,12 +23,12 @@ class OnboardingViewController: UIViewController {
     }
 
     @IBAction func touchSkipButton(_ sender: Any) {
-        presentViewController(with: LoginViewController(), barHidden: true)
+        presentLogin(forLogin: LoginViewController())
     }
     
     @IBAction func touchStartButton(_ sender: Any) {
         if currentPage == slices.count - 1 {
-            presentViewController(with: LoginViewController(), barHidden: true)
+            presentLogin(forLogin: LoginViewController())
         } else {
             currentPage += 1
             let indexPath = IndexPath(item: currentPage, section: 0)
@@ -36,6 +36,12 @@ class OnboardingViewController: UIViewController {
             changeTextButton(forIndex: currentPage)
             pageControl.currentPage = currentPage
         }
+    }
+    
+    func presentLogin(forLogin login: UIViewController ) {
+        let navigation = UINavigationController(rootViewController: login)
+        navigation.modalPresentationStyle = .fullScreen
+        present(navigation, animated: true, completion: nil)
     }
     
 }
