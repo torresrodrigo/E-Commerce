@@ -17,24 +17,12 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        title = "Categorias"
-        
-        // Do any additional setup after loading the view.
-    }
-
-    @IBAction func logOut(_ sender: Any) {
-        print("Worked")
     }
     @IBAction func actionLogOut(_ sender: Any) {
         removeUserDefaults()
         GIDSignIn.sharedInstance.signOut()
         LoginManager().logOut()
         firebaseLogOut()
-    }
-    
-    @IBAction func touchOtherVcButton(_ sender: Any) {
-        //presentViewController(with: UIViewController(nibName: CartViewController().identifier, bundle: nil), barHidden: false)
     }
     
     func firebaseLogOut() {

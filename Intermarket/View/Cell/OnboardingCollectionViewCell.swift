@@ -27,5 +27,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         titleCell.text = slices.title
         subtitleCell.text = slices.subtitle
         imgCell.image = slices.image
+        imgCell.contentMode = .scaleAspectFit
     }
 }

@@ -7,8 +7,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Poppins-Regular.ttf">
-            <string>Poppins-Regular</string>
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -21,43 +21,52 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="489"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jqU-3q-kQv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="397"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KNi-UI-b6x">
+                        <rect key="frame" x="32" y="8" width="350" height="391"/>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="CrQ-H6-5fV">
-                        <rect key="frame" x="13" y="404" width="389" height="72.5"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="bnH-WI-ahE">
+                        <rect key="frame" x="16" y="399" width="382" height="90"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mp6-8L-ir2" userLabel="Title">
-                                <rect key="frame" x="168" y="0.0" width="53" height="28"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comprar muchas cosas" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="we6-lT-OhD" userLabel="Title">
+                                <rect key="frame" x="0.0" y="0.0" width="382" height="28"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explorá productos y elegí el metodo pago preferido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DES-gW-95G" userLabel="Subtitle">
-                                <rect key="frame" x="0.0" y="52" width="389" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explorá productos y elegí el metodo pago preferido" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DES-gW-95G" userLabel="Subtitle">
+                                <rect key="frame" x="0.0" y="49" width="382" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="we6-lT-OhD" firstAttribute="top" secondItem="bnH-WI-ahE" secondAttribute="top" id="INf-FE-uYc"/>
+                            <constraint firstAttribute="bottom" secondItem="DES-gW-95G" secondAttribute="bottom" id="Q7l-ZP-hMW"/>
+                            <constraint firstItem="we6-lT-OhD" firstAttribute="leading" secondItem="bnH-WI-ahE" secondAttribute="leading" id="QMI-ta-B0w"/>
+                            <constraint firstItem="DES-gW-95G" firstAttribute="leading" secondItem="bnH-WI-ahE" secondAttribute="leading" id="Wn3-4t-x7x"/>
+                            <constraint firstAttribute="trailing" secondItem="DES-gW-95G" secondAttribute="trailing" id="aN7-nY-oWH"/>
+                            <constraint firstAttribute="trailing" secondItem="we6-lT-OhD" secondAttribute="trailing" id="qSw-P8-kt5"/>
+                            <constraint firstItem="DES-gW-95G" firstAttribute="top" secondItem="we6-lT-OhD" secondAttribute="bottom" constant="21" id="qsp-iV-RqW"/>
+                        </constraints>
                     </stackView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="jqU-3q-kQv" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="K66-Xs-5Rf"/>
-                <constraint firstItem="CrQ-H6-5fV" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="13" id="KyC-x8-ZQY"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="jqU-3q-kQv" secondAttribute="trailing" id="S7c-HH-Nfl"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="top" secondItem="jqU-3q-kQv" secondAttribute="top" constant="44" id="SoX-Im-w7H"/>
-                <constraint firstItem="CrQ-H6-5fV" firstAttribute="top" secondItem="jqU-3q-kQv" secondAttribute="bottom" constant="7" id="gh3-nG-jFf"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="CrQ-H6-5fV" secondAttribute="trailing" constant="12" id="pf3-Vp-NYs"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="CrQ-H6-5fV" secondAttribute="bottom" constant="12.5" id="whF-VR-B9z"/>
+                <constraint firstItem="bnH-WI-ahE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="M7L-lU-R5Z"/>
+                <constraint firstAttribute="bottom" secondItem="bnH-WI-ahE" secondAttribute="bottom" id="VMA-Yy-1tf"/>
+                <constraint firstAttribute="trailing" secondItem="KNi-UI-b6x" secondAttribute="trailing" constant="32" id="WjN-BL-Z8A"/>
+                <constraint firstItem="KNi-UI-b6x" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="bT2-3A-Te9"/>
+                <constraint firstAttribute="trailing" secondItem="bnH-WI-ahE" secondAttribute="trailing" constant="16" id="cf5-CB-2ek"/>
+                <constraint firstItem="KNi-UI-b6x" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="32" id="eWb-5E-4Qh"/>
+                <constraint firstItem="bnH-WI-ahE" firstAttribute="top" secondItem="KNi-UI-b6x" secondAttribute="bottom" id="jhU-fM-Fgb"/>
             </constraints>
             <size key="customSize" width="254" height="298"/>
             <connections>
-                <outlet property="imgCell" destination="jqU-3q-kQv" id="tkL-gU-j8d"/>
+                <outlet property="imgCell" destination="KNi-UI-b6x" id="M6c-hj-GZs"/>
                 <outlet property="subtitleCell" destination="DES-gW-95G" id="aMG-9G-ijl"/>
-                <outlet property="titleCell" destination="mp6-8L-ir2" id="iim-kv-Nk5"/>
+                <outlet property="titleCell" destination="we6-lT-OhD" id="BsX-pK-Eox"/>
             </connections>
             <point key="canvasLocation" x="247.82608695652175" y="198.54910714285714"/>
         </collectionViewCell>

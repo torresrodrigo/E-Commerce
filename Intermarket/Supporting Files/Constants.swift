@@ -26,6 +26,8 @@ struct Icons {
     static let Google = UIImage(named: "google")
     static let Facebook = UIImage(named: "facebook")
     static let Categories = UIImage(named: "list-solid")
+    static let DotActive = UIImage(named: "dot-active")
+    static let DotDefault = UIImage(named: "dot-default")
 }
 
 struct UserDefaultsKeys {

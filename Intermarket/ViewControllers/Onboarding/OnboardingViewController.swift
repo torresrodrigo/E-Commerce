@@ -13,6 +13,7 @@ class OnboardingViewController: UIViewController {
     @IBOutlet weak var slicesCollectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var buttonStart: UIButton!
+    let customPageControl = UIPageControl()
     
     var slices = [Slices]()
     var currentPage = 0
@@ -20,11 +21,31 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         setSlices()
         setupSlicesCollectionView()
+        setupCustomPageControl()
     }
 
     @IBAction func touchSkipButton(_ sender: Any) {
         presentLogin(forLogin: LoginViewController())
     }
+    
+    func setupCustomPageControl() {
+        self.customPageControl.backgroundStyle = .minimal
+        self.customPageControl.currentPage = 0
+        self.customPageControl.numberOfPages = slices.count
+        self.customPageControl.preferredIndicatorImage = Icons.DotDefault
+        self.customPageControl.currentPageIndicatorTintColor = Colors.BarTint
+        self.customPageControl.pageIndicatorTintColor = .black
+        setupLayoutCustomPageControl()
+    }
+
+    func setupLayoutCustomPageControl() {
+        view.addSubview(customPageControl)
+        self.customPageControl.translatesAutoresizingMaskIntoConstraints = false
+        self.customPageControl.topAnchor.constraint(equalTo: slicesCollectionView.bottomAnchor, constant: 10).isActive = true
+        self.customPageControl.centerXAnchor.constraint(equalTo: slicesCollectionView.centerXAnchor).isActive = true
+        self.customPageControl.bottomAnchor.constraint(equalTo: buttonStart.topAnchor, constant: 10).isActive = true
+    }
+
     
     @IBAction func touchStartButton(_ sender: Any) {
         if currentPage == slices.count - 1 {
@@ -34,7 +55,6 @@ class OnboardingViewController: UIViewController {
             let indexPath = IndexPath(item: currentPage, section: 0)
             slicesCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             changeTextButton(forIndex: currentPage)
-            pageControl.currentPage = currentPage
         }
     }
     
@@ -80,6 +100,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
         slicesCollectionView.register(OnboardingCollectionViewCell.nib(), forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
         slicesCollectionView.delegate = self
         slicesCollectionView.dataSource = self
+        slicesCollectionView.bounces = false
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -93,13 +114,13 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: slicesCollectionView.frame.width - 9 , height: slicesCollectionView.frame.height)
+        return CGSize(width: slicesCollectionView.frame.width , height: slicesCollectionView.frame.height)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let width = scrollView.frame.width - 9
+        let width = scrollView.frame.width
         currentPage = Int(scrollView.contentOffset.x / width)
-        pageControl.currentPage = currentPage
+        customPageControl.currentPage = currentPage
         changeTextButton(forIndex: currentPage)
     }
 }

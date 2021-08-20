@@ -49,18 +49,18 @@
                         <action selector="touchStartButton:" destination="-1" eventType="touchUpInside" id="XLz-vO-sWI"/>
                     </connections>
                 </button>
-                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="PL9-nk-0SE">
+                <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="PL9-nk-0SE">
                     <rect key="frame" x="146" y="608" width="122" height="28"/>
-                    <color key="pageIndicatorTintColor" red="0.1245374828" green="0.1245374828" blue="0.1245374828" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <color key="currentPageIndicatorTintColor" red="0.1522666318" green="0.59999999999999998" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="pageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="currentPageIndicatorTintColor" name="BarTint"/>
                 </pageControl>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bW0-7O-I6Y">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bW0-7O-I6Y">
                     <rect key="frame" x="0.0" y="97" width="414" height="489"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="489" id="G1t-eK-Ev3"/>
                     </constraints>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fqy-qe-z3H">
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="fqy-qe-z3H">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -83,24 +83,27 @@
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="ebA-D6-rU3" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="15G-Il-joT"/>
-                <constraint firstItem="bW0-7O-I6Y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="4Nl-rD-1GF"/>
-                <constraint firstItem="PL9-nk-0SE" firstAttribute="centerX" secondItem="ebA-D6-rU3" secondAttribute="centerX" id="8El-q4-6cO"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bW0-7O-I6Y" secondAttribute="trailing" id="Qoh-FW-fZY"/>
-                <constraint firstItem="PL9-nk-0SE" firstAttribute="top" secondItem="bW0-7O-I6Y" secondAttribute="bottom" constant="22" id="TAa-sa-Z4m"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PL9-nk-0SE" secondAttribute="trailing" constant="146" id="UUP-3g-dlW"/>
+                <constraint firstItem="ebA-D6-rU3" firstAttribute="centerX" secondItem="PL9-nk-0SE" secondAttribute="centerX" id="5jw-MW-l1l"/>
+                <constraint firstItem="PL9-nk-0SE" firstAttribute="top" secondItem="bW0-7O-I6Y" secondAttribute="bottom" constant="22" id="BVf-ef-g46"/>
+                <constraint firstItem="ebA-D6-rU3" firstAttribute="top" secondItem="PL9-nk-0SE" secondAttribute="bottom" constant="81" id="BpH-Hp-kUT"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tRz-Ek-2ue" secondAttribute="trailing" constant="20" id="Uc4-V3-MCU"/>
-                <constraint firstItem="PL9-nk-0SE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="146" id="YPz-dX-QK9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ebA-D6-rU3" secondAttribute="bottom" constant="97" id="YQf-Yh-t4G"/>
+                <constraint firstItem="bW0-7O-I6Y" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="ZNI-pa-sPq"/>
                 <constraint firstItem="bW0-7O-I6Y" firstAttribute="top" secondItem="tRz-Ek-2ue" secondAttribute="bottom" constant="8" symbolic="YES" id="fQu-H6-Yex"/>
+                <constraint firstItem="PL9-nk-0SE" firstAttribute="centerX" secondItem="bW0-7O-I6Y" secondAttribute="centerX" id="mzh-AD-Ux5"/>
                 <constraint firstItem="tRz-Ek-2ue" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="nN3-j2-Wnc"/>
+                <constraint firstItem="bW0-7O-I6Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="otj-5s-Skj"/>
+                <constraint firstAttribute="trailing" secondItem="bW0-7O-I6Y" secondAttribute="trailing" id="tdg-t1-1hJ"/>
             </constraints>
             <point key="canvasLocation" x="153.62318840579712" y="109.82142857142857"/>
         </view>
     </objects>
     <resources>
+        <namedColor name="BarTint">
+            <color red="0.42352941176470588" green="0.38823529411764707" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="SplashScreenPrimary">
             <color red="0.24705882352941178" green="0.23921568627450981" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
