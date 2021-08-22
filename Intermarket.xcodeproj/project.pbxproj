@@ -34,6 +34,9 @@
 		88D6FA9226C6D0850025007D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88D6FA9126C6D0850025007D /* Poppins-Bold.ttf */; };
 		88D78E9126D0175200BF49E7 /* FavoritesStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88D78E9026D0175200BF49E7 /* FavoritesStoryboard.storyboard */; };
 		88D78E9326D0182300BF49E7 /* MoreStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88D78E9226D0182300BF49E7 /* MoreStoryboard.storyboard */; };
+		88D78E9626D02C8800BF49E7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 88D78E9526D02C8800BF49E7 /* Alamofire */; };
+		88D78E9826D0309A00BF49E7 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D78E9726D0309A00BF49E7 /* MoreViewController.swift */; };
+		88D78E9A26D047D900BF49E7 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D78E9926D047D900BF49E7 /* CustomSearchBar.swift */; };
 		88DC00B426CBE163005B105C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC00B226CBE163005B105C /* LoginViewController.swift */; };
 		88DC00B526CBE164005B105C /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88DC00B326CBE163005B105C /* LoginViewController.xib */; };
 		88DC00B726CBE219005B105C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC00B626CBE219005B105C /* UIViewController+Extensions.swift */; };
@@ -76,12 +79,13 @@
 		88D6FA9126C6D0850025007D /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		88D78E9026D0175200BF49E7 /* FavoritesStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FavoritesStoryboard.storyboard; sourceTree = "<group>"; };
 		88D78E9226D0182300BF49E7 /* MoreStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MoreStoryboard.storyboard; sourceTree = "<group>"; };
+		88D78E9726D0309A00BF49E7 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		88D78E9926D047D900BF49E7 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		88DC00B226CBE163005B105C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		88DC00B326CBE163005B105C /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		88DC00B626CBE219005B105C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		88DC00B826CBE722005B105C /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		88EB217D26D00DDE00D33D2A /* CartStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CartStoryboard.storyboard; sourceTree = "<group>"; };
-		88EB218826D0140F00D33D2A /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		88EB218926D0141700D33D2A /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		8B9B96EB26CEB8020052E5DC /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88D78E9626D02C8800BF49E7 /* Alamofire in Frameworks */,
 				8865208C26CD3DB00040FB65 /* FacebookLogin in Frameworks */,
 				88DC00C126CC0980005B105C /* FirebaseAnalytics in Frameworks */,
 				88DC00BF26CC0980005B105C /* FirebaseAuth in Frameworks */,
@@ -113,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				88A974A726C709AF0085FFB2 /* Cell */,
+				88D78E9926D047D900BF49E7 /* CustomSearchBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,8 +221,8 @@
 		88EB218626D0140F00D33D2A /* More */ = {
 			isa = PBXGroup;
 			children = (
-				88EB218826D0140F00D33D2A /* OptionsViewController.swift */,
 				88D78E9226D0182300BF49E7 /* MoreStoryboard.storyboard */,
+				88D78E9726D0309A00BF49E7 /* MoreViewController.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -309,6 +315,7 @@
 				88DC00C026CC0980005B105C /* FirebaseAnalytics */,
 				88DC00C326CC0AA8005B105C /* GoogleSignIn */,
 				8865208B26CD3DB00040FB65 /* FacebookLogin */,
+				88D78E9526D02C8800BF49E7 /* Alamofire */,
 			);
 			productName = Intermarket;
 			productReference = 88D6FA7126C6C6670025007D /* Intermarket.app */;
@@ -341,6 +348,7 @@
 				88DC00BD26CC0980005B105C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				88DC00C226CC0AA8005B105C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				8865208A26CD3DB00040FB65 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				88D78E9426D02C8700BF49E7 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 88D6FA7226C6C6670025007D /* Products */;
 			projectDirPath = "";
@@ -389,6 +397,7 @@
 				88DC00B726CBE219005B105C /* UIViewController+Extensions.swift in Sources */,
 				88A974AD26C70D5C0085FFB2 /* Slices.swift in Sources */,
 				8846C66426CD8F7D00F539BA /* MainTabViewController.swift in Sources */,
+				88D78E9826D0309A00BF49E7 /* MoreViewController.swift in Sources */,
 				8846C66726CD8FEB00F539BA /* CategoriesViewController.swift in Sources */,
 				8846C66E26CD9E5E00F539BA /* CartViewController.swift in Sources */,
 				88D6FA7526C6C6670025007D /* AppDelegate.swift in Sources */,
@@ -396,6 +405,7 @@
 				88EB218A26D0141700D33D2A /* FavoritesViewController.swift in Sources */,
 				88A9749E26C702550085FFB2 /* OnboardingViewController.swift in Sources */,
 				88D6FA7726C6C6670025007D /* SceneDelegate.swift in Sources */,
+				88D78E9A26D047D900BF49E7 /* CustomSearchBar.swift in Sources */,
 				88A974AA26C709FD0085FFB2 /* OnboardingCollectionViewCell.swift in Sources */,
 				88D6FA8F26C6CF4B0025007D /* Constants.swift in Sources */,
 				8856344F26CC546000FB2710 /* SearchViewController.swift in Sources */,
@@ -604,6 +614,14 @@
 				minimumVersion = 11.1.0;
 			};
 		};
+		88D78E9426D02C8700BF49E7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
 		88DC00BD26CC0980005B105C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -627,6 +645,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8865208A26CD3DB00040FB65 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookLogin;
+		};
+		88D78E9526D02C8800BF49E7 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88D78E9426D02C8700BF49E7 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		88DC00BE26CC0980005B105C /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

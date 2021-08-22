@@ -20,33 +20,49 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="DuG-UK-ZbB" kind="relationship" relationship="rootViewController" id="MRi-eH-o2M"/>
+                        <segue destination="aVM-Cr-E86" kind="relationship" relationship="rootViewController" id="z8c-ny-qMd"/>
                     </connections>
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="-549" y="204"/>
         </scene>
-        <!--Options View Controller-->
-        <scene sceneID="X83-c4-hDq">
+        <!--More View Controller-->
+        <scene sceneID="JVG-Z3-Yw8">
             <objects>
-                <viewController id="DuG-UK-ZbB" customClass="OptionsViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="d6a-By-t9C">
+                <viewController id="aVM-Cr-E86" customClass="MoreViewController" customModule="Intermarket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wUc-mY-er6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="7Pw-ly-bKA"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oS4-aK-b8e">
+                                <rect key="frame" x="184" y="351" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionLogOut:" destination="aVM-Cr-E86" eventType="touchUpInside" id="7rO-3k-s8y"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="m7j-iR-O7N"/>
+                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                        <constraints>
+                            <constraint firstItem="oS4-aK-b8e" firstAttribute="top" secondItem="m7j-iR-O7N" secondAttribute="top" constant="263" id="2hK-gO-Rdj"/>
+                            <constraint firstItem="oS4-aK-b8e" firstAttribute="centerX" secondItem="m7j-iR-O7N" secondAttribute="centerX" id="LPQ-23-8zP"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="wPl-FW-JzY"/>
+                    <navigationItem key="navigationItem" id="E8P-9x-74l"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rjR-DI-Ehu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kzs-m1-1xC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="330" y="204"/>
+            <point key="canvasLocation" x="267" y="204"/>
         </scene>
     </scenes>
     <resources>
         <image name="bars-solid" width="19.5" height="17"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -14,7 +14,6 @@ import AuthenticationServices
 import CryptoKit
 
 class LoginViewController: UIViewController {
-
     
     @IBOutlet weak var signInGoogleButton: UIButton!
     @IBOutlet weak var signInAppleButton: UIButton!
@@ -29,7 +28,6 @@ class LoginViewController: UIViewController {
         onBoardingCheck()
     }
 
-    
     @IBAction func touchsignInGoogleButton(_ sender: Any) {
         setupGoogleSignIn()
     }
