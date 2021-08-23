@@ -35,3 +35,7 @@ struct UserDefaultsKeys {
     static let OnboardingCheck = "onboardingCheck"
     static let LoggedUser = "loggedUser"
 }
+
+struct Endpoints {
+    static let Search = "https://api.mercadolibre.com/sites/MLA/search?"
+}

@@ -11,7 +11,6 @@
         <!--More-->
         <scene sceneID="JqK-k9-Swd">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tmq-wn-JwI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="4EM-Lb-Ny9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="More" image="bars-solid" id="e86-Hm-V9j"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -23,6 +22,7 @@
                         <segue destination="aVM-Cr-E86" kind="relationship" relationship="rootViewController" id="z8c-ny-qMd"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tmq-wn-JwI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-549" y="204"/>
         </scene>
@@ -35,9 +35,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oS4-aK-b8e">
-                                <rect key="frame" x="184" y="351" width="46" height="30"/>
+                                <rect key="frame" x="178.5" y="351" width="57" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Log out!">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>

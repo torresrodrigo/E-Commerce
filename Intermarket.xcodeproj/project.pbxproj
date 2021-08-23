@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8811AB4E26D3C84600EEAEAA /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811AB4D26D3C84600EEAEAA /* Products.swift */; };
+		8811AB5126D3CB1A00EEAEAA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811AB5026D3CB1A00EEAEAA /* NetworkService.swift */; };
+		8811AB5326D3D3E200EEAEAA /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811AB5226D3D3E200EEAEAA /* String+Extensions.swift */; };
 		8832620826C6FD5C009AEF98 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8832620726C6FD5B009AEF98 /* Poppins-ExtraBold.ttf */; };
 		8846C66426CD8F7D00F539BA /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C66326CD8F7D00F539BA /* MainTabViewController.swift */; };
 		8846C66726CD8FEB00F539BA /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C66526CD8FEB00F539BA /* CategoriesViewController.swift */; };
 		8846C66A26CD977900F539BA /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C66926CD977900F539BA /* BaseNavigationController.swift */; };
 		8846C66E26CD9E5E00F539BA /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C66C26CD9E5E00F539BA /* CartViewController.swift */; };
-		8846C67126CDC8A800F539BA /* TabControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C67026CDC8A800F539BA /* TabControllers.swift */; };
+		8846C67126CDC8A800F539BA /* BaseProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C67026CDC8A800F539BA /* BaseProducts.swift */; };
 		8856344826CC2DB000FB2710 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8856344726CC2DB000FB2710 /* GoogleService-Info.plist */; };
 		8856344F26CC546000FB2710 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8856344D26CC546000FB2710 /* SearchViewController.swift */; };
 		8865208C26CD3DB00040FB65 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 8865208B26CD3DB00040FB65 /* FacebookLogin */; };
@@ -50,12 +53,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8811AB4D26D3C84600EEAEAA /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		8811AB5026D3CB1A00EEAEAA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		8811AB5226D3D3E200EEAEAA /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		8832620726C6FD5B009AEF98 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		8846C66326CD8F7D00F539BA /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		8846C66526CD8FEB00F539BA /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		8846C66926CD977900F539BA /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		8846C66C26CD9E5E00F539BA /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
-		8846C67026CDC8A800F539BA /* TabControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControllers.swift; sourceTree = "<group>"; };
+		8846C67026CDC8A800F539BA /* BaseProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseProducts.swift; sourceTree = "<group>"; };
 		8856344726CC2DB000FB2710 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8856344D26CC546000FB2710 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8865208926CD31130040FB65 /* Intermarket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Intermarket.entitlements; sourceTree = "<group>"; };
@@ -106,6 +112,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8811AB4F26D3CAE700EEAEAA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8811AB5026D3CB1A00EEAEAA /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		8846C66B26CD978000F539BA /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +153,7 @@
 			children = (
 				88A974A126C703BE0085FFB2 /* UIView+Extensions.swift */,
 				88DC00B626CBE219005B105C /* UIViewController+Extensions.swift */,
+				8811AB5226D3D3E200EEAEAA /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -171,6 +186,7 @@
 		88D6FA7326C6C6670025007D /* Intermarket */ = {
 			isa = PBXGroup;
 			children = (
+				8811AB4F26D3CAE700EEAEAA /* Services */,
 				8846C66B26CD978000F539BA /* Utilities */,
 				8865208926CD31130040FB65 /* Intermarket.entitlements */,
 				88A974A026C703AD0085FFB2 /* Extensions */,
@@ -193,7 +209,8 @@
 			isa = PBXGroup;
 			children = (
 				88A974AC26C70D5C0085FFB2 /* Slices.swift */,
-				8846C67026CDC8A800F539BA /* TabControllers.swift */,
+				8846C67026CDC8A800F539BA /* BaseProducts.swift */,
+				8811AB4D26D3C84600EEAEAA /* Products.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -392,8 +409,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				88DC00B426CBE163005B105C /* LoginViewController.swift in Sources */,
+				8811AB5326D3D3E200EEAEAA /* String+Extensions.swift in Sources */,
 				88A974A226C703BE0085FFB2 /* UIView+Extensions.swift in Sources */,
-				8846C67126CDC8A800F539BA /* TabControllers.swift in Sources */,
+				8846C67126CDC8A800F539BA /* BaseProducts.swift in Sources */,
 				88DC00B726CBE219005B105C /* UIViewController+Extensions.swift in Sources */,
 				88A974AD26C70D5C0085FFB2 /* Slices.swift in Sources */,
 				8846C66426CD8F7D00F539BA /* MainTabViewController.swift in Sources */,
@@ -401,6 +419,7 @@
 				8846C66726CD8FEB00F539BA /* CategoriesViewController.swift in Sources */,
 				8846C66E26CD9E5E00F539BA /* CartViewController.swift in Sources */,
 				88D6FA7526C6C6670025007D /* AppDelegate.swift in Sources */,
+				8811AB5126D3CB1A00EEAEAA /* NetworkService.swift in Sources */,
 				8846C66A26CD977900F539BA /* BaseNavigationController.swift in Sources */,
 				88EB218A26D0141700D33D2A /* FavoritesViewController.swift in Sources */,
 				88A9749E26C702550085FFB2 /* OnboardingViewController.swift in Sources */,
@@ -408,6 +427,7 @@
 				88D78E9A26D047D900BF49E7 /* CustomSearchBar.swift in Sources */,
 				88A974AA26C709FD0085FFB2 /* OnboardingCollectionViewCell.swift in Sources */,
 				88D6FA8F26C6CF4B0025007D /* Constants.swift in Sources */,
+				8811AB4E26D3C84600EEAEAA /* Products.swift in Sources */,
 				8856344F26CC546000FB2710 /* SearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
