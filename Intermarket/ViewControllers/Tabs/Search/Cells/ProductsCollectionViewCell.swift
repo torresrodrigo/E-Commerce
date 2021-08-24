@@ -24,6 +24,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupUI()
     }
     
     func setupUI() {
@@ -48,9 +49,9 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     
     private func setupShadow() {
         self.layer.shadowColor = Colors.Shadow?.cgColor
-        self.layer.shadowOpacity = 10
-        self.layer.shadowOffset = CGSize(width: 0, height: 1)
-        self.layer.shadowRadius = 2
+        self.layer.shadowOpacity = 5
+        self.layer.shadowOffset = CGSize(width: 0, height: 10)
+        self.layer.shadowRadius = 10
         self.layer.masksToBounds = false
     }
     
