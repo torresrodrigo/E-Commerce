@@ -10,7 +10,7 @@ import Foundation
 struct Products: Codable {
     let title: String
     let price: Double
-    let thumbnail: String
+    let thumbnail: String?
     
     enum CodingsKeys: String, CodingKey {
         case title
@@ -22,6 +22,6 @@ struct Products: Codable {
         let values = try decoder.container(keyedBy: CodingsKeys.self)
         title = try values.decode(String.self, forKey: .title)
         price = try values.decode(Double.self, forKey: .price)
-        thumbnail = try values.decode(String.self, forKey: .thumbnail)
+        thumbnail = try values.decodeIfPresent(String.self, forKey: .thumbnail)
     }
 }

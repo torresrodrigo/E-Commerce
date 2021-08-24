@@ -13,6 +13,7 @@ struct Colors {
     static let Secondary = UIColor(named: "Secondary")
     static let ButtonRadiusColor = UIColor(named: "ButtonRadiusColor")?.cgColor
     static let BarTint = UIColor(named: "BarTint")
+    static let Shadow = UIColor(named: "Shadow")
 }
 
 struct Images {

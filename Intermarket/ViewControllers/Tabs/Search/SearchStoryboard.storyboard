@@ -5,11 +5,15 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Poppins-Bold.ttf">
             <string>Poppins-Bold</string>
+        </array>
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
         </array>
         <array key="Poppins-SemiBold.ttf">
             <string>Poppins-SemiBold</string>
@@ -72,7 +76,7 @@
                                 </userDefinedRuntimeAttributes>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buscá el producto que necesites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43Z-cy-Prs">
-                                <rect key="frame" x="13" y="153.5" width="264" height="22.5"/>
+                                <rect key="frame" x="12" y="153.5" width="264" height="22.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -89,10 +93,50 @@
                                                     <constraint firstAttribute="height" constant="399" id="iTc-tF-ooQ"/>
                                                 </constraints>
                                             </imageView>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo mas popular de hoy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hzq-Z6-spn">
+                                                <rect key="frame" x="12" y="15" width="185" height="22.5"/>
+                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                <color key="textColor" name="TextCell"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Esto hemos encontrado para ti" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avF-t8-daU">
+                                                <rect key="frame" x="12" y="42.5" width="185.5" height="17"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
+                                                <color key="textColor" name="TextCell"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uXK-t3-E0N">
+                                                <rect key="frame" x="0.0" y="74.5" width="414" height="554.5"/>
+                                                <color key="backgroundColor" name="White"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="24" minimumInteritemSpacing="0.0" id="HxO-0Y-xED">
+                                                    <size key="itemSize" width="128" height="128"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NLC-zA-Ll1">
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Q0U-Dm-gQ5">
+                                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </collectionViewCellContentView>
+                                                    </collectionViewCell>
+                                                </cells>
+                                            </collectionView>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="avF-t8-daU" firstAttribute="top" secondItem="Hzq-Z6-spn" secondAttribute="bottom" constant="5" id="6uj-oQ-eiP"/>
+                                            <constraint firstAttribute="trailing" secondItem="uXK-t3-E0N" secondAttribute="trailing" id="8Lg-Lg-WKh"/>
+                                            <constraint firstItem="uXK-t3-E0N" firstAttribute="leading" secondItem="isb-qq-9rJ" secondAttribute="leading" id="Dks-DB-hVd"/>
                                             <constraint firstAttribute="trailing" secondItem="rhQ-1P-pBO" secondAttribute="trailing" constant="34" id="Nz0-xE-8D8"/>
+                                            <constraint firstItem="uXK-t3-E0N" firstAttribute="top" secondItem="avF-t8-daU" secondAttribute="bottom" constant="15" id="PZu-t5-Urz"/>
+                                            <constraint firstItem="Hzq-Z6-spn" firstAttribute="leading" secondItem="isb-qq-9rJ" secondAttribute="leading" constant="12" id="Seh-ND-Boq"/>
+                                            <constraint firstItem="avF-t8-daU" firstAttribute="leading" secondItem="isb-qq-9rJ" secondAttribute="leading" constant="12" id="UVD-g9-4ZB"/>
+                                            <constraint firstItem="Hzq-Z6-spn" firstAttribute="top" secondItem="isb-qq-9rJ" secondAttribute="top" constant="15" id="iL9-2X-AgC"/>
+                                            <constraint firstAttribute="bottom" secondItem="uXK-t3-E0N" secondAttribute="bottom" id="mna-Kl-akX"/>
                                             <constraint firstItem="rhQ-1P-pBO" firstAttribute="leading" secondItem="isb-qq-9rJ" secondAttribute="leading" constant="39" id="oKe-BF-M9K"/>
                                             <constraint firstItem="rhQ-1P-pBO" firstAttribute="top" secondItem="isb-qq-9rJ" secondAttribute="top" constant="46" id="sD5-yy-clw"/>
                                         </constraints>
@@ -116,7 +160,7 @@
                             <constraint firstItem="851-de-5TG" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="E6X-Ww-AhP"/>
                             <constraint firstItem="851-de-5TG" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="Ged-sC-PEQ"/>
                             <constraint firstItem="Hpi-AL-EFf" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="HQt-zR-b57"/>
-                            <constraint firstItem="43Z-cy-Prs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="13" id="HuZ-H0-1Pp"/>
+                            <constraint firstItem="43Z-cy-Prs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="12" id="HuZ-H0-1Pp"/>
                             <constraint firstItem="Hpi-AL-EFf" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="Ky4-oH-Vjg"/>
                             <constraint firstItem="43Z-cy-Prs" firstAttribute="top" secondItem="YXl-bw-nM7" secondAttribute="bottom" constant="9.5" id="cVc-CU-i7X"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="YXl-bw-nM7" secondAttribute="trailing" constant="16" id="cfO-iQ-zOd"/>
@@ -132,8 +176,11 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="containerView" destination="5EZ-qb-Rvc" id="i99-cB-4tN"/>
+                        <outlet property="getSearchSubtitle" destination="avF-t8-daU" id="AXE-Gz-Dqm"/>
+                        <outlet property="getSearchTitle" destination="Hzq-Z6-spn" id="5Sv-w3-GIN"/>
                         <outlet property="imgSearch" destination="rhQ-1P-pBO" id="eiv-WR-Uaz"/>
                         <outlet property="interTitle" destination="hxb-hq-hvs" id="u2H-Ae-hQv"/>
+                        <outlet property="productsCollectionViewCell" destination="uXK-t3-E0N" id="RAQ-4B-TUj"/>
                         <outlet property="searchBar" destination="YXl-bw-nM7" id="52l-8S-ljd"/>
                         <outlet property="searchLabel" destination="43Z-cy-Prs" id="2Gu-02-ncm"/>
                     </connections>
@@ -148,6 +195,12 @@
         <image name="searchImage" width="271" height="292"/>
         <namedColor name="Primary">
             <color red="0.24699999392032623" green="0.23899999260902405" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextCell">
+            <color red="0.22352941176470589" green="0.22352941176470589" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="White">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

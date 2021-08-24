@@ -36,10 +36,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         default:
             break
         }
-//
-//        window.rootViewController = OnboardingViewController()
-//        window.makeKeyAndVisible()
-//        self.window = window
         
     }
     

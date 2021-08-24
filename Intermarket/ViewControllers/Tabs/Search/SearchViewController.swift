@@ -14,6 +14,11 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var imgSearch: UIImageView!
     @IBOutlet var containerView: UIView!
+    @IBOutlet weak var getSearchTitle: UILabel!
+    @IBOutlet weak var getSearchSubtitle: UILabel!
+    @IBOutlet weak var productsCollectionViewCell: UICollectionView!
+    
+    var products = [Products]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +27,8 @@ class SearchViewController: UIViewController {
     
     private func setupUI() {
         setupSearchBar()
+        setupCollectionView()
+        getResultsSearch()
     }
     
 }
@@ -37,15 +44,8 @@ extension SearchViewController: UISearchBarDelegate {
     private func setupUISearchBar() { 
         searchBar.searchBarStyle = .minimal
         searchBar.backgroundColor = .clear
-        changeColorTextField()
-    }
-    
-    //Color of textField in SearchBar
-    private func changeColorTextField() {
-        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-            textField.backgroundColor = UIColor(named: "White")
-            textField.alpha = 1
-        }
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.backgroundImage = UIImage()
     }
     
     //Restrict only 50 characters
@@ -57,13 +57,20 @@ extension SearchViewController: UISearchBarDelegate {
     //Perform search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        executedSearch()
+        getResultsSearch()
+        setSearchUI()
+    }
+    
+    private func setSearchUI() {
         imgSearch.isHidden = true
-        searchLabel.text = "Busqueda realizada"
+        searchLabel.isHidden = true
+        getSearchTitle.isHidden = false
+        getSearchSubtitle.isHidden = false
+        productsCollectionViewCell.isHidden = false
     }
     
     //API CALL
-    func executedSearch() {
+    func getResultsSearch() {
         print("Executed Search")
         guard let textSearchBar = searchBar.text?.remplaceTextInQuery() else { return }
         print("Text: \(textSearchBar)")
@@ -71,11 +78,41 @@ extension SearchViewController: UISearchBarDelegate {
         NetworkService.shared.getProducts(query: params) { response in
             switch response {
             case .success(let response):
-                print(response)
+                self.products = response.results
+                DispatchQueue.main.async {
+                    self.productsCollectionViewCell.reloadData()
+                }
             case .failure(let error):
                 print("Something is wrong. Error: \(error.localizedDescription)")
             }
         }
+    }
+}
+
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func setupCollectionView() {
+        productsCollectionViewCell.register(ProductsCollectionViewCell.nib(), forCellWithReuseIdentifier: ProductsCollectionViewCell.identifier)
+        productsCollectionViewCell.delegate = self
+        productsCollectionViewCell.dataSource = self
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return products.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = productsCollectionViewCell.dequeueReusableCell(withReuseIdentifier: ProductsCollectionViewCell.identifier, for: indexPath) as! ProductsCollectionViewCell
+        cell.setupCell(data: products[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 148, height: 222)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
     }
     
 }
