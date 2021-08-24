@@ -11,11 +11,13 @@ struct Products: Codable {
     let title: String
     let price: Double
     let thumbnail: String?
+    var isFavorite: Bool?
     
     enum CodingsKeys: String, CodingKey {
         case title
         case price
         case thumbnail
+        case isFavorite
     }
     
     init(decoder: Decoder) throws {
@@ -23,5 +25,6 @@ struct Products: Codable {
         title = try values.decode(String.self, forKey: .title)
         price = try values.decode(Double.self, forKey: .price)
         thumbnail = try values.decodeIfPresent(String.self, forKey: .thumbnail)
+        isFavorite = try values.decodeIfPresent(Bool.self, forKey: .isFavorite)
     }
 }

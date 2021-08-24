@@ -47,6 +47,17 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2B-qZ-cbi">
+                        <rect key="frame" x="119" y="4" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="e7N-Xe-rDm"/>
+                            <constraint firstAttribute="width" constant="25" id="pm6-gK-NGV"/>
+                        </constraints>
+                        <state key="normal" image="favorite"/>
+                        <connections>
+                            <action selector="didTapFavorite:" destination="gTV-IL-0wX" eventType="touchUpInside" id="8CE-lQ-ppe"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -61,6 +72,8 @@
                 <constraint firstAttribute="trailing" secondItem="99q-RY-7Mq" secondAttribute="trailing" constant="12" id="Of1-GY-r03"/>
                 <constraint firstItem="99q-RY-7Mq" firstAttribute="top" secondItem="tJa-Er-2Nr" secondAttribute="bottom" constant="10" id="SfE-U6-2XR"/>
                 <constraint firstItem="XRX-6J-Mxb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="bzj-6C-njZ"/>
+                <constraint firstItem="P2B-qZ-cbi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="dgl-c2-bZz"/>
+                <constraint firstAttribute="trailing" secondItem="P2B-qZ-cbi" secondAttribute="trailing" constant="4" id="poI-Af-f3x"/>
             </constraints>
             <size key="customSize" width="242" height="264"/>
             <userDefinedRuntimeAttributes>
@@ -69,6 +82,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="favoriteIcon" destination="P2B-qZ-cbi" id="02G-fB-X1o"/>
                 <outlet property="priceProduct" destination="XRX-6J-Mxb" id="Tks-qx-JGI"/>
                 <outlet property="productImg" destination="tJa-Er-2Nr" id="7NW-BI-Ajp"/>
                 <outlet property="titleProduct" destination="99q-RY-7Mq" id="0Uf-EP-fJY"/>
@@ -77,6 +91,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="favorite" width="25" height="25"/>
         <namedColor name="TextCell">
             <color red="0.22352941176470589" green="0.22352941176470589" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

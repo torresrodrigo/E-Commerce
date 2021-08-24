@@ -30,6 +30,8 @@ struct Icons {
     static let Categories = UIImage(named: "list-solid")
     static let DotActive = UIImage(named: "dot-active")
     static let DotDefault = UIImage(named: "dot-default")
+    static let Favorite = UIImage(named: "favorite")
+    static let FavoriteAdded = UIImage(named: "favorite-added")
 }
 
 struct UserDefaultsKeys {

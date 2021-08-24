@@ -18,8 +18,15 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productImg: UIImageView!
     @IBOutlet weak var titleProduct: UILabel!
     @IBOutlet weak var priceProduct: UILabel!
+    @IBOutlet weak var favoriteIcon: UIButton!
+    
+    var imgStatus = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    func setupUI() {
         setupShadow()
     }
     
@@ -27,13 +34,16 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         titleProduct.text = data.title.maxLength(length: 30).breakLine()
         priceProduct.text = data.price.currency()
         setupImage(image: data.thumbnail)
+        checkFavorites()
+    }
+    
+    func checkFavorites() {
+        imgStatus ? favoriteIcon.setImage(Icons.FavoriteAdded, for: .normal) : favoriteIcon.setImage(Icons.Favorite, for: .normal)
     }
     
     private func setupImage(image: String?) {
         guard let path = image else { return }
-        let url = path
-        print("Url: \(url)")
-        productImg.sd_setImage(with: URL(string: url))
+        productImg.sd_setImage(with: URL(string: path))
     }
     
     private func setupShadow() {
@@ -43,4 +53,17 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         self.layer.shadowRadius = 2
         self.layer.masksToBounds = false
     }
+    
+    @IBAction func didTapFavorite(_ sender: Any) {
+        changeIconFavorites()
+    }
+    
+    func changeIconFavorites() {
+        if favoriteIcon.currentImage == Icons.Favorite {
+            favoriteIcon.setImage(Icons.FavoriteAdded, for: .normal)
+        } else {
+            favoriteIcon.setImage(Icons.Favorite, for: .normal)
+        }
+    }
+    
 }
