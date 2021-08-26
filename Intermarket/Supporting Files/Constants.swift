@@ -37,6 +37,7 @@ struct Icons {
 struct UserDefaultsKeys {
     static let OnboardingCheck = "onboardingCheck"
     static let LoggedUser = "loggedUser"
+    static let Favorites = "Favorites"
 }
 
 struct Endpoints {

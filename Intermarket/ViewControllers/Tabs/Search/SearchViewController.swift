@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class SearchViewController: UIViewController {
 
     @IBOutlet weak var interTitle: UILabel!
@@ -18,7 +20,13 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var getSearchSubtitle: UILabel!
     @IBOutlet weak var productsCollectionViewCell: UICollectionView!
     
+    static let identifier = String(describing: SearchViewController.self)
+    
+    let favoritesViewController = FavoritesViewController()
+    
+    let userDefaults = UserDefaults.standard
     var products = [Products]()
+    var favorites = [Products]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,9 +79,7 @@ extension SearchViewController: UISearchBarDelegate {
     
     //API CALL
     func getResultsSearch() {
-        print("Executed Search")
         guard let textSearchBar = searchBar.text?.remplaceTextInQuery() else { return }
-        print("Text: \(textSearchBar)")
         let params = ["q" : textSearchBar]
         NetworkService.shared.getProducts(query: params) { response in
             switch response {
@@ -104,6 +110,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = productsCollectionViewCell.dequeueReusableCell(withReuseIdentifier: ProductsCollectionViewCell.identifier, for: indexPath) as! ProductsCollectionViewCell
         cell.setupCell(data: products[indexPath.row])
+        cell.cellDelegate = self
         return cell
     }
     
@@ -113,6 +120,36 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
+    }
+    
+}
+
+extension SearchViewController: ProductCellDelegate {
+    
+    func onTouchFavorites(forProduct product: Products)  {
+        favoritesButtonTouch(forProduct: product)
+    }
+    
+    func saveFavorites(forData data: [Products]) {
+        if let encodedData = try? JSONEncoder().encode(data) {
+            userDefaults.set(encodedData, forKey: UserDefaultsKeys.Favorites)
+        }
+    }
+    
+    func favoritesButtonTouch(forProduct product: Products) {
+        if product.isFavorite == true {
+            favorites.append(product)
+            print("Save Favorite")
+            print("Count Favorites: \(favorites.count)")
+            saveFavorites(forData: favorites)
+        }
+        else {
+            let newFavorites = favorites.filter {$0.id != product.id}
+            favorites = newFavorites
+            print("Removed Favorite")
+            print("Count Favorites: \(favorites.count)")
+            saveFavorites(forData: favorites)
+        }
     }
     
 }

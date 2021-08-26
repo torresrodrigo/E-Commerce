@@ -8,23 +8,24 @@
 import Foundation
 
 struct Products: Codable {
+    let id: String
     let title: String
     let price: Double
     let thumbnail: String?
-    var isFavorite: Bool?
-    
+    var isFavorite: Bool? = false
+ 
     enum CodingsKeys: String, CodingKey {
+        case id
         case title
         case price
         case thumbnail
-        case isFavorite
     }
     
     init(decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingsKeys.self)
+        id = try values.decode(String.self, forKey: .id)
         title = try values.decode(String.self, forKey: .title)
         price = try values.decode(Double.self, forKey: .price)
         thumbnail = try values.decodeIfPresent(String.self, forKey: .thumbnail)
-        isFavorite = try values.decodeIfPresent(Bool.self, forKey: .isFavorite)
     }
 }
