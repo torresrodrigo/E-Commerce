@@ -19,7 +19,6 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         return UINib(nibName: String(describing: ProductsCollectionViewCell.self), bundle: nil)
     }
     
-    let userDefaults = UserDefaults.standard
     var cellDelegate: ProductCellDelegate? = nil
     var isFavorite: Bool?
     var idCell: String?
@@ -31,7 +30,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        removerUserDefaults()
+        FavoritesManager.sharedInstance.remove(key: UserDefaultsKeys.Favorites)
         setupUI()
     }
     
@@ -76,15 +75,5 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         productImg.sd_setImage(with: URL(string: path))
     }
     
-    func removerUserDefaults() {
-        userDefaults.removeObject(forKey: UserDefaultsKeys.Favorites)
-    }
-    
-    func printProducts(forProduct product: Products) {
-        print("Id \(product.id)")
-        print("Title \(product.title)")
-        print("Price \(product.price)")
-        print("Favorites status \(product.isFavorite)")
-    }
 }
 

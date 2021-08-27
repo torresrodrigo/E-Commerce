@@ -8,15 +8,12 @@
 import UIKit
 
 class FavoritesViewController: UIViewController {
-
-    let userDefaults = UserDefaults.standard
     
     static let identifier = String(describing: FavoritesViewController.self)
+    var favorites = [Products]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getFavorites()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -24,27 +21,9 @@ class FavoritesViewController: UIViewController {
     }
     
     func getFavorites() {
-        var favorites = [Products]()
-        if let decodedData = userDefaults.object(forKey: UserDefaultsKeys.Favorites) as? Data {
-            let decodedProduct = try? JSONDecoder().decode([Products].self, from: decodedData)
-            guard let products = decodedProduct else {return}
-            favorites.append(contentsOf: products)
-            printFavorites(forProduct: favorites)
-        }
+        guard let data = FavoritesManager.sharedInstance.get(key: UserDefaultsKeys.Favorites) else { return }
+        favorites = data
+        print(favorites.count)
     }
-    
-    func printFavorites(forProduct products: [Products]?) {
-        guard let product = products else { return }
-        if product.isEmpty == false {
-            for i in 0..<product.count {
-                print("ID \(i) : \(product[i].id)")
-                print("Title \(i) : \(product[i].title)")
-                print("Price \(i) : \(product[i].price)")
-                print("Favorite\(i) : \(product[i].isFavorite)")
-            }
-        }
-        print("Products count: \(product.count)")
-    }
-    
     
 }

@@ -26,7 +26,6 @@ class SearchViewController: UIViewController {
     
     let favoritesViewController = FavoritesViewController()
     
-    let userDefaults = UserDefaults.standard
     var products = [Products]()
     var favorites = [Products]()
     
@@ -87,7 +86,6 @@ extension SearchViewController: UISearchBarDelegate {
             switch response {
             case .success(let response):
                 self.products = self.setValuesOfFavorites(forProducts: response.results)
-                print("Products: \(self.products)")
                 DispatchQueue.main.async {
                     self.productsCollectionViewCell.reloadData()
                 }
@@ -140,7 +138,6 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
 extension SearchViewController: ProductCellDelegate {
     
-    
     func onTouchFavorites(forValue value: Bool, forId id: String) {
         favoritesButtonTouch(forValue: value, forId: id)
     }
@@ -148,30 +145,20 @@ extension SearchViewController: ProductCellDelegate {
     func favoritesButtonTouch(forValue value: Bool, forId id: String) {
         if let i = products.firstIndex(where: {$0.id == id})  {
             if value == true {
-                if favorites.contains(where: {$0.id != id }) || favorites.isEmpty {
-                    var newFavorite = products[i]
-                    newFavorite.isFavorite = value
-                    favorites.append(newFavorite)
-                    print("Save Favorite")
-                    print("Count Favorites: \(favorites.count)")
-                    saveFavorites(forData: favorites)
+                if favorites.isEmpty || favorites.contains(where: {$0.id != id }) {
+                    products[i].isFavorite = value
+                    productsCollectionViewCell.reloadData()
+                    favorites.append(products[i])
+                    FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favorites)
                 }
             }
             else {
-                var favorite = products[i]
-                favorite.isFavorite = value
+                products[i].isFavorite = value
+                productsCollectionViewCell.reloadData()
                 let newFavorites = favorites.filter {$0.id != id}
                 favorites = newFavorites
-                print("Removed Favorite")
-                print("Count Favorites: \(favorites.count)")
-                saveFavorites(forData: favorites)
+                FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favorites)
             }
-        }
-    }
-    
-    func saveFavorites(forData data: [Products]) {
-        if let encodedData = try? JSONEncoder().encode(data) {
-            userDefaults.set(encodedData, forKey: UserDefaultsKeys.Favorites)
         }
     }
         
