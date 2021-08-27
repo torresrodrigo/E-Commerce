@@ -7,7 +7,9 @@
 
 import UIKit
 
-
+protocol SearchViewControllerDelegate {
+    func updateCell(forProduct productData: Products)
+}
 
 class SearchViewController: UIViewController {
 
@@ -84,7 +86,8 @@ extension SearchViewController: UISearchBarDelegate {
         NetworkService.shared.getProducts(query: params) { response in
             switch response {
             case .success(let response):
-                self.products = response.results
+                self.products = self.setValuesOfFavorites(forProducts: response.results)
+                print("Products: \(self.products)")
                 DispatchQueue.main.async {
                     self.productsCollectionViewCell.reloadData()
                 }
@@ -92,6 +95,17 @@ extension SearchViewController: UISearchBarDelegate {
                 print("Something is wrong. Error: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func setValuesOfFavorites(forProducts products: [Products]) -> [Products] {
+        var productData = products
+        if products.isEmpty == false {
+            for i in 0...products.count - 1 {
+                let value = false
+                productData[i].isFavorite = value
+            }
+        }
+        return productData
     }
 }
 
@@ -126,8 +140,33 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
 extension SearchViewController: ProductCellDelegate {
     
-    func onTouchFavorites(forProduct product: Products)  {
-        favoritesButtonTouch(forProduct: product)
+    
+    func onTouchFavorites(forValue value: Bool, forId id: String) {
+        favoritesButtonTouch(forValue: value, forId: id)
+    }
+    
+    func favoritesButtonTouch(forValue value: Bool, forId id: String) {
+        if let i = products.firstIndex(where: {$0.id == id})  {
+            if value == true {
+                if favorites.contains(where: {$0.id != id }) || favorites.isEmpty {
+                    var newFavorite = products[i]
+                    newFavorite.isFavorite = value
+                    favorites.append(newFavorite)
+                    print("Save Favorite")
+                    print("Count Favorites: \(favorites.count)")
+                    saveFavorites(forData: favorites)
+                }
+            }
+            else {
+                var favorite = products[i]
+                favorite.isFavorite = value
+                let newFavorites = favorites.filter {$0.id != id}
+                favorites = newFavorites
+                print("Removed Favorite")
+                print("Count Favorites: \(favorites.count)")
+                saveFavorites(forData: favorites)
+            }
+        }
     }
     
     func saveFavorites(forData data: [Products]) {
@@ -135,21 +174,5 @@ extension SearchViewController: ProductCellDelegate {
             userDefaults.set(encodedData, forKey: UserDefaultsKeys.Favorites)
         }
     }
-    
-    func favoritesButtonTouch(forProduct product: Products) {
-        if product.isFavorite == true {
-            favorites.append(product)
-            print("Save Favorite")
-            print("Count Favorites: \(favorites.count)")
-            saveFavorites(forData: favorites)
-        }
-        else {
-            let newFavorites = favorites.filter {$0.id != product.id}
-            favorites = newFavorites
-            print("Removed Favorite")
-            print("Count Favorites: \(favorites.count)")
-            saveFavorites(forData: favorites)
-        }
-    }
-    
+        
 }

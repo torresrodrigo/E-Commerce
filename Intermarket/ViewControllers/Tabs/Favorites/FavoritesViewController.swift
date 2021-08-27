@@ -15,6 +15,8 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getFavorites()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

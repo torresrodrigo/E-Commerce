@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 protocol ProductCellDelegate {
-    func onTouchFavorites(forProduct product: Products)
+    func onTouchFavorites(forValue value: Bool, forId id: String)
 }
 
 class ProductsCollectionViewCell: UICollectionViewCell {
@@ -21,7 +21,8 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     
     let userDefaults = UserDefaults.standard
     var cellDelegate: ProductCellDelegate? = nil
-    var product: Products?
+    var isFavorite: Bool?
+    var idCell: String?
     
     @IBOutlet weak var productImg: UIImageView!
     @IBOutlet weak var titleProduct: UILabel!
@@ -30,8 +31,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        removerUserDefaults()
-        product?.isFavorite = false
+        removerUserDefaults()
         setupUI()
     }
     
@@ -40,17 +40,21 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
-        changeFavoritesStatus(forStatus: product?.isFavorite)
-        guard let dataProduct = product else { return }
-        cellDelegate?.onTouchFavorites(forProduct: dataProduct)
+        if let valueFavorite = isFavorite, let valueId = idCell {
+            let changeValueFavorite = valueFavorite == false ? true : false
+            isFavorite = changeValueFavorite
+            setFavoritesIcon(forStatusImage: changeValueFavorite)
+            cellDelegate?.onTouchFavorites(forValue: changeValueFavorite, forId: valueId)
+        }
     }
     
     func setupCell(data: Products) {
         titleProduct.text = data.title.maxLength(length: 30).breakLine()
         priceProduct.text = data.price.currency()
         setupImageProduct(image: data.thumbnail)
-        product = data
-        setFavoritesImg(forStatusImage: product?.isFavorite)
+        setFavoritesIcon(forStatusImage: data.isFavorite)
+        isFavorite = data.isFavorite
+        idCell = data.id
     }
     
     private func setupShadow() {
@@ -61,11 +65,10 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         self.layer.masksToBounds = false
     }
     
-    private func setFavoritesImg(forStatusImage status: Bool?) {
+    private func setFavoritesIcon(forStatusImage status: Bool?) {
         if let value = status {
-            value ? favoriteIcon.setImage(Icons.FavoriteAdded, for: .normal) : favoriteIcon.setImage(Icons.Favorite, for: .normal)
+            value == true ? favoriteIcon.setImage(Icons.FavoriteAdded, for: .normal) : favoriteIcon.setImage(Icons.Favorite, for: .normal)
         }
-        favoriteIcon.setImage(Icons.Favorite, for: .normal)
     }
     
     private func setupImageProduct(image: String?) {
@@ -73,27 +76,15 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         productImg.sd_setImage(with: URL(string: path))
     }
     
-    private func changeFavoritesStatus(forStatus status: Bool?) {
-        if status == false || status == nil {
-            product?.isFavorite = true
-            favoriteIcon.setImage(Icons.FavoriteAdded, for: .normal)
-        } else if status == true {
-            product?.isFavorite = false
-            favoriteIcon.setImage(Icons.Favorite, for: .normal)
-        }
+    func removerUserDefaults() {
+        userDefaults.removeObject(forKey: UserDefaultsKeys.Favorites)
     }
     
-//    func removerUserDefaults() {
-//        userDefaults.removeObject(forKey: UserDefaultsKeys.Favorites)
-//    }
-    
-//    func printProducts(forProduct product: Products) {
-//        print("Id \(product.id)")
-//        print("Title \(product.title)")
-//        print("Price \(product.price)")
-//        print("Favorites status \(product.isFavorite)")
-//    }
-    
+    func printProducts(forProduct product: Products) {
+        print("Id \(product.id)")
+        print("Title \(product.title)")
+        print("Price \(product.price)")
+        print("Favorites status \(product.isFavorite)")
+    }
 }
-
 

@@ -12,7 +12,7 @@ struct Products: Codable {
     let title: String
     let price: Double
     let thumbnail: String?
-    var isFavorite: Bool? = false
+    var isFavorite: Bool?
  
     enum CodingsKeys: String, CodingKey {
         case id
