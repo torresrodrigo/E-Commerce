@@ -32,6 +32,7 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        getValuesUserDefaults()
     }
     
     private func setupUI() {
@@ -140,6 +141,11 @@ extension SearchViewController: ProductCellDelegate {
     
     func onTouchFavorites(forValue value: Bool, forId id: String) {
         favoritesButtonTouch(forValue: value, forId: id)
+    }
+    
+    func getValuesUserDefaults() {
+        guard let dataUserDefaults = FavoritesManager.sharedInstance.get(key: UserDefaultsKeys.Favorites) else { return }
+        favorites.append(contentsOf: dataUserDefaults)
     }
     
     func favoritesButtonTouch(forValue value: Bool, forId id: String) {

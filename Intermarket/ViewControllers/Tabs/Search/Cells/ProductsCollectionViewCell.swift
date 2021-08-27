@@ -30,7 +30,6 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        FavoritesManager.sharedInstance.remove(key: UserDefaultsKeys.Favorites)
         setupUI()
     }
     

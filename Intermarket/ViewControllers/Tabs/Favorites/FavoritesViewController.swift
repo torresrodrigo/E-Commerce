@@ -12,6 +12,7 @@ class FavoritesViewController: UIViewController {
     static let identifier = String(describing: FavoritesViewController.self)
     var favorites = [Products]()
     
+    @IBOutlet weak var favoritesLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -24,6 +25,7 @@ class FavoritesViewController: UIViewController {
         guard let data = FavoritesManager.sharedInstance.get(key: UserDefaultsKeys.Favorites) else { return }
         favorites = data
         print(favorites.count)
+        favoritesLabel.text = "Cantidad de favoritos \(favorites.count)"
     }
     
 }
