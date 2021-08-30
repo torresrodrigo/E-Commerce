@@ -27,5 +27,5 @@ class FavoritesViewController: UIViewController {
         print(favorites.count)
         favoritesLabel.text = "Cantidad de favoritos \(favorites.count)"
     }
-    
+     
 }

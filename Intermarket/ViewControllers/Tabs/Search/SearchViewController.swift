@@ -38,7 +38,6 @@ class SearchViewController: UIViewController {
     private func setupUI() {
         setupSearchBar()
         setupCollectionView()
-        getResultsSearch()
     }
     
 }
@@ -64,25 +63,45 @@ extension SearchViewController: UISearchBarDelegate {
         return totalCharacters <= 50
     }
     
+    //Acelerated Search
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == "" {
+            setSearchUI(isEmptyText: true)
+        }
+        else if searchBar.text?.isEmpty == false {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchReload), object: nil)
+            self.perform(#selector(searchReload), with: nil, afterDelay: 1.5)
+            setSearchUI(isEmptyText: false)
+        }
+    }
+    
     //Perform search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        getResultsSearch()
-        setSearchUI()
+        guard let searchText = searchBar.text?.remplaceTextInQuery() else { return }
+        getResultsSearch(forQuery: searchText)
+        setSearchUI(isEmptyText: false)
     }
     
-    private func setSearchUI() {
-        imgSearch.isHidden = true
-        searchLabel.isHidden = true
-        getSearchTitle.isHidden = false
-        getSearchSubtitle.isHidden = false
-        productsCollectionViewCell.isHidden = false
+    private func setSearchUI(isEmptyText value: Bool) {
+        if value == false {
+            imgSearch.isHidden = true
+            searchLabel.isHidden = true
+            getSearchTitle.isHidden = false
+            getSearchSubtitle.isHidden = false
+            productsCollectionViewCell.isHidden = false
+        } else {
+            imgSearch.isHidden = false
+            searchLabel.isHidden = false
+            getSearchTitle.isHidden = true
+            getSearchSubtitle.isHidden = true
+            productsCollectionViewCell.isHidden = true
+        }
     }
     
     //API CALL
-    func getResultsSearch() {
-        guard let textSearchBar = searchBar.text?.remplaceTextInQuery() else { return }
-        let params = ["q" : textSearchBar]
+    func getResultsSearch(forQuery query: String?) {
+        let params = ["q" : query]
         NetworkService.shared.getProducts(query: params) { response in
             switch response {
             case .success(let response):
@@ -94,6 +113,12 @@ extension SearchViewController: UISearchBarDelegate {
                 print("Something is wrong. Error: \(error.localizedDescription)")
             }
         }
+    }
+    
+    @objc func searchReload() {
+        guard let searchText = searchBar.text?.remplaceTextInQuery() else { return }
+        getResultsSearch(forQuery: searchText)
+        searchBar.resignFirstResponder()
     }
     
     func setValuesOfFavorites(forProducts products: [Products]) -> [Products] {
