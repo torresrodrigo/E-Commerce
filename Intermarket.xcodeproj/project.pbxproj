@@ -32,6 +32,8 @@
 		88A974AA26C709FD0085FFB2 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A974A826C709FD0085FFB2 /* OnboardingCollectionViewCell.swift */; };
 		88A974AB26C709FD0085FFB2 /* OnboardingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A974A926C709FD0085FFB2 /* OnboardingCollectionViewCell.xib */; };
 		88A974AD26C70D5C0085FFB2 /* Slices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A974AC26C70D5C0085FFB2 /* Slices.swift */; };
+		88AA324F26DD423F00668FD8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA324D26DD423F00668FD8 /* DetailViewController.swift */; };
+		88AA325026DD423F00668FD8 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88AA324E26DD423F00668FD8 /* DetailViewController.xib */; };
 		88B2B3EB26CED59100A8888F /* SearchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B2B3EA26CED59100A8888F /* SearchStoryboard.storyboard */; };
 		88B2B3ED26CED73C00A8888F /* CategoriesStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B2B3EC26CED73B00A8888F /* CategoriesStoryboard.storyboard */; };
 		88D6FA7526C6C6670025007D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D6FA7426C6C6670025007D /* AppDelegate.swift */; };
@@ -82,6 +84,8 @@
 		88A974A826C709FD0085FFB2 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		88A974A926C709FD0085FFB2 /* OnboardingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingCollectionViewCell.xib; sourceTree = "<group>"; };
 		88A974AC26C70D5C0085FFB2 /* Slices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slices.swift; sourceTree = "<group>"; };
+		88AA324D26DD423F00668FD8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		88AA324E26DD423F00668FD8 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		88B2B3EA26CED59100A8888F /* SearchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchStoryboard.storyboard; sourceTree = "<group>"; };
 		88B2B3EC26CED73B00A8888F /* CategoriesStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategoriesStoryboard.storyboard; sourceTree = "<group>"; };
 		88D6FA7126C6C6670025007D /* Intermarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Intermarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +288,8 @@
 				8811AB5426D3FA3000EEAEAA /* Cells */,
 				8856344D26CC546000FB2710 /* SearchViewController.swift */,
 				88B2B3EA26CED59100A8888F /* SearchStoryboard.storyboard */,
+				88AA324D26DD423F00668FD8 /* DetailViewController.swift */,
+				88AA324E26DD423F00668FD8 /* DetailViewController.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88AA325026DD423F00668FD8 /* DetailViewController.xib in Resources */,
 				88D6FA8126C6C66C0025007D /* LaunchScreen.storyboard in Resources */,
 				88D78E9126D0175200BF49E7 /* FavoritesStoryboard.storyboard in Resources */,
 				8832620826C6FD5C009AEF98 /* Poppins-ExtraBold.ttf in Resources */,
@@ -435,6 +442,7 @@
 			files = (
 				88DC00B426CBE163005B105C /* LoginViewController.swift in Sources */,
 				8811AB5326D3D3E200EEAEAA /* String+Extensions.swift in Sources */,
+				88AA324F26DD423F00668FD8 /* DetailViewController.swift in Sources */,
 				88A974A226C703BE0085FFB2 /* UIView+Extensions.swift in Sources */,
 				8846C67126CDC8A800F539BA /* BaseProducts.swift in Sources */,
 				88DC00B726CBE219005B105C /* UIViewController+Extensions.swift in Sources */,
