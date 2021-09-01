@@ -155,6 +155,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailViewController(nibName: DetailViewController.identifier, bundle: nil)
         detailVC.hidesBottomBarWhenPushed = true
+        detailVC.productID = products[indexPath.row].id
+        detailVC.productPriceValue = products[indexPath.row].price.currency()
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
