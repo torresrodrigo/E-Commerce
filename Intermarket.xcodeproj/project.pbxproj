@@ -39,6 +39,8 @@
 		88AA325026DD423F00668FD8 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88AA324E26DD423F00668FD8 /* DetailViewController.xib */; };
 		88B2B3EB26CED59100A8888F /* SearchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B2B3EA26CED59100A8888F /* SearchStoryboard.storyboard */; };
 		88B2B3ED26CED73C00A8888F /* CategoriesStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B2B3EC26CED73B00A8888F /* CategoriesStoryboard.storyboard */; };
+		88D0F3D026E12D8000692DFD /* ImgDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D0F3CE26E12D8000692DFD /* ImgDetailCollectionViewCell.swift */; };
+		88D0F3D126E12D8000692DFD /* ImgDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88D0F3CF26E12D8000692DFD /* ImgDetailCollectionViewCell.xib */; };
 		88D6FA7526C6C6670025007D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D6FA7426C6C6670025007D /* AppDelegate.swift */; };
 		88D6FA7726C6C6670025007D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D6FA7626C6C6670025007D /* SceneDelegate.swift */; };
 		88D6FA7E26C6C66C0025007D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88D6FA7D26C6C66C0025007D /* Assets.xcassets */; };
@@ -94,6 +96,8 @@
 		88AA324E26DD423F00668FD8 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		88B2B3EA26CED59100A8888F /* SearchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchStoryboard.storyboard; sourceTree = "<group>"; };
 		88B2B3EC26CED73B00A8888F /* CategoriesStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategoriesStoryboard.storyboard; sourceTree = "<group>"; };
+		88D0F3CE26E12D8000692DFD /* ImgDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgDetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		88D0F3CF26E12D8000692DFD /* ImgDetailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImgDetailCollectionViewCell.xib; sourceTree = "<group>"; };
 		88D6FA7126C6C6670025007D /* Intermarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Intermarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88D6FA7426C6C6670025007D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88D6FA7626C6C6670025007D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 			children = (
 				8811AB5526D3FA6D00EEAEAA /* ProductsCollectionViewCell.swift */,
 				8811AB5626D3FA6D00EEAEAA /* ProductsCollectionViewCell.xib */,
+				88D0F3CE26E12D8000692DFD /* ImgDetailCollectionViewCell.swift */,
+				88D0F3CF26E12D8000692DFD /* ImgDetailCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -459,6 +465,7 @@
 				88B2B3ED26CED73C00A8888F /* CategoriesStoryboard.storyboard in Resources */,
 				88A974AB26C709FD0085FFB2 /* OnboardingCollectionViewCell.xib in Resources */,
 				8856344826CC2DB000FB2710 /* GoogleService-Info.plist in Resources */,
+				88D0F3D126E12D8000692DFD /* ImgDetailCollectionViewCell.xib in Resources */,
 				88A9749F26C702550085FFB2 /* OnboardingViewController.xib in Resources */,
 				88DC00B526CBE164005B105C /* LoginViewController.xib in Resources */,
 				8B9B96EC26CEB8020052E5DC /* TabBar.storyboard in Resources */,
@@ -486,6 +493,7 @@
 				886FB94A26DE8EED00153514 /* Pictures.swift in Sources */,
 				88D78E9826D0309A00BF49E7 /* MoreViewController.swift in Sources */,
 				8846C66726CD8FEB00F539BA /* CategoriesViewController.swift in Sources */,
+				88D0F3D026E12D8000692DFD /* ImgDetailCollectionViewCell.swift in Sources */,
 				8846C66E26CD9E5E00F539BA /* CartViewController.swift in Sources */,
 				88D6FA7526C6C6670025007D /* AppDelegate.swift in Sources */,
 				88269F8F26D92AFF00E19EF8 /* FavoritesManager.swift in Sources */,

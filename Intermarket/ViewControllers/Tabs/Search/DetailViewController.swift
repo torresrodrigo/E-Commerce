@@ -18,8 +18,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var productPrice: UILabel!
+    @IBOutlet weak var productDescription: UILabel!
     @IBOutlet weak var quantityProduct: UILabel!
-    @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var imagesCollectionView: UICollectionView!
     @IBOutlet weak var favoritesButton: UIButton!
     
     //Outlets Caracteristicas
@@ -57,14 +58,16 @@ class DetailViewController: UIViewController {
         guard let value = productData?.isFavorite else { return }
         setupScrollView()
         setupDataProduct(forProduct: data)
-        setupImage(forImage: data.pictures[0].url)
         setupFeaturesProduct()
         setFavorites(forValue: value)
+        setupCollectionView()
     }
     
     private func setupDataProduct(forProduct productData: DetailProduct) {
         guard let quantity = productData.quantity else { return }
+        guard let hasDescription = productData.subtitle != nil ? true : false else { return }
         productTitle.text = productData.title
+        productDescription.text = hasDescription ? productData.subtitle : "Not description"
         productPrice.text = productData.price.currency()
         quantityProduct.text = "\(quantity) unidades disponibles"
     }
@@ -113,13 +116,7 @@ class DetailViewController: UIViewController {
         sixthFeature.text = "\(productFeaturesName[5]): \(productFeaturesValue[5])"
         seventhFeature.text = "\(productFeaturesName[6]): \(productFeaturesValue[6])"
     }
-    
-    private func setupImage(forImage imageUrl: String?) {
-        guard let path = imageUrl else { return }
-        productImage.sd_setImage(with: URL(string: path))
-    }
-    
-    
+
     @IBAction func favoritesButtonPressed(_ sender: Any) {
         guard let value = productData?.isFavorite else { return }
         let changeValue = changeValue(forValue: value)
@@ -180,6 +177,34 @@ extension DetailViewController {
                 print("Something is wrong. Error \(error.localizedDescription)")
             }
         }
+    }
+    
+}
+
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func setupCollectionView() {
+        imagesCollectionView.register(ImgDetailCollectionViewCell.nib(), forCellWithReuseIdentifier: ImgDetailCollectionViewCell.identifier)
+        imagesCollectionView.delegate = self
+        imagesCollectionView.dataSource = self
+        imagesCollectionView.bounces = false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let count = products?.pictures.count else { return 0 }
+        return count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = imagesCollectionView.dequeueReusableCell(withReuseIdentifier: ImgDetailCollectionViewCell.identifier, for: indexPath) as! ImgDetailCollectionViewCell
+        guard let count = products?.pictures.count else { return cell }
+        let textLabel = "\(indexPath.row + 1)/\(count)"
+        cell.setupCell(forImage: products?.pictures[indexPath.row].url, forCount: textLabel)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: Int(collectionView.frame.width), height: Int(collectionView.frame.height))
     }
     
 }
