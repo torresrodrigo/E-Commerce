@@ -25,6 +25,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailViewController" customModule="Intermarket" customModuleProvider="target">
             <connections>
+                <outlet property="favoritesButton" destination="elg-Np-Iz5" id="WTM-3C-com"/>
                 <outlet property="fifthFeature" destination="bq5-Zr-RUh" id="GHZ-2m-Vy7"/>
                 <outlet property="firstFeature" destination="fXx-Yr-oLY" id="Pab-FN-Ifl"/>
                 <outlet property="fourthFeature" destination="FlP-Ls-zIE" id="rxz-TR-EE5"/>
@@ -32,6 +33,7 @@
                 <outlet property="productPrice" destination="kVb-Fn-wS2" id="XvU-4q-fb5"/>
                 <outlet property="productTitle" destination="X3P-Vj-5hR" id="W9N-ac-bXE"/>
                 <outlet property="quantityProduct" destination="usa-Jj-2ao" id="1Ba-Fh-Df6"/>
+                <outlet property="scrollView" destination="MsR-oA-f3i" id="efo-r8-Aja"/>
                 <outlet property="secondFeature" destination="83m-co-2WD" id="Hf7-ne-qRH"/>
                 <outlet property="seventhFeature" destination="Lxf-My-IsX" id="c5h-bx-Nq7"/>
                 <outlet property="sixthFeature" destination="4GP-bK-1Na" id="dCb-AH-hET"/>
@@ -242,7 +244,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVb-Fn-wS2">
                                                     <rect key="frame" x="0.0" y="0.0" width="175" height="34"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="24"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unidades disponiles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usa-Jj-2ao">
@@ -267,6 +269,9 @@
                                                     <real key="value" value="2"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="favoritesButtonPressed:" destination="-1" eventType="touchUpInside" id="okQ-Td-Yeu"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>
@@ -298,7 +303,7 @@
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZa-Ya-OKV">
-                                    <rect key="frame" x="80" y="763" width="254" height="47"/>
+                                    <rect key="frame" x="80" y="702" width="254" height="47"/>
                                     <color key="backgroundColor" name="BarTint"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="47" id="TQP-ce-N6U"/>
@@ -335,6 +340,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="9Kj-iR-7Kb" secondAttribute="bottom" id="1K6-6V-TcR"/>
                         <constraint firstItem="9Kj-iR-7Kb" firstAttribute="leading" secondItem="MsR-oA-f3i" secondAttribute="leading" id="5y1-sa-mlK"/>

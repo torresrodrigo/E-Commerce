@@ -8,10 +8,10 @@
 import Foundation
 
 struct Products: Codable {
-    let id: String
-    let title: String
-    let price: Double
-    let thumbnail: String?
+    var id: String
+    var title: String
+    var price: Double
+    var thumbnail: String?
     var isFavorite: Bool?
  
     enum CodingsKeys: String, CodingKey {

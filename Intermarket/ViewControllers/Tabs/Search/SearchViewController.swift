@@ -31,6 +31,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        FavoritesManager.sharedInstance.remove(key: UserDefaultsKeys.Favorites)
         setupUI()
         getValuesUserDefaults()
     }
@@ -118,7 +119,6 @@ extension SearchViewController: UISearchBarDelegate {
     @objc func searchReload() {
         guard let searchText = searchBar.text?.remplaceTextInQuery() else { return }
         getResultsSearch(forQuery: searchText)
-        searchBar.resignFirstResponder()
     }
     
     func setValuesOfFavorites(forProducts products: [Products]) -> [Products] {
@@ -155,8 +155,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailViewController(nibName: DetailViewController.identifier, bundle: nil)
         detailVC.hidesBottomBarWhenPushed = true
-        detailVC.productID = products[indexPath.row].id
-        detailVC.productPriceValue = products[indexPath.row].price.currency()
+        detailVC.delegate = self
+        detailVC.productData = products[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -182,13 +182,16 @@ extension SearchViewController: ProductCellDelegate {
     }
     
     func favoritesButtonTouch(forValue value: Bool, forId id: String) {
+        guard let dataFavorites = FavoritesManager.sharedInstance.get(key: UserDefaultsKeys.Favorites) else { return }
+        var favoritesUserDefaults = dataFavorites
         if let i = products.firstIndex(where: {$0.id == id})  {
             if value == true {
-                if favorites.isEmpty || favorites.contains(where: {$0.id != id }) {
+                if favoritesUserDefaults.isEmpty || favoritesUserDefaults.contains(where: {$0.id != id }) {
                     products[i].isFavorite = value
                     productsCollectionViewCell.reloadData()
                     favorites.append(products[i])
-                    FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favorites)
+                    favoritesUserDefaults.append(products[i])
+                    FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favoritesUserDefaults)
                 }
             }
             else {
@@ -196,9 +199,30 @@ extension SearchViewController: ProductCellDelegate {
                 productsCollectionViewCell.reloadData()
                 let newFavorites = favorites.filter {$0.id != id}
                 favorites = newFavorites
-                FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favorites)
+                favoritesUserDefaults = newFavorites
+                FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favoritesUserDefaults)
             }
         }
     }
         
+}
+
+extension SearchViewController: DetailViewControllerDelegate {
+    func updateFavorite(forId id: String, forValue value: Bool) {
+        actionUpdateFavorites(forId: id, forValue: value)
+    }
+    
+    func actionUpdateFavorites(forId id: String, forValue value: Bool) {
+        if let index = products.firstIndex(where: {$0.id == id }) {
+            if value == true {
+                products[index].isFavorite = value
+                productsCollectionViewCell.reloadData()
+            }
+            else {
+                products[index].isFavorite = value
+                productsCollectionViewCell.reloadData()
+            }
+        }
+    }
+    
 }

@@ -8,13 +8,19 @@
 import UIKit
 import SDWebImage
 
+protocol DetailViewControllerDelegate {
+    func updateFavorite(forId id: String, forValue value: Bool)
+}
+
 class DetailViewController: UIViewController {
     
     //Outlets
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     @IBOutlet weak var quantityProduct: UILabel!
     @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var favoritesButton: UIButton!
     
     //Outlets Caracteristicas
     @IBOutlet weak var firstFeature: UILabel!
@@ -28,25 +34,32 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var seventhFeature: UILabel!
     
     static let identifier = String(describing: DetailViewController.self)
+    var delegate: DetailViewControllerDelegate?
     var productID = String()
+    var productData: Products?
     var products: DetailProduct?
+    var isFavorites: Bool?
     var productPriceValue: String?
     var productFeaturesName = [String]()
     var productFeaturesValue = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getDetailProduct(forId: productID)
+        getDataFromSearchViewController(forData: productData)
+        getDetailProduct(forId: productData?.id)
     }
 
     @IBAction func backButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func setupUI(forProduct productData: DetailProduct) {
-        setupDataProduct(forProduct: productData)
-        setupImage(forImage: productData.pictures[0].url)
+    func setupUI(forProduct data: DetailProduct) {
+        guard let value = productData?.isFavorite else { return }
+        setupScrollView()
+        setupDataProduct(forProduct: data)
+        setupImage(forImage: data.pictures[0].url)
         setupFeaturesProduct()
+        setFavorites(forValue: value)
     }
     
     private func setupDataProduct(forProduct productData: DetailProduct) {
@@ -56,8 +69,30 @@ class DetailViewController: UIViewController {
         quantityProduct.text = "\(quantity) unidades disponibles"
     }
     
+    func getDataFromSearchViewController(forData data: Products?) {
+        guard let productData = data else { return }
+        productID = productData.id
+        isFavorites = productData.isFavorite
+        productPriceValue = productData.price.currency()
+    }
+    
+    private func setupScrollView() {
+        scrollView.bounces = false
+    }
+    
     private func setupFeaturesProduct() {
-            setFeatures()
+        setFeatures()
+    }
+    
+    private func setFavorites(forValue value: Bool) {
+        if value == true {
+            favoritesButton.setImage(Icons.FavoriteAdded, for: .normal)
+            productData?.isFavorite = value
+        }
+        else {
+            favoritesButton.setImage(Icons.Favorite, for: .normal)
+            productData?.isFavorite = value
+        }
     }
     
     func getFeatures(forProduct productData: DetailProduct?) {
@@ -84,17 +119,59 @@ class DetailViewController: UIViewController {
         productImage.sd_setImage(with: URL(string: path))
     }
     
+    
+    @IBAction func favoritesButtonPressed(_ sender: Any) {
+        guard let value = productData?.isFavorite else { return }
+        let changeValue = changeValue(forValue: value)
+        isFavorites = changeValue
+        favoritesAction(forValue: changeValue, forId: productID)
+    }
+    
+    func changeValue(forValue value: Bool) -> Bool {
+        let valueFinal: Bool
+        if value == true {
+            valueFinal = false
+        }
+        else {
+            valueFinal = true
+        }
+        return valueFinal
+    }
+    
+    func favoritesAction(forValue value: Bool, forId id: String) {
+        guard let dataFavorites = FavoritesManager.sharedInstance.get(key: UserDefaultsKeys.Favorites) else { return }
+        var favorites = dataFavorites
+        guard let value  = isFavorites else { return }
+        if value == true {
+            if favorites.isEmpty == true || favorites.contains(where: {$0.id != id}) {
+                guard let data = productData else { return }
+                favorites.append(data)
+                setFavorites(forValue: value)
+                FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favorites)
+                delegate?.updateFavorite(forId: data.id, forValue: value)
+            }
+        }
+        else {
+            guard let data = productData else { return }
+            let newFavorites = favorites.filter {$0.id != id}
+            setFavorites(forValue: value)
+            favorites = newFavorites
+            FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favorites)
+            delegate?.updateFavorite(forId: data.id, forValue: value)
+        }
+    }
+    
 }
 
 extension DetailViewController {
-    func getDetailProduct(forId id: String) {
-        NetworkService.shared.getDetailsProducts(query: id) { response in
+    
+    func getDetailProduct(forId id: String?) {
+        guard let dataId = id else { return }
+        NetworkService.shared.getDetailsProducts(query: dataId) { response in
             switch response {
             case .success(let response):
                 self.products = response
                 self.getFeatures(forProduct: self.products)
-                print("Features Name: \(self.productFeaturesName.count)")
-                print("Features Value: \(self.productFeaturesValue.count)")
                 DispatchQueue.main.async {
                     guard let data = self.products else { return }
                     self.setupUI(forProduct: data)
@@ -104,4 +181,5 @@ extension DetailViewController {
             }
         }
     }
+    
 }
