@@ -38,6 +38,7 @@ struct UserDefaultsKeys {
     static let OnboardingCheck = "onboardingCheck"
     static let LoggedUser = "loggedUser"
     static let Favorites = "Favorites"
+    static let ProductInCart = "ProductInCart"
 }
 
 struct Endpoints {

@@ -31,7 +31,8 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        FavoritesManager.sharedInstance.remove(key: UserDefaultsKeys.Favorites)
+        UserDefaultsManager.sharedInstance.remove(key: UserDefaultsKeys.Favorites)
+        UserDefaultsManager.sharedInstance.remove(key: UserDefaultsKeys.ProductInCart)
         setupUI()
         getValuesUserDefaults()
     }
@@ -177,12 +178,12 @@ extension SearchViewController: ProductCellDelegate {
     }
     
     func getValuesUserDefaults() {
-        guard let dataUserDefaults = FavoritesManager.sharedInstance.get(key: UserDefaultsKeys.Favorites) else { return }
+        guard let dataUserDefaults = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         favorites.append(contentsOf: dataUserDefaults)
     }
     
     func favoritesButtonTouch(forValue value: Bool, forId id: String) {
-        guard let dataFavorites = FavoritesManager.sharedInstance.get(key: UserDefaultsKeys.Favorites) else { return }
+        guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         var favoritesUserDefaults = dataFavorites
         if let i = products.firstIndex(where: {$0.id == id})  {
             if value == true {
@@ -191,7 +192,7 @@ extension SearchViewController: ProductCellDelegate {
                     productsCollectionViewCell.reloadData()
                     favorites.append(products[i])
                     favoritesUserDefaults.append(products[i])
-                    FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favoritesUserDefaults)
+                    UserDefaultsManager.sharedInstance.setFavorites(value: favoritesUserDefaults)
                 }
             }
             else {
@@ -200,7 +201,7 @@ extension SearchViewController: ProductCellDelegate {
                 let newFavorites = favorites.filter {$0.id != id}
                 favorites = newFavorites
                 favoritesUserDefaults = newFavorites
-                FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favoritesUserDefaults)
+                UserDefaultsManager.sharedInstance.setFavorites(value: favoritesUserDefaults)
             }
         }
     }

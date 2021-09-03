@@ -14,7 +14,7 @@
 		8811AB5826D3FA6D00EEAEAA /* ProductsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8811AB5626D3FA6D00EEAEAA /* ProductsCollectionViewCell.xib */; };
 		8811AB5A26D40BB000EEAEAA /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811AB5926D40BB000EEAEAA /* Double+Extensions.swift */; };
 		8811AB5D26D42A6B00EEAEAA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8811AB5C26D42A6B00EEAEAA /* SDWebImage */; };
-		88269F8F26D92AFF00E19EF8 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88269F8E26D92AFF00E19EF8 /* FavoritesManager.swift */; };
+		88269F8F26D92AFF00E19EF8 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88269F8E26D92AFF00E19EF8 /* UserDefaultsManager.swift */; };
 		8832620826C6FD5C009AEF98 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8832620726C6FD5B009AEF98 /* Poppins-ExtraBold.ttf */; };
 		8846C66426CD8F7D00F539BA /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C66326CD8F7D00F539BA /* MainTabViewController.swift */; };
 		8846C66726CD8FEB00F539BA /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C66526CD8FEB00F539BA /* CategoriesViewController.swift */; };
@@ -71,7 +71,7 @@
 		8811AB5526D3FA6D00EEAEAA /* ProductsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewCell.swift; sourceTree = "<group>"; };
 		8811AB5626D3FA6D00EEAEAA /* ProductsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductsCollectionViewCell.xib; sourceTree = "<group>"; };
 		8811AB5926D40BB000EEAEAA /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
-		88269F8E26D92AFF00E19EF8 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
+		88269F8E26D92AFF00E19EF8 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		8832620726C6FD5B009AEF98 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		8846C66326CD8F7D00F539BA /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		8846C66526CD8FEB00F539BA /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				8811AB5026D3CB1A00EEAEAA /* NetworkService.swift */,
-				88269F8E26D92AFF00E19EF8 /* FavoritesManager.swift */,
+				88269F8E26D92AFF00E19EF8 /* UserDefaultsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -496,7 +496,7 @@
 				88D0F3D026E12D8000692DFD /* ImgDetailCollectionViewCell.swift in Sources */,
 				8846C66E26CD9E5E00F539BA /* CartViewController.swift in Sources */,
 				88D6FA7526C6C6670025007D /* AppDelegate.swift in Sources */,
-				88269F8F26D92AFF00E19EF8 /* FavoritesManager.swift in Sources */,
+				88269F8F26D92AFF00E19EF8 /* UserDefaultsManager.swift in Sources */,
 				8811AB5126D3CB1A00EEAEAA /* NetworkService.swift in Sources */,
 				8846C66A26CD977900F539BA /* BaseNavigationController.swift in Sources */,
 				88EB218A26D0141700D33D2A /* FavoritesViewController.swift in Sources */,

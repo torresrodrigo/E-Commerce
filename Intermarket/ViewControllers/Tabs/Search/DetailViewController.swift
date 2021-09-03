@@ -21,7 +21,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var productDescription: UILabel!
     @IBOutlet weak var quantityProduct: UILabel!
     @IBOutlet weak var imagesCollectionView: UICollectionView!
+    @IBOutlet weak var snackBarView: UIView!
     @IBOutlet weak var favoritesButton: UIButton!
+    @IBOutlet weak var addToCartButton: UIButton!
     
     //Outlets Caracteristicas
     @IBOutlet weak var firstFeature: UILabel!
@@ -136,7 +138,7 @@ class DetailViewController: UIViewController {
     }
     
     func favoritesAction(forValue value: Bool, forId id: String) {
-        guard let dataFavorites = FavoritesManager.sharedInstance.get(key: UserDefaultsKeys.Favorites) else { return }
+        guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         var favorites = dataFavorites
         guard let value  = isFavorites else { return }
         if value == true {
@@ -144,7 +146,7 @@ class DetailViewController: UIViewController {
                 guard let data = productData else { return }
                 favorites.append(data)
                 setFavorites(forValue: value)
-                FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favorites)
+                UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
                 delegate?.updateFavorite(forId: data.id, forValue: value)
             }
         }
@@ -153,11 +155,37 @@ class DetailViewController: UIViewController {
             let newFavorites = favorites.filter {$0.id != id}
             setFavorites(forValue: value)
             favorites = newFavorites
-            FavoritesManager.sharedInstance.set(key: UserDefaultsKeys.Favorites, value: favorites)
+            UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
             delegate?.updateFavorite(forId: data.id, forValue: value)
         }
     }
     
+    @IBAction func addToCartPressed(_ sender: Any) {
+        addToCartAction()
+        self.perform(#selector(dissapearSnackBar),with: nil,afterDelay: 3)
+    }
+    
+    func addToCartAction() {
+        guard let data = products else { return }
+        snackBarView.isHidden = false
+        addToCartButton.isHidden = true
+        UserDefaultsManager.sharedInstance.setProductInCart(value: data)
+    }
+    
+    @objc private func dissapearSnackBar() {
+        snackBarView.isHidden = true
+    }
+    @IBAction func goToCartPressed(_ sender: Any) {
+        goToCartAction()
+    }
+    
+    func goToCartAction() {
+        guard let data = products else { return }
+        let storyboard = UIStoryboard(name: "CartStoryboard", bundle: nil)
+        let cartVC = storyboard.instantiateViewController(withIdentifier: CartViewController.identifier) as! CartViewController
+        cartVC.modalPresentationStyle = .fullScreen
+        present(cartVC, animated: true, completion: nil)
+    }
 }
 
 extension DetailViewController {

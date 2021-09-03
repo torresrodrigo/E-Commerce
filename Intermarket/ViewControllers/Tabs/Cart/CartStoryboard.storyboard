@@ -11,11 +11,11 @@
         <!--Mi carrito-->
         <scene sceneID="HnW-AA-0Xf">
             <objects>
-                <navigationController id="HGF-th-dNi" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="HGF-th-dNi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Mi carrito" image="shopping-cart" id="pYJ-w2-eWH"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xCw-AB-OBS">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -29,14 +29,29 @@
         <!--Cart View Controller-->
         <scene sceneID="fBd-at-WM9">
             <objects>
-                <viewController id="aD0-eX-ghW" customClass="CartViewController" customModule="Intermarket" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CartViewController" id="aD0-eX-ghW" customClass="CartViewController" customModule="Intermarket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vfD-YR-rlB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1b-cT-Gf7">
+                                <rect key="frame" x="162.5" y="437.5" width="89.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="FL9-2F-zh8"/>
                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstItem="B1b-cT-Gf7" firstAttribute="centerY" secondItem="vfD-YR-rlB" secondAttribute="centerY" id="37L-3r-rKs"/>
+                            <constraint firstItem="B1b-cT-Gf7" firstAttribute="centerX" secondItem="vfD-YR-rlB" secondAttribute="centerX" id="Zd6-BD-UuU"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a4J-Lr-I9i"/>
+                    <connections>
+                        <outlet property="labelCount" destination="B1b-cT-Gf7" id="UiF-H6-wpC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xet-I5-Tki" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

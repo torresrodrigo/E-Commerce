@@ -8,6 +8,7 @@
 import Foundation
 
 struct DetailProduct: Codable {
+    let id: String
     let title: String
     let price: Double
     let subtitle: String?
@@ -16,6 +17,7 @@ struct DetailProduct: Codable {
     let attributes: [Attributes]?
     
     enum CodingKeys: String, CodingKey {
+        case id
         case title
         case price
         case subtitle
@@ -26,6 +28,7 @@ struct DetailProduct: Codable {
     
     init(decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(String.self, forKey: .id)
         title = try values.decode(String.self, forKey: .title)
         subtitle = try values.decodeIfPresent(String.self, forKey: .subtitle)
         price = try values.decode(Double.self, forKey: .price)

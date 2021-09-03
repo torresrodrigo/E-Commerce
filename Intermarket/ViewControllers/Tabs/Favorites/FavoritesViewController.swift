@@ -22,7 +22,7 @@ class FavoritesViewController: UIViewController {
     }
     
     func getFavorites() {
-        guard let data = FavoritesManager.sharedInstance.get(key: UserDefaultsKeys.Favorites) else { return }
+        guard let data = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         favorites = data
         print(favorites.count)
         favoritesLabel.text = "Cantidad de favoritos \(favorites.count)"

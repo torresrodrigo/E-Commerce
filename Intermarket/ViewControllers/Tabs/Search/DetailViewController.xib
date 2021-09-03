@@ -25,6 +25,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailViewController" customModule="Intermarket" customModuleProvider="target">
             <connections>
+                <outlet property="addToCartButton" destination="vZa-Ya-OKV" id="6WB-UI-xex"/>
                 <outlet property="favoritesButton" destination="elg-Np-Iz5" id="WTM-3C-com"/>
                 <outlet property="fifthFeature" destination="bq5-Zr-RUh" id="GHZ-2m-Vy7"/>
                 <outlet property="firstFeature" destination="fXx-Yr-oLY" id="Pab-FN-Ifl"/>
@@ -38,6 +39,7 @@
                 <outlet property="secondFeature" destination="83m-co-2WD" id="Hf7-ne-qRH"/>
                 <outlet property="seventhFeature" destination="Lxf-My-IsX" id="c5h-bx-Nq7"/>
                 <outlet property="sixthFeature" destination="4GP-bK-1Na" id="dCb-AH-hET"/>
+                <outlet property="snackBarView" destination="64T-gT-vaK" id="759-5T-4Lh"/>
                 <outlet property="thirdFeature" destination="Pwa-aJ-NdR" id="0d0-62-l8D"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -297,6 +299,19 @@
                                         </label>
                                     </subviews>
                                 </stackView>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KS8-sj-UGL">
+                                    <rect key="frame" x="20" y="25" width="374" height="155"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="155" id="a4S-fP-u9J"/>
+                                    </constraints>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Q9q-G7-Fgh">
+                                        <size key="itemSize" width="128" height="128"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZa-Ya-OKV">
                                     <rect key="frame" x="80" y="688" width="254" height="47"/>
                                     <color key="backgroundColor" name="BarTint"/>
@@ -312,20 +327,41 @@
                                             <real key="value" value="4"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="addToCartPressed:" destination="-1" eventType="touchUpInside" id="NxC-zb-4Ud"/>
+                                    </connections>
                                 </button>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KS8-sj-UGL">
-                                    <rect key="frame" x="20" y="25" width="374" height="155"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64T-gT-vaK" userLabel="Snackbar">
+                                    <rect key="frame" x="0.0" y="688" width="414" height="81"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtW-H0-k6U">
+                                            <rect key="frame" x="16" y="21" width="141.5" height="39.5"/>
+                                            <string key="text">Producto agregado 
+al carrito</string>
+                                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ga6-Mu-dpq">
+                                            <rect key="frame" x="332" y="26" width="66" height="29"/>
+                                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
+                                            <state key="normal" title="Ir al carrito">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="goToCartPressed:" destination="-1" eventType="touchUpInside" id="hw2-Xr-9Qr"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" name="Primary"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="155" id="a4S-fP-u9J"/>
+                                        <constraint firstAttribute="height" constant="81" id="AvS-fH-kJg"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ga6-Mu-dpq" secondAttribute="trailing" constant="16" id="DGC-nK-zef"/>
+                                        <constraint firstItem="UtW-H0-k6U" firstAttribute="centerY" secondItem="64T-gT-vaK" secondAttribute="centerY" id="inR-Ix-E8X"/>
+                                        <constraint firstItem="Ga6-Mu-dpq" firstAttribute="centerY" secondItem="64T-gT-vaK" secondAttribute="centerY" id="snN-zW-pah"/>
+                                        <constraint firstItem="UtW-H0-k6U" firstAttribute="leading" secondItem="64T-gT-vaK" secondAttribute="leading" constant="16" id="zXC-Ky-N1u"/>
                                     </constraints>
-                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Q9q-G7-Fgh">
-                                        <size key="itemSize" width="128" height="128"/>
-                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </collectionViewFlowLayout>
-                                </collectionView>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" name="White"/>
                             <constraints>
@@ -364,8 +400,11 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="WHv-wU-VKk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="1v5-DH-FVN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="64T-gT-vaK" secondAttribute="trailing" id="9dR-RZ-spl"/>
                 <constraint firstItem="vZa-Ya-OKV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="80" id="Eez-Mr-VHQ"/>
                 <constraint firstItem="vZa-Ya-OKV" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Xdb-I0-1eB"/>
+                <constraint firstItem="64T-gT-vaK" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="34" id="c8R-tL-ZUw"/>
+                <constraint firstItem="64T-gT-vaK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ccb-53-md0"/>
                 <constraint firstItem="WHv-wU-VKk" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="d75-1R-lQt"/>
                 <constraint firstAttribute="trailing" secondItem="MsR-oA-f3i" secondAttribute="trailing" id="dej-Pj-cTz"/>
                 <constraint firstItem="MsR-oA-f3i" firstAttribute="top" secondItem="WHv-wU-VKk" secondAttribute="bottom" id="fAj-xk-HXE"/>
