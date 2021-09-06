@@ -180,7 +180,6 @@ class DetailViewController: UIViewController {
     }
     
     func goToCartAction() {
-        guard let data = products else { return }
         let storyboard = UIStoryboard(name: "CartStoryboard", bundle: nil)
         let cartVC = storyboard.instantiateViewController(withIdentifier: CartViewController.identifier) as! CartViewController
         cartVC.modalPresentationStyle = .fullScreen
