@@ -182,6 +182,7 @@ class DetailViewController: UIViewController {
     func goToCartAction() {
         let storyboard = UIStoryboard(name: "CartStoryboard", bundle: nil)
         let cartVC = storyboard.instantiateViewController(withIdentifier: CartViewController.identifier) as! CartViewController
+        cartVC.isNavigationController = true
         cartVC.modalPresentationStyle = .fullScreen
         present(cartVC, animated: true, completion: nil)
     }

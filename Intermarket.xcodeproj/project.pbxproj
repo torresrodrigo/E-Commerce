@@ -27,6 +27,8 @@
 		886FB94526DE8DD000153514 /* DetailProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886FB94426DE8DD000153514 /* DetailProduct.swift */; };
 		886FB94A26DE8EED00153514 /* Pictures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886FB94926DE8EED00153514 /* Pictures.swift */; };
 		886FB94C26DE8F2100153514 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886FB94B26DE8F2100153514 /* Attributes.swift */; };
+		888665A726E66B750043991A /* ProductsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888665A526E66B750043991A /* ProductsTableViewCell.swift */; };
+		888665A826E66B750043991A /* ProductsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 888665A626E66B750043991A /* ProductsTableViewCell.xib */; };
 		88A9749E26C702550085FFB2 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A9749C26C702550085FFB2 /* OnboardingViewController.swift */; };
 		88A9749F26C702550085FFB2 /* OnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A9749D26C702550085FFB2 /* OnboardingViewController.xib */; };
 		88A974A226C703BE0085FFB2 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A974A126C703BE0085FFB2 /* UIView+Extensions.swift */; };
@@ -84,6 +86,8 @@
 		886FB94426DE8DD000153514 /* DetailProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProduct.swift; sourceTree = "<group>"; };
 		886FB94926DE8EED00153514 /* Pictures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pictures.swift; sourceTree = "<group>"; };
 		886FB94B26DE8F2100153514 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
+		888665A526E66B750043991A /* ProductsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTableViewCell.swift; sourceTree = "<group>"; };
+		888665A626E66B750043991A /* ProductsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductsTableViewCell.xib; sourceTree = "<group>"; };
 		88A9749C26C702550085FFB2 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		88A9749D26C702550085FFB2 /* OnboardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingViewController.xib; sourceTree = "<group>"; };
 		88A974A126C703BE0085FFB2 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -189,6 +193,15 @@
 				88A974AC26C70D5C0085FFB2 /* Slices.swift */,
 			);
 			path = Slices;
+			sourceTree = "<group>";
+		};
+		888665A426E66B500043991A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				888665A526E66B750043991A /* ProductsTableViewCell.swift */,
+				888665A626E66B750043991A /* ProductsTableViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		88A9749A26C702350085FFB2 /* View */ = {
@@ -345,6 +358,7 @@
 		8B9B96E626CEAD930052E5DC /* Cart */ = {
 			isa = PBXGroup;
 			children = (
+				888665A426E66B500043991A /* Cells */,
 				8846C66C26CD9E5E00F539BA /* CartViewController.swift */,
 				88EB217D26D00DDE00D33D2A /* CartStoryboard.storyboard */,
 			);
@@ -454,6 +468,7 @@
 				88D6FA8126C6C66C0025007D /* LaunchScreen.storyboard in Resources */,
 				88D78E9126D0175200BF49E7 /* FavoritesStoryboard.storyboard in Resources */,
 				8832620826C6FD5C009AEF98 /* Poppins-ExtraBold.ttf in Resources */,
+				888665A826E66B750043991A /* ProductsTableViewCell.xib in Resources */,
 				88A974A626C706D30085FFB2 /* Poppins-Regular.ttf in Resources */,
 				88D6FA7E26C6C66C0025007D /* Assets.xcassets in Resources */,
 				88A974A426C704610085FFB2 /* Poppins-Medium.ttf in Resources */,
@@ -501,6 +516,7 @@
 				8846C66A26CD977900F539BA /* BaseNavigationController.swift in Sources */,
 				88EB218A26D0141700D33D2A /* FavoritesViewController.swift in Sources */,
 				88A9749E26C702550085FFB2 /* OnboardingViewController.swift in Sources */,
+				888665A726E66B750043991A /* ProductsTableViewCell.swift in Sources */,
 				88D6FA7726C6C6670025007D /* SceneDelegate.swift in Sources */,
 				88D78E9A26D047D900BF49E7 /* CustomSearchBar.swift in Sources */,
 				88A974AA26C709FD0085FFB2 /* OnboardingCollectionViewCell.swift in Sources */,
