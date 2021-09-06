@@ -50,7 +50,7 @@ final class UserDefaultsManager {
     }
     
     func checkCart(forId id: String, forData data: [DetailProduct], forValue value: DetailProduct) -> [DetailProduct] {
-        var newData = [DetailProduct]()
+        var newData = data
         if data.isEmpty || data.contains(where: {$0.id != id}) {
             newData.append(value)
         }
