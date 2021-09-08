@@ -12,7 +12,8 @@ struct DetailProduct: Codable {
     let title: String
     let price: Double
     let subtitle: String?
-    let quantity: Int?
+    let quantityAvaibable: Int?
+    var quantity: Int?
     let pictures: [Pictures]
     let attributes: [Attributes]?
     
@@ -22,7 +23,8 @@ struct DetailProduct: Codable {
         case price
         case subtitle
         case pictures
-        case quantity = "available_quantity"
+        case quantityAvaibable = "available_quantity"
+        case quantity
         case attributes
     }
     
@@ -32,6 +34,7 @@ struct DetailProduct: Codable {
         title = try values.decode(String.self, forKey: .title)
         subtitle = try values.decodeIfPresent(String.self, forKey: .subtitle)
         price = try values.decode(Double.self, forKey: .price)
+        quantityAvaibable = try values.decodeIfPresent(Int.self, forKey: .quantityAvaibable)
         quantity = try values.decodeIfPresent(Int.self, forKey: .quantity)
         pictures = try values.decode([Pictures].self, forKey: .pictures)
         attributes = try values.decodeIfPresent([Attributes].self, forKey: .attributes)

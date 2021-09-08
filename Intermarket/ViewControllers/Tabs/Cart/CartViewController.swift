@@ -25,6 +25,8 @@ class CartViewController: UIViewController {
     
     var isNavigationController = false
     
+    var totalPrice = 0.0
+    var arrayPrices = [Double]()
     var products = [DetailProduct]()
     
     override func viewDidLoad() {
@@ -33,11 +35,11 @@ class CartViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        totalPrice = 0.0
         getProductUserDefaults()
         checkEmptyCart()
         checkTypeController()
         setupTableView()
-        priceLabel.text = updatePrice()
         productsTableView.reloadData()
     }
     
@@ -88,15 +90,6 @@ class CartViewController: UIViewController {
         setupUI()
     }
     
-    func updatePrice() -> String {
-        var total: Double = 0
-        if products.count > 0 {
-            for i in 0...products.count - 1 {
-                total = total + products[i].price
-            }
-        }
-        return String(describing: total.currency())
-    }
     
     func checkTypeController() {
         if isNavigationController == true {
@@ -106,6 +99,17 @@ class CartViewController: UIViewController {
     
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToPurchase" {
+            let vc = segue.destination as? PurchaseViewController
+            vc?.modalPresentationStyle = .fullScreen
+            vc?.isNavigationController = isNavigationController
+            vc?.totalPrice = totalPrice
+            vc?.productsQuantityTotal = products.count
+            vc?.productsPurchase = products
+        }
     }
     
 }
@@ -135,8 +139,31 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = productsTableView.dequeueReusableCell(withIdentifier: ProductsTableViewCell.identifier, for: indexPath) as! ProductsTableViewCell
+        cell.delegate = self
         cell.setupCell(forData: products[indexPath.row])
+        products[indexPath.row].quantity = cell.quantity
+        totalPrice = totalPrice + cell.totalPrice
+        priceLabel.text = totalPrice.currency()
         return cell
+    }
+    
+}
+
+extension CartViewController: ProductsTableViewCellDelegate {
+    
+    func updatePrice() {
+        totalPrice = 0
+        productsTableView.reloadData()
+    }
+    
+    func setPrice(forArrayPrice array: [Double]) -> Double {
+        var total = Double()
+        if array.count > 0 {
+            for i in 0...array.count - 1 {
+                total = total + array[i]
+            }
+        }
+        return total
     }
     
 }

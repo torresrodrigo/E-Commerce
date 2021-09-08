@@ -66,7 +66,7 @@ class DetailViewController: UIViewController {
     }
     
     private func setupDataProduct(forProduct productData: DetailProduct) {
-        guard let quantity = productData.quantity else { return }
+        guard let quantity = productData.quantityAvaibable else { return }
         guard let hasDescription = productData.subtitle != nil ? true : false else { return }
         productTitle.text = productData.title
         productDescription.text = hasDescription ? productData.subtitle : "Not description"
