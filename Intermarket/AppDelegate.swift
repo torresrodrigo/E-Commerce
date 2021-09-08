@@ -6,14 +6,21 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
+import FacebookCore
+import FBSDKCoreKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Thread.sleep(forTimeInterval: 3)
+        
+        //Firebase
+        FirebaseApp.configure()
+        FBSDKCoreKit.ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
 
@@ -32,5 +39,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+
+extension AppDelegate {
+        
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let googleHandle = GIDSignIn.sharedInstance.handle(url)
+        let facebookHandle = FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
+        return googleHandle || facebookHandle
+    }
 }
 
