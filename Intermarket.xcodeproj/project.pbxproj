@@ -284,13 +284,11 @@
 				88A974A026C703AD0085FFB2 /* Extensions */,
 				88A9749B26C702420085FFB2 /* ViewControllers */,
 				88A9749A26C702350085FFB2 /* View */,
-				88D6FA9026C6D01D0025007D /* Fonts */,
+				88F6FE4A26EA49E2009DE10F /* Resources */,
 				88D6FA8D26C6CF230025007D /* Supporting Files */,
 				88D6FA8826C6C9630025007D /* Model */,
 				88D6FA7426C6C6670025007D /* AppDelegate.swift */,
 				88D6FA7626C6C6670025007D /* SceneDelegate.swift */,
-				88CCFB9226E9196200E50BF7 /* 480px-Loader.gif */,
-				88D6FA7D26C6C66C0025007D /* Assets.xcassets */,
 				88D6FA7F26C6C66C0025007D /* LaunchScreen.storyboard */,
 				8856344726CC2DB000FB2710 /* GoogleService-Info.plist */,
 				88D6FA8226C6C66C0025007D /* Info.plist */,
@@ -335,6 +333,32 @@
 				88D78E9726D0309A00BF49E7 /* MoreViewController.swift */,
 			);
 			path = More;
+			sourceTree = "<group>";
+		};
+		88F6FE4A26EA49E2009DE10F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				88D6FA9026C6D01D0025007D /* Fonts */,
+				88F6FE4B26EA4B5B009DE10F /* Assets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		88F6FE4B26EA4B5B009DE10F /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				88F6FE4C26EA4C1B009DE10F /* Gif */,
+				88D6FA7D26C6C66C0025007D /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		88F6FE4C26EA4C1B009DE10F /* Gif */ = {
+			isa = PBXGroup;
+			children = (
+				88CCFB9226E9196200E50BF7 /* 480px-Loader.gif */,
+			);
+			path = Gif;
 			sourceTree = "<group>";
 		};
 		88FACAAE26CE9CEA004A9FCB /* Tabs */ = {

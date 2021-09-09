@@ -27,7 +27,6 @@ class ConfirmationViewController: UIViewController {
         imgConfirmation.loadGif(name: "480px-Loader")
     }
     
-    
     private func changeImg() {
         self.perform(#selector(changeImgAction), with: nil, afterDelay: 3)
     }
@@ -46,7 +45,6 @@ class ConfirmationViewController: UIViewController {
         }
         
     }
-    
     
     func changeToCartView() {
         let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
