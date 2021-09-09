@@ -16,6 +16,7 @@ class CartViewController: UIViewController {
     @IBOutlet weak var imgSearch: UIImageView!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var stackView: UIStackView!
     
     //Products added UI
     @IBOutlet weak var productsTableView: UITableView!
@@ -28,10 +29,11 @@ class CartViewController: UIViewController {
     var totalPrice = 0.0
     var arrayPrices = [Double]()
     var products = [DetailProduct]()
+    var totalQuantityProducts = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,36 +41,43 @@ class CartViewController: UIViewController {
         getProductUserDefaults()
         checkEmptyCart()
         checkTypeController()
-        setupTableView()
+        setTotalPrice()
+        setTotalQuantityProducts()
         productsTableView.reloadData()
-    }
-    
-    private func setupUI() {
-        checkEmptyCart()
-        setupTableView()
-        checkTypeController()
-        buttonUI()
     }
     
     private func checkEmptyCart() {
         if products.count > 0 {
             addedProductUI()
+            setupTableView()
+        } else {
+            showEmptyState()
+            buttonUI()
         }
+        
     }
     
     private func addedProductUI() {
-        DispatchQueue.main.async {
-            self.hideEmptyState()
-            self.showButton()
-        }
+        self.hideEmptyState()
+        self.showButton()
     }
     
     private func hideEmptyState() {
         titleLabel.isHidden = true
         imgSearch.isHidden = true
+        stackView.isHidden = false
         productsTableView.isHidden = false
         totalView.isHidden = false
         buttonQR.isHidden = false
+    }
+    
+    private func showEmptyState() {
+        titleLabel.isHidden = false
+        imgSearch.isHidden = false
+        stackView.isHidden = true
+        productsTableView.isHidden = true
+        totalView.isHidden = true
+        buttonQR.isHidden = true
     }
     
     private func showButton() {
@@ -78,18 +87,17 @@ class CartViewController: UIViewController {
         button.isEnabled = true
     }
 
-    
     private func buttonUI() {
         button.layer.borderColor = Colors.Secondary?.cgColor
+        button.backgroundColor = .white
         button.isEnabled = false
     }
     
     func getProductUserDefaults() {
         let data = UserDefaultsManager.sharedInstance.getProductInCar()
         products = data
-        setupUI()
+        
     }
-    
     
     func checkTypeController() {
         if isNavigationController == true {
@@ -107,7 +115,7 @@ class CartViewController: UIViewController {
             vc?.modalPresentationStyle = .fullScreen
             vc?.isNavigationController = isNavigationController
             vc?.totalPrice = totalPrice
-            vc?.productsQuantityTotal = products.count
+            vc?.productsQuantityTotal = totalQuantityProducts
             vc?.productsPurchase = products
         }
     }
@@ -141,9 +149,6 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = productsTableView.dequeueReusableCell(withIdentifier: ProductsTableViewCell.identifier, for: indexPath) as! ProductsTableViewCell
         cell.delegate = self
         cell.setupCell(forData: products[indexPath.row])
-        products[indexPath.row].quantity = cell.quantity
-        totalPrice = totalPrice + cell.totalPrice
-        priceLabel.text = totalPrice.currency()
         return cell
     }
     
@@ -151,19 +156,43 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension CartViewController: ProductsTableViewCellDelegate {
     
-    func updatePrice() {
-        totalPrice = 0
+    func updateCell(forId id: String, forQuantity newQuantity: Int) {
+        changeQuantity(forId: id, forQuantity: newQuantity)
         productsTableView.reloadData()
+        setTotalPrice()
+        setTotalQuantityProducts()
     }
     
-    func setPrice(forArrayPrice array: [Double]) -> Double {
-        var total = Double()
-        if array.count > 0 {
-            for i in 0...array.count - 1 {
-                total = total + array[i]
+    func changeQuantity(forId id: String, forQuantity valueQuantity: Int) {
+        if products.contains(where: {$0.id == id}) {
+            if let index = products.firstIndex(where: {$0.id == id}) {
+                products[index].quantity = valueQuantity
             }
         }
-        return total
+    }
+    
+    func setTotalPrice() {
+        var prices = [Double]()
+        if products.count > 0 {
+            for i in 0...products.count - 1 {
+                guard let quantity = products[i].quantity else { return }
+                let priceProducts = Double(quantity) * products[i].price
+                prices.append(priceProducts)
+            }
+        }
+        totalPrice = prices.reduce(0, +)
+        priceLabel.text = totalPrice.currency()
+    }
+    
+    func setTotalQuantityProducts() {
+        var quantityProducts = [Int]()
+        if products.count > 0 {
+            for i in 0...products.count - 1 {
+                guard let quantity = products[i].quantity else { return }
+                quantityProducts.append(quantity)
+            }
+        }
+        totalQuantityProducts = quantityProducts.reduce(0, +)
     }
     
 }

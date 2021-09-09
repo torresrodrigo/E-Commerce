@@ -77,7 +77,7 @@
                                     <constraint firstItem="gch-1t-U9y" firstAttribute="centerY" secondItem="kHK-bs-gc4" secondAttribute="centerY" id="qCA-6D-WS2"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PuS-Cg-Bhc">
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PuS-Cg-Bhc">
                                 <rect key="frame" x="12" y="121" width="390" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Direccion" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svl-bP-8hN">
@@ -235,6 +235,7 @@
                         <outlet property="imgSearch" destination="kCG-oO-DdM" id="HGV-6R-L5e"/>
                         <outlet property="priceLabel" destination="Xa1-r0-QIF" id="Td9-lZ-s5f"/>
                         <outlet property="productsTableView" destination="Hao-0k-9ty" id="xVM-ZL-4P1"/>
+                        <outlet property="stackView" destination="PuS-Cg-Bhc" id="MNb-85-7nq"/>
                         <outlet property="titleLabel" destination="8de-fh-Wpj" id="ag3-Vc-WPP"/>
                         <outlet property="totalView" destination="t2V-1b-5hn" id="wsy-c7-mih"/>
                     </connections>
@@ -358,6 +359,9 @@
                                         <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="4iZ-5l-yU0" kind="show" identifier="goToConfirmation" id="rtK-ft-sLg"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sKd-N8-u7e"/>
@@ -386,12 +390,57 @@
             </objects>
             <point key="canvasLocation" x="1279.7101449275362" y="55.580357142857139"/>
         </scene>
+        <!--Confirmation View Controller-->
+        <scene sceneID="a4b-pB-Zw9">
+            <objects>
+                <viewController id="4iZ-5l-yU0" customClass="ConfirmationViewController" customModule="Intermarket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6w4-Aa-FFc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A0k-vC-Nib">
+                                <rect key="frame" x="87" y="130" width="240" height="198"/>
+                                <color key="tintColor" name="BorderButton"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="198" id="9gT-nX-GeE"/>
+                                    <constraint firstAttribute="width" constant="240" id="IEZ-9m-UMi"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estamos procesando tu pedido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LS3-q4-GNo">
+                                <rect key="frame" x="97.5" y="379" width="219.5" height="20"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gsf-jQ-F6f"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LS3-q4-GNo" firstAttribute="centerX" secondItem="A0k-vC-Nib" secondAttribute="centerX" id="6ur-cF-uIm"/>
+                            <constraint firstItem="A0k-vC-Nib" firstAttribute="centerX" secondItem="gsf-jQ-F6f" secondAttribute="centerX" id="EUx-9t-FMM"/>
+                            <constraint firstItem="LS3-q4-GNo" firstAttribute="top" secondItem="A0k-vC-Nib" secondAttribute="bottom" constant="51" id="sKj-b7-z7a"/>
+                            <constraint firstItem="A0k-vC-Nib" firstAttribute="top" secondItem="gsf-jQ-F6f" secondAttribute="top" constant="86" id="yYt-KH-DpD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="fJo-q9-LGv"/>
+                    <connections>
+                        <outlet property="imgConfirmation" destination="A0k-vC-Nib" id="OEM-lb-yrb"/>
+                        <outlet property="labelConfirmation" destination="LS3-q4-GNo" id="PBG-dn-hX1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qyA-OP-WfJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2137.68115942029" y="55.580357142857139"/>
+        </scene>
     </scenes>
     <resources>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="floating-button" width="86" height="86"/>
         <image name="searchImage" width="271" height="292"/>
         <image name="shopping-cart" width="22" height="21.5"/>
+        <namedColor name="BorderButton">
+            <color red="0.24705882352941178" green="0.23921568627450981" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Primary">
             <color red="0.24699999392032623" green="0.23899999260902405" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

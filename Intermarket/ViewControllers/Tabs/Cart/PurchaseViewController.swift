@@ -40,6 +40,15 @@ class PurchaseViewController: UIViewController {
         setupTableView()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToConfirmation" {
+            let vc = segue.destination as? ConfirmationViewController
+            vc?.modalPresentationStyle = .fullScreen
+            vc?.isNavigationController = isNavigationController
+            UserDefaultsManager.sharedInstance.remove(key: UserDefaultsKeys.ProductInCart)
+        }
+    }
+    
 }
 
 extension PurchaseViewController: UITableViewDelegate, UITableViewDataSource {

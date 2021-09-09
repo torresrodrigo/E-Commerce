@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ProductsTableViewCellDelegate {
-    func updatePrice()
+    func updateCell(forId id: String, forQuantity newQuantity: Int)
 }
 
 class ProductsTableViewCell: UITableViewCell {
@@ -32,34 +32,35 @@ class ProductsTableViewCell: UITableViewCell {
     
     //Properties
     var delegate: ProductsTableViewCellDelegate?
+    var id = String()
     var totalQuantity = Int()
-    var totalPrice = 0.0
     var price = Double()
-    var quantity = 1
+    var quantity = Int()
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
     func setupCell(forData data: DetailProduct) {
-        guard let quantityAvailable = data.quantityAvaibable else { return }
+        guard let quantityAvailable = data.quantityAvaibable , let quantitySelected = data.quantity  else { return }
         titleProduct.text = data.title
         priceProduct.text = data.price.currency()
         imgProduct.sd_setImage(with: URL(string: data.pictures[0].url))
-        productQuantity.text = "\(quantity)"
+        productQuantity.text = "\(quantitySelected)"
+        quantity = quantitySelected
+        id = data.id
         price = data.price
         totalQuantity = quantityAvailable
-        totalPrice = totalPriceSum(forQuantity: quantity, forProductPrice: price)
     }
     
     @IBAction func plusButtonPressed(_ sender: Any) {
         plusButtonAction()
-        delegate?.updatePrice()
+        delegate?.updateCell(forId: id, forQuantity : quantity)
     }
     
     @IBAction func minusButtonPressed(_ sender: Any) {
         minusButtonActionn()
-        delegate?.updatePrice()
+        delegate?.updateCell(forId: id, forQuantity: quantity)
     }
     
     private func plusButtonAction() {
@@ -70,7 +71,6 @@ class ProductsTableViewCell: UITableViewCell {
             quantity = totalQuantity
             productQuantity.text = "\(quantity)"
         }
-        totalPrice = totalPriceSum(forQuantity: quantity, forProductPrice: price)
     }
     
     private func minusButtonActionn() {
@@ -81,12 +81,6 @@ class ProductsTableViewCell: UITableViewCell {
             quantity = 1
             productQuantity.text = "\(quantity)"
         }
-        totalPrice = totalPriceSum(forQuantity: quantity, forProductPrice: price)
-    }
-    
-    func totalPriceSum(forQuantity quantity: Int, forProductPrice: Double) -> Double {
-        let priceTotal = Double(quantity) * price
-        return priceTotal
     }
     
 }
