@@ -239,19 +239,19 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ogr-2O-zbl" userLabel="Button+Price">
-                                    <rect key="frame" x="64" y="358.5" width="286" height="48"/>
+                                    <rect key="frame" x="48" y="358.5" width="318" height="48"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eBL-Ox-BjD">
-                                            <rect key="frame" x="0.0" y="0.0" width="143" height="48"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="159" height="48"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVb-Fn-wS2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="143" height="34"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="159" height="34"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="24"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unidades disponiles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usa-Jj-2ao">
-                                                    <rect key="frame" x="0.0" y="34" width="143" height="14"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unidades disponibles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usa-Jj-2ao">
+                                                    <rect key="frame" x="0.0" y="34" width="159" height="14"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                     <color key="textColor" name="Secondary"/>
                                                     <nil key="highlightedColor"/>
@@ -259,7 +259,7 @@
                                             </subviews>
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elg-Np-Iz5" userLabel="Favoritos">
-                                            <rect key="frame" x="143" y="0.0" width="143" height="48"/>
+                                            <rect key="frame" x="159" y="0.0" width="159" height="48"/>
                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                             <state key="normal" title=" Favoritos   " image="heart">
                                                 <color key="titleColor" name="BorderButton"/>
@@ -368,7 +368,7 @@ al carrito</string>
                                 <constraint firstItem="Ogr-2O-zbl" firstAttribute="top" secondItem="1vV-ny-iiH" secondAttribute="bottom" constant="18" id="1Qs-zv-uVb"/>
                                 <constraint firstAttribute="trailing" secondItem="eAh-Fz-d8Z" secondAttribute="trailing" constant="20" id="CiT-H5-3c7"/>
                                 <constraint firstAttribute="height" constant="900" id="Ckg-Sb-HlV"/>
-                                <constraint firstItem="Ogr-2O-zbl" firstAttribute="leading" secondItem="9Kj-iR-7Kb" secondAttribute="leading" constant="64" id="JmH-DJ-bb3"/>
+                                <constraint firstItem="Ogr-2O-zbl" firstAttribute="leading" secondItem="9Kj-iR-7Kb" secondAttribute="leading" constant="48" id="JmH-DJ-bb3"/>
                                 <constraint firstItem="eAh-Fz-d8Z" firstAttribute="leading" secondItem="9Kj-iR-7Kb" secondAttribute="leading" constant="20" id="OjE-bd-Oee"/>
                                 <constraint firstItem="KS8-sj-UGL" firstAttribute="leading" secondItem="9Kj-iR-7Kb" secondAttribute="leading" constant="20" symbolic="YES" id="R7x-0L-UYN"/>
                                 <constraint firstAttribute="trailing" secondItem="dhY-6S-tDr" secondAttribute="trailing" constant="20" id="Rm8-zv-oX9"/>
@@ -379,7 +379,7 @@ al carrito</string>
                                 <constraint firstItem="dhY-6S-tDr" firstAttribute="leading" secondItem="9Kj-iR-7Kb" secondAttribute="leading" constant="20" id="gxq-NS-LYw"/>
                                 <constraint firstItem="1vV-ny-iiH" firstAttribute="leading" secondItem="9Kj-iR-7Kb" secondAttribute="leading" constant="20" id="mvZ-WL-aQh"/>
                                 <constraint firstItem="dhY-6S-tDr" firstAttribute="top" secondItem="Ogr-2O-zbl" secondAttribute="bottom" constant="32" id="r8M-rO-pAI"/>
-                                <constraint firstAttribute="trailing" secondItem="Ogr-2O-zbl" secondAttribute="trailing" constant="64" id="yRx-58-dZ6"/>
+                                <constraint firstAttribute="trailing" secondItem="Ogr-2O-zbl" secondAttribute="trailing" constant="48" id="yRx-58-dZ6"/>
                                 <constraint firstItem="eAh-Fz-d8Z" firstAttribute="top" secondItem="dhY-6S-tDr" secondAttribute="bottom" constant="11.5" id="zlc-Z4-Z45"/>
                             </constraints>
                         </view>
