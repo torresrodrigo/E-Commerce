@@ -43,7 +43,6 @@ class ConfirmationViewController: UIViewController {
         } else {
             self.navigationController?.popToRootViewController(animated: true)
         }
-        
     }
     
     func changeToCartView() {

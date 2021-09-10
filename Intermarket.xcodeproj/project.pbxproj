@@ -69,6 +69,7 @@
 		88DC00C426CC0AA8005B105C /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 88DC00C326CC0AA8005B105C /* GoogleSignIn */; };
 		88EB217E26D00DDF00D33D2A /* CartStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88EB217D26D00DDE00D33D2A /* CartStoryboard.storyboard */; };
 		88EB218A26D0141700D33D2A /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EB218926D0141700D33D2A /* FavoritesViewController.swift */; };
+		88F6FE4E26EA63E3009DE10F /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F6FE4D26EA63E3009DE10F /* QRCodeViewController.swift */; };
 		8B9B96EC26CEB8020052E5DC /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B9B96EB26CEB8020052E5DC /* TabBar.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,7 @@
 		88DC00B826CBE722005B105C /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		88EB217D26D00DDE00D33D2A /* CartStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CartStoryboard.storyboard; sourceTree = "<group>"; };
 		88EB218926D0141700D33D2A /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		88F6FE4D26EA63E3009DE10F /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		8B9B96EB26CEB8020052E5DC /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -403,6 +405,7 @@
 				88EB217D26D00DDE00D33D2A /* CartStoryboard.storyboard */,
 				880E4A8526E7971500BEBF89 /* PurchaseViewController.swift */,
 				88086B3C26E8FCEF00AD0B0B /* ConfirmationViewController.swift */,
+				88F6FE4D26EA63E3009DE10F /* QRCodeViewController.swift */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				88086B3D26E8FCEF00AD0B0B /* ConfirmationViewController.swift in Sources */,
 				8846C66E26CD9E5E00F539BA /* CartViewController.swift in Sources */,
 				88D6FA7526C6C6670025007D /* AppDelegate.swift in Sources */,
+				88F6FE4E26EA63E3009DE10F /* QRCodeViewController.swift in Sources */,
 				880E4A8626E7971500BEBF89 /* PurchaseViewController.swift in Sources */,
 				88269F8F26D92AFF00E19EF8 /* UserDefaultsManager.swift in Sources */,
 				8811AB5126D3CB1A00EEAEAA /* NetworkService.swift in Sources */,
