@@ -109,6 +109,8 @@ class CartViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPurchase" {
             let vc = segue.destination as? PurchaseViewController
@@ -117,6 +119,9 @@ class CartViewController: UIViewController {
             vc?.totalPrice = totalPrice
             vc?.productsQuantityTotal = totalQuantityProducts
             vc?.productsPurchase = products
+        } else if segue.identifier == "goToQrCode" {
+            let vc = segue.destination as? QRCodeViewController
+            vc?.modalPresentationStyle = .fullScreen
         }
     }
     
