@@ -48,10 +48,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpi-AL-EFf" userLabel="Header">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="117"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="121.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inter Market" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxb-hq-hvs">
-                                        <rect key="frame" x="22" y="64" width="97.5" height="21"/>
+                                        <rect key="frame" x="22" y="64" width="113.5" height="25.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -65,7 +65,7 @@
                                 </constraints>
                             </view>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="YXl-bw-nM7">
-                                <rect key="frame" x="16" y="88.5" width="382" height="51"/>
+                                <rect key="frame" x="16" y="93" width="382" height="51"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,16 +77,16 @@
                                 </userDefinedRuntimeAttributes>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buscá el producto que necesites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43Z-cy-Prs">
-                                <rect key="frame" x="12" y="149" width="235" height="19"/>
+                                <rect key="frame" x="12" y="153.5" width="264" height="22.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="851-de-5TG">
-                                <rect key="frame" x="0.0" y="176" width="414" height="637"/>
+                                <rect key="frame" x="0.0" y="184" width="414" height="629"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="isb-qq-9rJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="637"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="629"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="searchImage" translatesAutoresizingMaskIntoConstraints="NO" id="rhQ-1P-pBO">
                                                 <rect key="frame" x="39" y="46" width="341" height="399"/>
@@ -95,19 +95,19 @@
                                                 </constraints>
                                             </imageView>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lo mas popular de hoy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hzq-Z6-spn">
-                                                <rect key="frame" x="12" y="15" width="165" height="19"/>
+                                                <rect key="frame" x="12" y="15" width="185" height="22.5"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                                 <color key="textColor" name="TextCell"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Esto hemos encontrado para ti" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avF-t8-daU">
-                                                <rect key="frame" x="12" y="39" width="165.5" height="14"/>
+                                                <rect key="frame" x="12" y="42.5" width="185.5" height="17"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                 <color key="textColor" name="TextCell"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uXK-t3-E0N">
-                                                <rect key="frame" x="0.0" y="68" width="414" height="569"/>
+                                                <rect key="frame" x="0.0" y="59.5" width="414" height="569.5"/>
                                                 <color key="backgroundColor" name="White"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="24" minimumInteritemSpacing="0.0" id="HxO-0Y-xED">
                                                     <size key="itemSize" width="128" height="128"/>
@@ -133,7 +133,7 @@
                                             <constraint firstAttribute="trailing" secondItem="uXK-t3-E0N" secondAttribute="trailing" id="8Lg-Lg-WKh"/>
                                             <constraint firstItem="uXK-t3-E0N" firstAttribute="leading" secondItem="isb-qq-9rJ" secondAttribute="leading" id="Dks-DB-hVd"/>
                                             <constraint firstAttribute="trailing" secondItem="rhQ-1P-pBO" secondAttribute="trailing" constant="34" id="Nz0-xE-8D8"/>
-                                            <constraint firstItem="uXK-t3-E0N" firstAttribute="top" secondItem="avF-t8-daU" secondAttribute="bottom" constant="15" id="PZu-t5-Urz"/>
+                                            <constraint firstItem="uXK-t3-E0N" firstAttribute="top" secondItem="avF-t8-daU" secondAttribute="bottom" id="PZu-t5-Urz"/>
                                             <constraint firstItem="Hzq-Z6-spn" firstAttribute="leading" secondItem="isb-qq-9rJ" secondAttribute="leading" constant="12" id="Seh-ND-Boq"/>
                                             <constraint firstItem="avF-t8-daU" firstAttribute="leading" secondItem="isb-qq-9rJ" secondAttribute="leading" constant="12" id="UVD-g9-4ZB"/>
                                             <constraint firstItem="Hzq-Z6-spn" firstAttribute="top" secondItem="isb-qq-9rJ" secondAttribute="top" constant="15" id="iL9-2X-AgC"/>
@@ -154,6 +154,24 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="cpT-yU-JqH"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="0hP-1r-G6c"/>
                             </scrollView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5jz-oQ-4sD" userLabel="SuggestionView">
+                                <rect key="frame" x="16" y="133.5" width="382" height="128"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HiE-Jg-kVu">
+                                        <rect key="frame" x="0.0" y="8" width="382" height="120"/>
+                                        <color key="backgroundColor" name="White"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" name="White"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="HiE-Jg-kVu" secondAttribute="trailing" id="9gb-nr-1gG"/>
+                                    <constraint firstAttribute="width" constant="382" id="AJY-Il-NNs"/>
+                                    <constraint firstAttribute="bottom" secondItem="HiE-Jg-kVu" secondAttribute="bottom" id="I8y-Vj-hjX"/>
+                                    <constraint firstAttribute="height" constant="128" id="TnP-ve-rww"/>
+                                    <constraint firstItem="HiE-Jg-kVu" firstAttribute="top" secondItem="5jz-oQ-4sD" secondAttribute="top" constant="8" id="a2s-Za-Yen"/>
+                                    <constraint firstItem="HiE-Jg-kVu" firstAttribute="leading" secondItem="5jz-oQ-4sD" secondAttribute="leading" id="jo8-Sz-ZYB"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -163,6 +181,8 @@
                             <constraint firstItem="Hpi-AL-EFf" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="HQt-zR-b57"/>
                             <constraint firstItem="43Z-cy-Prs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="12" id="HuZ-H0-1Pp"/>
                             <constraint firstItem="Hpi-AL-EFf" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="Ky4-oH-Vjg"/>
+                            <constraint firstItem="5jz-oQ-4sD" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="Tz7-bc-4vz"/>
+                            <constraint firstItem="5jz-oQ-4sD" firstAttribute="top" secondItem="Hpi-AL-EFf" secondAttribute="bottom" constant="12" id="YQ4-eQ-EHk"/>
                             <constraint firstItem="43Z-cy-Prs" firstAttribute="top" secondItem="YXl-bw-nM7" secondAttribute="bottom" constant="9.5" id="cVc-CU-i7X"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="YXl-bw-nM7" secondAttribute="trailing" constant="16" id="cfO-iQ-zOd"/>
                             <constraint firstItem="YXl-bw-nM7" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="jZG-z7-cZg"/>
@@ -170,6 +190,7 @@
                             <constraint firstItem="851-de-5TG" firstAttribute="top" secondItem="43Z-cy-Prs" secondAttribute="bottom" constant="8" id="s08-UZ-PkB"/>
                             <constraint firstItem="851-de-5TG" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="s74-ha-Kzn"/>
                             <constraint firstItem="43Z-cy-Prs" firstAttribute="top" secondItem="Hpi-AL-EFf" secondAttribute="bottom" constant="32" id="sxY-6e-wCP"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="5jz-oQ-4sD" secondAttribute="trailing" constant="16" id="wNb-JY-f1Q"/>
                             <constraint firstItem="YXl-bw-nM7" firstAttribute="centerX" secondItem="Hpi-AL-EFf" secondAttribute="centerX" id="yVd-ps-Jlo"/>
                         </constraints>
                     </view>
@@ -184,6 +205,8 @@
                         <outlet property="productsCollectionViewCell" destination="uXK-t3-E0N" id="RAQ-4B-TUj"/>
                         <outlet property="searchBar" destination="YXl-bw-nM7" id="52l-8S-ljd"/>
                         <outlet property="searchLabel" destination="43Z-cy-Prs" id="2Gu-02-ncm"/>
+                        <outlet property="suggestionTableView" destination="HiE-Jg-kVu" id="Geh-Wz-5qA"/>
+                        <outlet property="suggestionView" destination="5jz-oQ-4sD" id="aRR-sL-XUM"/>
                         <segue destination="JIS-0t-xE8" kind="show" identifier="goToDetails" id="geR-N6-Fzr"/>
                     </connections>
                 </viewController>

@@ -42,6 +42,6 @@ struct UserDefaultsKeys {
 }
 
 struct Endpoints {
-    static let Search = "https://api.mercadolibre.com/sites/MLA/search?"
+    static let Search = "https://api.mercadolibre.com/sites/MLA/search?q="
     static let DetailsProducts = "https://api.mercadolibre.com/items/"
 }

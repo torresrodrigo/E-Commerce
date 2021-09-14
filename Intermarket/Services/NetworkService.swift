@@ -12,8 +12,9 @@ class NetworkService {
     
     static let shared = NetworkService()
     
-    func getProducts(query: [String : String?], completed: @escaping (Result<BaseProducts,Error>) -> Void) {
-        AF.request(Endpoints.Search, method: .get, parameters: query).responseData { response in
+    func getProducts(query: String, completed: @escaping (Result<BaseProducts,Error>) -> Void) {
+        let finalUrl = String(describing: Endpoints.Search+query)
+        AF.request(finalUrl).responseData { response in
             switch response.result {
             case .success(let data):
                 let decoder = JSONDecoder()
