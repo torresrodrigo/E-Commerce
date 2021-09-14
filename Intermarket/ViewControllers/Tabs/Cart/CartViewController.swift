@@ -23,12 +23,14 @@ class CartViewController: UIViewController {
     @IBOutlet weak var totalView: UIView!
     @IBOutlet weak var buttonQR: UIButton!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var snackBarView: UIView!
     
     var isNavigationController = false
     
     var totalPrice = 0.0
     var arrayPrices = [Double]()
     var products = [DetailProduct]()
+    var productRemoved: DetailProduct?
     var totalQuantityProducts = 0
     
     override func viewDidLoad() {
@@ -52,7 +54,6 @@ class CartViewController: UIViewController {
             setupTableView()
         } else {
             showEmptyState()
-            buttonUI()
         }
         
     }
@@ -78,10 +79,12 @@ class CartViewController: UIViewController {
         productsTableView.isHidden = true
         totalView.isHidden = true
         buttonQR.isHidden = true
+        buttonUI()
     }
     
     private func showButton() {
         button.borderHeight = 0
+        button.isHidden = false
         button.backgroundColor = Colors.Primary
         button.setTitleColor(.white, for: .normal)
         button.isEnabled = true
@@ -96,7 +99,6 @@ class CartViewController: UIViewController {
     func getProductUserDefaults() {
         let data = UserDefaultsManager.sharedInstance.getProductInCar()
         products = data
-        
     }
     
     func checkTypeController() {
@@ -109,7 +111,28 @@ class CartViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func undoButton(_ sender: Any) {
+        guard let product = productRemoved else {return }
+        undoButtonAction(forProduct: product, useButtonAction: true)
+        button.isHidden = false
+    }
     
+    func undoButtonAction(forProduct product: DetailProduct, useButtonAction: Bool) {
+        if useButtonAction {
+            products.append(product)
+            UserDefaultsManager.sharedInstance.setProductInCart(value: product)
+            checkEmptyCart()
+            productsTableView.reloadData()
+            snackBarView.isHidden = true
+        } else {
+            products.append(product)
+            UserDefaultsManager.sharedInstance.setProductInCart(value: product)
+            checkEmptyCart()
+            productsTableView.reloadData()
+            snackBarView.isHidden = true
+        }
+        setTotalPrice()
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPurchase" {
@@ -169,11 +192,57 @@ extension CartViewController: ProductsTableViewCellDelegate {
     }
     
     func changeQuantity(forId id: String, forQuantity valueQuantity: Int) {
-        if products.contains(where: {$0.id == id}) {
-            if let index = products.firstIndex(where: {$0.id == id}) {
+        if let index = products.firstIndex(where: {$0.id == id}) {
+            if valueQuantity == 0 {
+                products[index].quantity = 1
+                deleteProductAction(forIndex: index)
+                checkEmptyCart()
+                snackBarUI()
+                self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 4)
+            } else {
                 products[index].quantity = valueQuantity
             }
         }
+    }
+    
+    func deleteProduct(forId id: String) {
+        if let i = products.firstIndex(where: {$0.id == id}) {
+            deleteProductAction(forIndex: i)
+            setTotalPrice()
+            if products.count > 0 {
+                checkProducts(isEmpty: false)
+            }
+            else {
+                checkProducts(isEmpty: true)
+            }
+        }
+    }
+    
+    func deleteProductAction(forIndex index: Int) {
+        productRemoved = products[index]
+        products.remove(at: index)
+        productsTableView.reloadData()
+        UserDefaultsManager.sharedInstance.setProductsInCart(forValue: products)
+    }
+    
+    func checkProducts(isEmpty value: Bool) {
+        if value {
+            checkEmptyCart()
+            snackBarUI()
+            self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 4)
+        }
+        else {
+            snackBarUI()
+            self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 4)
+        }
+    }
+    
+    func snackBarUI() {
+        snackBarView.isHidden = false
+    }
+    
+    @objc func dissappearSnackBar() {
+        snackBarView.isHidden = true
     }
     
     func setTotalPrice() {

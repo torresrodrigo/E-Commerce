@@ -21,6 +21,7 @@ struct Images {
     static let Slice2 = UIImage(named: "slice2")
     static let Slice3 = UIImage(named: "slice3")
     static let Search = UIImage(named: "searchImage")
+    static let Confirmation = UIImage(named: "confirmation")
 }
 
 struct Icons {

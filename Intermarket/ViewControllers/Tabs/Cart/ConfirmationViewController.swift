@@ -32,7 +32,7 @@ class ConfirmationViewController: UIViewController {
     }
     
     @objc func changeImgAction() {
-        imgConfirmation.image = UIImage(systemName: "checkmark.circle")
+        imgConfirmation.image = Images.Confirmation
         labelConfirmation.text = "Pedido enviado"
         self.perform(#selector(changeControllerAction), with: nil, afterDelay: 2)
     }
