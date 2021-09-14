@@ -36,6 +36,12 @@ final class UserDefaultsManager {
         }
     }
     
+    func setProductsInCart(forValue value: [DetailProduct]) {
+        if let encodedData = try? JSONEncoder().encode(value) {
+            userDefaults.setValue(encodedData, forKey: UserDefaultsKeys.ProductInCart)
+        }
+    }
+    
     func getProductInCar() -> [DetailProduct] {
         var data = [DetailProduct]()
         if let decodedData = userDefaults.object(forKey: UserDefaultsKeys.ProductInCart) as? Data {

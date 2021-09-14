@@ -171,7 +171,6 @@ class DetailViewController: UIViewController {
         guard let data = products else { return }
         snackBarView.isHidden = false
         addToCartButton.isHidden = true
-        
         UserDefaultsManager.sharedInstance.setProductInCart(value: data)
     }
     

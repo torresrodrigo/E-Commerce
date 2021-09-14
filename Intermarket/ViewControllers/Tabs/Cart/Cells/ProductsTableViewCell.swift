@@ -9,6 +9,7 @@ import UIKit
 
 protocol ProductsTableViewCellDelegate {
     func updateCell(forId id: String, forQuantity newQuantity: Int)
+    func deleteProduct(forId id: String)
 }
 
 class ProductsTableViewCell: UITableViewCell {
@@ -20,7 +21,6 @@ class ProductsTableViewCell: UITableViewCell {
     }
     
     //MARK: - Components UI
-    @IBOutlet weak var deleteIcon: UIImageView!
     @IBOutlet weak var titleProduct: UILabel!
     @IBOutlet weak var priceProduct: UILabel!
     @IBOutlet weak var imgProduct: UIImageView!
@@ -53,6 +53,11 @@ class ProductsTableViewCell: UITableViewCell {
         totalQuantity = quantityAvailable
     }
     
+    
+    @IBAction func deleteButtonPressed(_ sender: Any ){
+        delegate?.deleteProduct(forId: id)
+    }
+    
     @IBAction func plusButtonPressed(_ sender: Any) {
         plusButtonAction()
         delegate?.updateCell(forId: id, forQuantity : quantity)
@@ -78,7 +83,7 @@ class ProductsTableViewCell: UITableViewCell {
             quantity = quantity - 1
             productQuantity.text = "\(quantity)"
         } else {
-            quantity = 1
+            quantity = 0
             productQuantity.text = "\(quantity)"
         }
     }
