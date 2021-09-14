@@ -101,11 +101,12 @@ class DetailViewController: UIViewController {
     }
     
     func getFeatures(forProduct productData: DetailProduct?) {
+        guard let attributes = products?.attributes else { return }
         for i in 0...8 {
-            if let dataName = products?.attributes?[i].name, let dataValue = products?.attributes?[i].value {
+            guard let dataValue = attributes[i].value else { return }
+            let dataName = attributes[i].name
             productFeaturesName.append(dataName)
             productFeaturesValue.append(dataValue)
-            }
         }
     }
     
