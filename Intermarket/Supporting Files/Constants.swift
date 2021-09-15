@@ -40,6 +40,7 @@ struct UserDefaultsKeys {
     static let LoggedUser = "loggedUser"
     static let Favorites = "Favorites"
     static let ProductInCart = "ProductInCart"
+    static let ImgProfile = "ImageProfile"
 }
 
 struct Endpoints {

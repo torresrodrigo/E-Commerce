@@ -207,13 +207,13 @@
                                             <constraint firstAttribute="trailing" secondItem="FJe-4F-P7y" secondAttribute="trailing" constant="32" id="wg7-wp-BAq"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6d-PD-WTd">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rodrigo Torres" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6d-PD-WTd">
                                         <rect key="frame" x="32" y="274.5" width="350" height="34"/>
                                         <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="24"/>
                                         <color key="textColor" name="White"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAs-qs-HWR">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="b.rodrigotorres@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAs-qs-HWR">
                                         <rect key="frame" x="32" y="333.5" width="350" height="22.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                         <color key="textColor" name="White"/>

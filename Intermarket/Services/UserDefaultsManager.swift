@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class UserDefaultsManager {
     
@@ -64,5 +65,19 @@ final class UserDefaultsManager {
             print("This product is now in car")
         }
         return newData
+    }
+    
+    func setImage(value: UIImage) {
+        if let png = value.pngData() {
+            userDefaults.setValue(png, forKey: UserDefaultsKeys.ImgProfile)
+        }
+    }
+    
+    func getImage() -> UIImage? {
+        var imageFinal: UIImage?
+        if let imageData = userDefaults.object(forKey: UserDefaultsKeys.ImgProfile) as? Data, let image = UIImage(data: imageData) {
+            imageFinal = image
+        }
+        return imageFinal
     }
 }
