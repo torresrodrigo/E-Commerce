@@ -22,12 +22,6 @@ class MoreViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
     }
-    @IBAction func actionLogOut(_ sender: Any) {
-        removeUserDefaults()
-        GIDSignIn.sharedInstance.signOut()
-        LoginManager().logOut()
-        firebaseLogOut()
-    }
     
     func setupUI() {
         setupButtons()
@@ -44,20 +38,10 @@ class MoreViewController: UIViewController {
         if segue.identifier == "goToProfile" {
             let vc = segue.destination as? ProfileViewController
             vc?.modalPresentationStyle = .fullScreen
+        } else if segue.identifier == "goToLogout" {
+            let vc = segue.destination as? LogOutViewController
+            vc?.modalPresentationStyle = .fullScreen
         }
-    }
-    
-    func firebaseLogOut() {
-        do {
-            try firebaseAuth.signOut()
-            self.navigationController?.presentViewController(with: LoginViewController(), barHidden: true)
-        } catch let signOutError as NSError {
-            print("Some error happen: \(signOutError)")
-        }
-    }
-    
-    func removeUserDefaults() {
-        userDefaults.removeObject(forKey: UserDefaultsKeys.LoggedUser)
     }
 }
 
