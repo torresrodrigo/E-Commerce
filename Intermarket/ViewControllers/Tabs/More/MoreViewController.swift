@@ -40,6 +40,13 @@ class MoreViewController: UIViewController {
         logOutButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 19, bottom: 0, right: 0)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToProfile" {
+            let vc = segue.destination as? ProfileViewController
+            vc?.modalPresentationStyle = .fullScreen
+        }
+    }
+    
     func firebaseLogOut() {
         do {
             try firebaseAuth.signOut()

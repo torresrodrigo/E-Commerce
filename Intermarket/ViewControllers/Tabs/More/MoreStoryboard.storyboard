@@ -10,8 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Poppins-Bold.ttf">
+            <string>Poppins-Bold</string>
+        </array>
         <array key="Poppins-Medium.ttf">
             <string>Poppins-Medium</string>
+        </array>
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
         </array>
     </customFonts>
     <scenes>
@@ -74,6 +80,9 @@
                                                     <color key="titleColor" name="TextCell"/>
                                                     <imageReference key="image" image="profile-user" symbolScale="small"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="owO-Ib-rTR" kind="show" identifier="goToProfile" id="rHO-5a-z9S"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" name="White"/>
@@ -137,10 +146,126 @@
             </objects>
             <point key="canvasLocation" x="266.66666666666669" y="203.57142857142856"/>
         </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="Seq-if-eeW">
+            <objects>
+                <viewController id="owO-Ib-rTR" customClass="ProfileViewController" customModule="Intermarket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tSC-Pp-eOL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6CO-wx-Rco">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="404"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Nh-48-ZD9">
+                                        <rect key="frame" x="16" y="52" width="28" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="28" id="Cyc-0x-Z3i"/>
+                                            <constraint firstAttribute="height" constant="31" id="E5H-Hk-sLa"/>
+                                        </constraints>
+                                        <color key="tintColor" name="White"/>
+                                        <state key="normal" image="chevron.left" catalog="system">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="owO-Ib-rTR" eventType="touchUpInside" id="NdF-1b-2QM"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MI PERFIL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Hf-q1-npP">
+                                        <rect key="frame" x="52" y="58" width="61.5" height="19"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                        <color key="textColor" name="White"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zbQ-QH-sRr">
+                                        <rect key="frame" x="105" y="87.5" width="209" height="179"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="gH3-h6-rTF">
+                                                <rect key="frame" x="31" y="16" width="147" height="147"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJe-4F-P7y">
+                                                <rect key="frame" x="131" y="118" width="46" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="46" id="kQ2-Px-zgq"/>
+                                                    <constraint firstAttribute="height" constant="45" id="mhd-DW-61l"/>
+                                                </constraints>
+                                                <state key="normal" image="edit-photo-button"/>
+                                                <connections>
+                                                    <action selector="changePhotoButtonPressed:" destination="owO-Ib-rTR" eventType="touchUpInside" id="ENv-1R-GvN"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" name="Primary"/>
+                                        <constraints>
+                                            <constraint firstItem="gH3-h6-rTF" firstAttribute="leading" secondItem="zbQ-QH-sRr" secondAttribute="leading" constant="31" id="GR4-lx-Zw4"/>
+                                            <constraint firstAttribute="height" constant="179" id="Hsm-2O-Moa"/>
+                                            <constraint firstItem="gH3-h6-rTF" firstAttribute="top" secondItem="zbQ-QH-sRr" secondAttribute="top" constant="16" id="IrT-RY-L3M"/>
+                                            <constraint firstAttribute="trailing" secondItem="gH3-h6-rTF" secondAttribute="trailing" constant="31" id="MRg-Za-LSY"/>
+                                            <constraint firstAttribute="width" constant="209" id="ZeY-1M-7hC"/>
+                                            <constraint firstAttribute="bottom" secondItem="gH3-h6-rTF" secondAttribute="bottom" constant="16" id="r7H-An-WaD"/>
+                                            <constraint firstAttribute="bottom" secondItem="FJe-4F-P7y" secondAttribute="bottom" constant="16" id="vea-ck-avv"/>
+                                            <constraint firstAttribute="trailing" secondItem="FJe-4F-P7y" secondAttribute="trailing" constant="32" id="wg7-wp-BAq"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6d-PD-WTd">
+                                        <rect key="frame" x="32" y="274.5" width="350" height="34"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="24"/>
+                                        <color key="textColor" name="White"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAs-qs-HWR">
+                                        <rect key="frame" x="32" y="333.5" width="350" height="22.5"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                        <color key="textColor" name="White"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="Primary"/>
+                                <constraints>
+                                    <constraint firstItem="8Hf-q1-npP" firstAttribute="centerY" secondItem="2Nh-48-ZD9" secondAttribute="centerY" id="1lM-6o-tB6"/>
+                                    <constraint firstItem="8Hf-q1-npP" firstAttribute="leading" secondItem="2Nh-48-ZD9" secondAttribute="trailing" constant="8" symbolic="YES" id="2Nc-sA-2ob"/>
+                                    <constraint firstItem="2Nh-48-ZD9" firstAttribute="top" secondItem="6CO-wx-Rco" secondAttribute="top" constant="52" id="2tj-9J-wn2"/>
+                                    <constraint firstItem="gAs-qs-HWR" firstAttribute="top" secondItem="n6d-PD-WTd" secondAttribute="bottom" constant="25" id="3K4-qi-9Bv"/>
+                                    <constraint firstAttribute="bottom" secondItem="gAs-qs-HWR" secondAttribute="bottom" constant="48" id="5mo-70-n2M"/>
+                                    <constraint firstAttribute="trailing" secondItem="n6d-PD-WTd" secondAttribute="trailing" constant="32" id="D0T-ww-ntO"/>
+                                    <constraint firstItem="n6d-PD-WTd" firstAttribute="leading" secondItem="6CO-wx-Rco" secondAttribute="leading" constant="32" id="Jez-0h-NcQ"/>
+                                    <constraint firstItem="zbQ-QH-sRr" firstAttribute="leading" secondItem="6CO-wx-Rco" secondAttribute="leading" constant="105" id="RD0-Wg-lYt"/>
+                                    <constraint firstAttribute="trailing" secondItem="gAs-qs-HWR" secondAttribute="trailing" constant="32" id="Ruy-lo-yvi"/>
+                                    <constraint firstItem="2Nh-48-ZD9" firstAttribute="leading" secondItem="6CO-wx-Rco" secondAttribute="leading" constant="16" id="SEd-wx-7Iy"/>
+                                    <constraint firstAttribute="trailing" secondItem="zbQ-QH-sRr" secondAttribute="trailing" constant="100" id="c7u-65-jSL"/>
+                                    <constraint firstItem="8Hf-q1-npP" firstAttribute="top" secondItem="6CO-wx-Rco" secondAttribute="top" constant="58" id="jVj-Ev-xW8"/>
+                                    <constraint firstItem="gAs-qs-HWR" firstAttribute="leading" secondItem="6CO-wx-Rco" secondAttribute="leading" constant="32" id="mBz-vg-A6U"/>
+                                    <constraint firstItem="zbQ-QH-sRr" firstAttribute="top" secondItem="8Hf-q1-npP" secondAttribute="bottom" constant="10.5" id="q7N-tH-Qjk"/>
+                                    <constraint firstItem="n6d-PD-WTd" firstAttribute="top" secondItem="zbQ-QH-sRr" secondAttribute="bottom" constant="8" id="z8n-5H-MTL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Mqk-FC-guJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Mqk-FC-guJ" firstAttribute="bottom" secondItem="6CO-wx-Rco" secondAttribute="bottom" constant="409" id="5Z7-Fb-IMN"/>
+                            <constraint firstItem="6CO-wx-Rco" firstAttribute="trailing" secondItem="Mqk-FC-guJ" secondAttribute="trailing" id="6OA-DI-qBV"/>
+                            <constraint firstItem="6CO-wx-Rco" firstAttribute="leading" secondItem="Mqk-FC-guJ" secondAttribute="leading" id="FjA-xk-jGO"/>
+                            <constraint firstItem="6CO-wx-Rco" firstAttribute="top" secondItem="tSC-Pp-eOL" secondAttribute="top" id="Vu3-p7-502"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="tVV-hN-xx2"/>
+                    <connections>
+                        <outlet property="changePhotoButton" destination="FJe-4F-P7y" id="pBa-va-qeS"/>
+                        <outlet property="imageProfile" destination="gH3-h6-rTF" id="YiI-DQ-fXQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UjL-eJ-cha" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1443.4782608695652" y="-103.125"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bars-solid" width="19.5" height="17"/>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="edit-photo-button" width="40" height="40"/>
         <image name="logout" width="22" height="23.5"/>
+        <image name="photo" width="177" height="177"/>
         <image name="profile-user" width="24" height="24"/>
         <namedColor name="Primary">
             <color red="0.24699999392032623" green="0.23899999260902405" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -151,6 +276,9 @@
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
