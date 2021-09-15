@@ -19,6 +19,9 @@
         <array key="Poppins-Regular.ttf">
             <string>Poppins-Regular</string>
         </array>
+        <array key="Poppins-SemiBold.ttf">
+            <string>Poppins-SemiBold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--More-->
@@ -108,6 +111,9 @@
                                                     <color key="titleColor" name="TextCell"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="Lvo-wA-8Kn" kind="show" identifier="goToLogout" id="Khk-nR-9n5"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" name="White"/>
@@ -145,6 +151,119 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzs-m1-1xC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="266.66666666666669" y="203.57142857142856"/>
+        </scene>
+        <!--Log Out View Controller-->
+        <scene sceneID="MMO-4p-wzx">
+            <objects>
+                <viewController id="Lvo-wA-8Kn" customClass="LogOutViewController" customModule="Intermarket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DKt-sU-ivM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNs-Ir-nUe">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9Q-Lp-MUi">
+                                        <rect key="frame" x="10" y="85" width="12.5" height="22"/>
+                                        <color key="tintColor" name="White"/>
+                                        <state key="normal" image="chevron.left" catalog="system"/>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="Lvo-wA-8Kn" eventType="touchUpInside" id="4OQ-VW-DPG"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CERRAR SESIÓN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OW-BY-ppK">
+                                        <rect key="frame" x="51" y="86" width="107.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                        <color key="textColor" name="White"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="Primary"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="121" id="A5y-4e-BPy"/>
+                                    <constraint firstItem="2OW-BY-ppK" firstAttribute="centerY" secondItem="L9Q-Lp-MUi" secondAttribute="centerY" id="Qvb-4f-oRQ"/>
+                                    <constraint firstItem="2OW-BY-ppK" firstAttribute="leading" secondItem="L9Q-Lp-MUi" secondAttribute="trailing" constant="28.5" id="cq9-uO-qkh"/>
+                                    <constraint firstItem="L9Q-Lp-MUi" firstAttribute="leading" secondItem="YNs-Ir-nUe" secondAttribute="leading" constant="10" id="hwo-zc-JRX"/>
+                                    <constraint firstAttribute="bottom" secondItem="L9Q-Lp-MUi" secondAttribute="bottom" constant="14" id="qKX-9I-9yM"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoutImg" translatesAutoresizingMaskIntoConstraints="NO" id="1VV-Kb-1bF">
+                                <rect key="frame" x="50" y="153" width="314" height="312"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="312" id="hzK-dD-Qdf"/>
+                                    <constraint firstAttribute="width" constant="314" id="nH0-B7-zlC"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="¿Estás seguro que querés salir?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lg8-p1-aZN">
+                                <rect key="frame" x="32" y="492" width="350" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
+                                <color key="textColor" name="BorderButton"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Al hacerlo, se cerrará la aplicación" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usm-jJ-Eju">
+                                <rect key="frame" x="50" y="538.5" width="314" height="17.5"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
+                                <color key="textColor" name="TextsInfoDetail"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="wEs-Lh-x5r">
+                                <rect key="frame" x="90" y="757" width="234" height="32"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TB3-74-Js1">
+                                        <rect key="frame" x="0.0" y="0.0" width="104.5" height="32"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
+                                        <state key="normal" title="No, volver">
+                                            <color key="titleColor" name="TextsInfoDetail"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dismissButtonPressed:" destination="Lvo-wA-8Kn" eventType="touchUpInside" id="1bk-F8-D0a"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mg3-Kh-3b1">
+                                        <rect key="frame" x="129.5" y="0.0" width="104.5" height="32"/>
+                                        <color key="backgroundColor" name="Primary"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                        <state key="normal" title="Si, salir">
+                                            <color key="titleColor" name="White"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="logOutButtonPressed:" destination="Lvo-wA-8Kn" eventType="touchUpInside" id="G3c-5F-3wq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7qA-2o-Ydv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1VV-Kb-1bF" firstAttribute="top" secondItem="YNs-Ir-nUe" secondAttribute="bottom" constant="32" id="34w-NB-aGh"/>
+                            <constraint firstItem="7qA-2o-Ydv" firstAttribute="trailing" secondItem="1VV-Kb-1bF" secondAttribute="trailing" constant="50" id="Bdw-9n-nJb"/>
+                            <constraint firstItem="7qA-2o-Ydv" firstAttribute="bottom" secondItem="wEs-Lh-x5r" secondAttribute="bottom" constant="24" id="BtT-bg-Fn1"/>
+                            <constraint firstItem="wEs-Lh-x5r" firstAttribute="top" secondItem="usm-jJ-Eju" secondAttribute="bottom" constant="195" id="HLX-td-AAw"/>
+                            <constraint firstItem="7qA-2o-Ydv" firstAttribute="trailing" secondItem="usm-jJ-Eju" secondAttribute="trailing" constant="50" id="ILB-eJ-IFr"/>
+                            <constraint firstItem="usm-jJ-Eju" firstAttribute="top" secondItem="Lg8-p1-aZN" secondAttribute="bottom" constant="23" id="K6C-Bl-IK7"/>
+                            <constraint firstItem="1VV-Kb-1bF" firstAttribute="leading" secondItem="7qA-2o-Ydv" secondAttribute="leading" constant="50" id="Oic-fd-JRL"/>
+                            <constraint firstItem="Lg8-p1-aZN" firstAttribute="top" secondItem="1VV-Kb-1bF" secondAttribute="bottom" constant="27" id="QRv-bc-84T"/>
+                            <constraint firstItem="wEs-Lh-x5r" firstAttribute="leading" secondItem="7qA-2o-Ydv" secondAttribute="leading" constant="90" id="UDe-Zl-Yrl"/>
+                            <constraint firstItem="usm-jJ-Eju" firstAttribute="leading" secondItem="7qA-2o-Ydv" secondAttribute="leading" constant="50" id="WIK-Af-FoG"/>
+                            <constraint firstItem="Lg8-p1-aZN" firstAttribute="leading" secondItem="7qA-2o-Ydv" secondAttribute="leading" constant="32" id="WOH-sb-JT6"/>
+                            <constraint firstItem="7qA-2o-Ydv" firstAttribute="trailing" secondItem="wEs-Lh-x5r" secondAttribute="trailing" constant="90" id="Xhm-Ay-U8m"/>
+                            <constraint firstItem="YNs-Ir-nUe" firstAttribute="trailing" secondItem="7qA-2o-Ydv" secondAttribute="trailing" id="ehd-Af-K8a"/>
+                            <constraint firstItem="7qA-2o-Ydv" firstAttribute="trailing" secondItem="Lg8-p1-aZN" secondAttribute="trailing" constant="32" id="piQ-ZT-JRb"/>
+                            <constraint firstItem="YNs-Ir-nUe" firstAttribute="leading" secondItem="7qA-2o-Ydv" secondAttribute="leading" id="sFn-aw-EbO"/>
+                            <constraint firstItem="YNs-Ir-nUe" firstAttribute="top" secondItem="DKt-sU-ivM" secondAttribute="top" id="z5P-5v-bd8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ihF-u4-om6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Aw8-D3-l2b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1434.7826086956522" y="635.49107142857144"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="Seq-if-eeW">
@@ -265,13 +384,20 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="edit-photo-button" width="40" height="40"/>
         <image name="logout" width="22" height="23.5"/>
+        <image name="logoutImg" width="274.5" height="164.5"/>
         <image name="photo" width="177" height="177"/>
         <image name="profile-user" width="24" height="24"/>
+        <namedColor name="BorderButton">
+            <color red="0.24705882352941178" green="0.23921568627450981" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Primary">
             <color red="0.24699999392032623" green="0.23899999260902405" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TextCell">
             <color red="0.22352941176470589" green="0.22352941176470589" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextsInfoDetail">
+            <color red="0.3843137254901961" green="0.3843137254901961" blue="0.3843137254901961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

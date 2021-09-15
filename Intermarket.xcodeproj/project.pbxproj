@@ -35,6 +35,7 @@
 		888665A826E66B750043991A /* ProductsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 888665A626E66B750043991A /* ProductsTableViewCell.xib */; };
 		8891082A26EBE3BC00D9AD95 /* SuggestionProductsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8891082826EBE3BC00D9AD95 /* SuggestionProductsTableViewCell.swift */; };
 		8891082B26EBE3BC00D9AD95 /* SuggestionProductsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8891082926EBE3BC00D9AD95 /* SuggestionProductsTableViewCell.xib */; };
+		8895808326F283EB00CD2AAA /* LogOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895808226F283EB00CD2AAA /* LogOutViewController.swift */; };
 		88A9749E26C702550085FFB2 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A9749C26C702550085FFB2 /* OnboardingViewController.swift */; };
 		88A9749F26C702550085FFB2 /* OnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A9749D26C702550085FFB2 /* OnboardingViewController.xib */; };
 		88A974A226C703BE0085FFB2 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A974A126C703BE0085FFB2 /* UIView+Extensions.swift */; };
@@ -105,6 +106,7 @@
 		888665A626E66B750043991A /* ProductsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductsTableViewCell.xib; sourceTree = "<group>"; };
 		8891082826EBE3BC00D9AD95 /* SuggestionProductsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionProductsTableViewCell.swift; sourceTree = "<group>"; };
 		8891082926EBE3BC00D9AD95 /* SuggestionProductsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionProductsTableViewCell.xib; sourceTree = "<group>"; };
+		8895808226F283EB00CD2AAA /* LogOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutViewController.swift; sourceTree = "<group>"; };
 		88A9749C26C702550085FFB2 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		88A9749D26C702550085FFB2 /* OnboardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingViewController.xib; sourceTree = "<group>"; };
 		88A974A126C703BE0085FFB2 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				88D78E9226D0182300BF49E7 /* MoreStoryboard.storyboard */,
 				88D78E9726D0309A00BF49E7 /* MoreViewController.swift */,
 				8885F44D26F23306003C5464 /* ProfileViewController.swift */,
+				8895808226F283EB00CD2AAA /* LogOutViewController.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				88DC00B426CBE163005B105C /* LoginViewController.swift in Sources */,
 				8811AB5326D3D3E200EEAEAA /* String+Extensions.swift in Sources */,
 				88AA324F26DD423F00668FD8 /* DetailViewController.swift in Sources */,
+				8895808326F283EB00CD2AAA /* LogOutViewController.swift in Sources */,
 				88A974A226C703BE0085FFB2 /* UIView+Extensions.swift in Sources */,
 				88CCFB9126E9159900E50BF7 /* GIF+Extensions.swift in Sources */,
 				8846C67126CDC8A800F539BA /* BaseProducts.swift in Sources */,
