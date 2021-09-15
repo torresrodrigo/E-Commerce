@@ -3,19 +3,26 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--More-->
         <scene sceneID="JqK-k9-Swd">
             <objects>
-                <navigationController id="4EM-Lb-Ny9" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="4EM-Lb-Ny9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="More" image="bars-solid" id="e86-Hm-V9j"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8fx-IT-dIc">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -34,35 +41,118 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oS4-aK-b8e">
-                                <rect key="frame" x="178.5" y="351" width="57" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Log out!">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="actionLogOut:" destination="aVM-Cr-E86" eventType="touchUpInside" id="7rO-3k-s8y"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uWG-gJ-ZoL" userLabel="HeaderView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MÁS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suE-7x-uS1">
+                                        <rect key="frame" x="36" y="85" width="31" height="20"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                        <color key="textColor" name="White"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="Primary"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="suE-7x-uS1" secondAttribute="bottom" constant="16" id="0ip-6J-69k"/>
+                                    <constraint firstItem="suE-7x-uS1" firstAttribute="leading" secondItem="uWG-gJ-ZoL" secondAttribute="leading" constant="36" id="v8g-Tb-iYg"/>
+                                    <constraint firstAttribute="height" constant="121" id="yue-Jr-h4p"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aS2-Rl-sNP">
+                                <rect key="frame" x="0.0" y="121" width="414" height="121"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9W4-IM-vre">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cb5-1A-ALV">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="B8D-Yf-9yJ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                <state key="normal" title="Mi perfil">
+                                                    <color key="titleColor" name="TextCell"/>
+                                                    <imageReference key="image" image="profile-user" symbolScale="small"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" name="White"/>
+                                        <color key="tintColor" name="TextCell"/>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ik-yS-Vbl" userLabel="Line 1">
+                                        <rect key="frame" x="0.0" y="60" width="414" height="1"/>
+                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="9pA-Lg-Lm7"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e17-oP-feF">
+                                        <rect key="frame" x="0.0" y="61" width="414" height="60"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Px-rx-fsx">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="2Wh-1r-K5M"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                <state key="normal" title="Cerrar sesión" image="logout">
+                                                    <color key="titleColor" name="TextCell"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" name="White"/>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vtF-tg-MoF" userLabel="Line 1">
+                                <rect key="frame" x="0.0" y="243" width="414" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ygx-xt-wTJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="m7j-iR-O7N"/>
-                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                        <color key="backgroundColor" name="White"/>
                         <constraints>
-                            <constraint firstItem="oS4-aK-b8e" firstAttribute="top" secondItem="m7j-iR-O7N" secondAttribute="top" constant="263" id="2hK-gO-Rdj"/>
-                            <constraint firstItem="oS4-aK-b8e" firstAttribute="centerX" secondItem="m7j-iR-O7N" secondAttribute="centerX" id="LPQ-23-8zP"/>
+                            <constraint firstAttribute="trailing" secondItem="vtF-tg-MoF" secondAttribute="trailing" id="57i-6Q-dwd"/>
+                            <constraint firstAttribute="trailing" secondItem="aS2-Rl-sNP" secondAttribute="trailing" id="F9E-dT-hgb"/>
+                            <constraint firstItem="vtF-tg-MoF" firstAttribute="top" secondItem="aS2-Rl-sNP" secondAttribute="bottom" constant="1" id="Fdr-oy-ECi"/>
+                            <constraint firstItem="aS2-Rl-sNP" firstAttribute="leading" secondItem="m7j-iR-O7N" secondAttribute="leading" id="afD-5V-uLI"/>
+                            <constraint firstItem="uWG-gJ-ZoL" firstAttribute="trailing" secondItem="m7j-iR-O7N" secondAttribute="trailing" id="fF3-Dx-9R1"/>
+                            <constraint firstItem="aS2-Rl-sNP" firstAttribute="top" secondItem="uWG-gJ-ZoL" secondAttribute="bottom" id="fuN-h6-VpV"/>
+                            <constraint firstItem="vtF-tg-MoF" firstAttribute="leading" secondItem="wUc-mY-er6" secondAttribute="leading" id="ohd-k8-Mte"/>
+                            <constraint firstItem="uWG-gJ-ZoL" firstAttribute="leading" secondItem="m7j-iR-O7N" secondAttribute="leading" id="pjW-hV-EX4"/>
+                            <constraint firstItem="uWG-gJ-ZoL" firstAttribute="top" secondItem="wUc-mY-er6" secondAttribute="top" id="qVS-hf-lYO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="E8P-9x-74l"/>
+                    <connections>
+                        <outlet property="logOutButton" destination="4Px-rx-fsx" id="S3V-3f-LsJ"/>
+                        <outlet property="profileButton" destination="cb5-1A-ALV" id="wPu-xj-zMM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzs-m1-1xC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="267" y="204"/>
+            <point key="canvasLocation" x="266.66666666666669" y="203.57142857142856"/>
         </scene>
     </scenes>
     <resources>
         <image name="bars-solid" width="19.5" height="17"/>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="logout" width="22" height="23.5"/>
+        <image name="profile-user" width="24" height="24"/>
+        <namedColor name="Primary">
+            <color red="0.24699999392032623" green="0.23899999260902405" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextCell">
+            <color red="0.22352941176470589" green="0.22352941176470589" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="White">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
