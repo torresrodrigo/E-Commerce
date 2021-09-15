@@ -11,27 +11,39 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var imageProfile: UIImageView!
     @IBOutlet weak var changePhotoButton: UIButton!
+    
+    var imageSelected: UIImage?
+    var imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getImage()
         setupUI()
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setupImageProfile()
     }
     
     private func setupUI() {
+        self.imagePicker.delegate = self
         setupImageProfile()
         setupButton()
     }
     
     private func setupImageProfile() {
-        imageProfile.layer.borderWidth = 2
-        imageProfile.layer.masksToBounds = false
-        imageProfile.layer.borderColor = UIColor.white.cgColor
-        imageProfile.layer.cornerRadius = imageProfile.frame.width / 2
-        imageProfile.clipsToBounds = false
+        guard let data = imageSelected else { return }
+        imageProfile.maskCircle(anyImage: data)
     }
     
     private func setupButton() {
         changePhotoButton.isEnabled = true
+    }
+    
+    private func getImage() {
+        let img = UserDefaultsManager.sharedInstance.getImage()
+        imageSelected = img
+        imageProfile.image = imageSelected
     }
 
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -39,6 +51,26 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func changePhotoButtonPressed(_ sender: Any) {
-        
+        changePhotoButtonAction()
     }
+    
+    func changePhotoButtonAction() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            print("Button capure")
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+}
+
+extension ProfileViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        UserDefaultsManager.sharedInstance.setImage(value: chosenImage)
+        imageProfile.maskCircle(anyImage: chosenImage)
+        dismiss(animated: true, completion: nil)
+    }
+    
 }

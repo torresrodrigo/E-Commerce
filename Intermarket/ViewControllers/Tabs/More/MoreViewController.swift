@@ -60,3 +60,4 @@ class MoreViewController: UIViewController {
         userDefaults.removeObject(forKey: UserDefaultsKeys.LoggedUser)
     }
 }
+
