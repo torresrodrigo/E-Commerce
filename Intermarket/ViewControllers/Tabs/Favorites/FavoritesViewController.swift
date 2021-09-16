@@ -18,16 +18,16 @@ class FavoritesViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        getFavorites()
+        
     }
-    
-    func getFavorites() {
-        guard let data = UserDefaultsManager.sharedInstance.getFavorites() else { return }
-        favorites = data
-        print(favorites.count)
-        favoritesLabel.text = "Cantidad de favoritos \(favorites.count)"
-    }
-     
+//
+//    func getFavorites() {
+//        guard let data = UserDefaultsManager.sharedInstance.getFavorites() else { return }
+//        favorites = data
+//        print(favorites.count)
+//        favoritesLabel.text = "Cantidad de favoritos \(favorites.count)"
+//    }
+//
     
     
 }
