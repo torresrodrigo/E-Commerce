@@ -43,8 +43,8 @@ class DetailViewController: UIViewController {
     var products: DetailProduct?
     var isFavorites: Bool?
     var productPriceValue: String?
-    var productFeaturesName = [String]()
-    var productFeaturesValue = [String]()
+    var productFeaturesName: [String]?
+    var productFeaturesValue:[String]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,19 +105,20 @@ class DetailViewController: UIViewController {
         for i in 0...8 {
             guard let dataValue = attributes[i].value else { return }
             let dataName = attributes[i].name
-            productFeaturesName.append(dataName)
-            productFeaturesValue.append(dataValue)
+            productFeaturesName?.append(dataName)
+            productFeaturesValue?.append(dataValue)
         }
     }
     
     private func setFeatures() {
-        firstFeature.text = "\(productFeaturesName[0]): \(productFeaturesValue[0])"
-        secondFeature.text = "\(productFeaturesName[1]): \(productFeaturesValue[1])"
-        thirdFeature.text = "\(productFeaturesName[2]): \(productFeaturesValue[2])"
-        fourthFeature.text = "\(productFeaturesName[3]): \(productFeaturesValue[3])"
-        fifthFeature.text = "\(productFeaturesName[4]): \(productFeaturesValue[4])"
-        sixthFeature.text = "\(productFeaturesName[5]): \(productFeaturesValue[5])"
-        seventhFeature.text = "\(productFeaturesName[6]): \(productFeaturesValue[6])"
+        guard let featuresName = productFeaturesName, let featuresValue = productFeaturesValue else { return }
+        firstFeature.text = "\(featuresName[0]): \(featuresValue[0])"
+        secondFeature.text = "\(featuresName[1]): \(featuresValue[1])"
+        thirdFeature.text = "\(featuresName[2]): \(featuresValue[2])"
+        fourthFeature.text = "\(featuresName[3]): \(featuresValue[3])"
+        fifthFeature.text = "\(featuresName[4]): \(featuresValue[4])"
+        sixthFeature.text = "\(featuresName[5]): \(featuresValue[5])"
+        seventhFeature.text = "\(featuresName[6]): \(featuresValue[6])"
     }
 
     @IBAction func favoritesButtonPressed(_ sender: Any) {
