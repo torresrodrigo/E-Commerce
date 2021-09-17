@@ -74,7 +74,7 @@ final class UserDefaultsManager {
     }
     
     func getImage() -> UIImage? {
-        var imageFinal: UIImage?
+         var imageFinal: UIImage?
         if let imageData = userDefaults.object(forKey: UserDefaultsKeys.ImgProfile) as? Data, let image = UIImage(data: imageData) {
             imageFinal = image
         }
