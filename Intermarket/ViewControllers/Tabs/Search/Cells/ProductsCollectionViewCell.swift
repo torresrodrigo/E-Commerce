@@ -12,6 +12,10 @@ protocol ProductCellDelegate {
     func onTouchFavorites(forValue value: Bool, forId id: String)
 }
 
+extension ProductCellDelegate {
+    func deleteFavorites(forId id: String){}
+}
+
 class ProductsCollectionViewCell: UICollectionViewCell {
 
     static let identifier = String(describing: ProductsCollectionViewCell.self)
@@ -55,6 +59,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         idCell = data.id
     }
     
+    //Shadow cell
     private func setupShadow() {
         self.layer.shadowColor = Colors.Shadow?.cgColor
         self.layer.shadowOpacity = 5

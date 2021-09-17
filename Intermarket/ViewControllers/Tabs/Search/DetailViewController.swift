@@ -43,8 +43,8 @@ class DetailViewController: UIViewController {
     var products: DetailProduct?
     var isFavorites: Bool?
     var productPriceValue: String?
-    var productFeaturesName: [String]?
-    var productFeaturesValue:[String]?
+    var productFeaturesName = [String]()
+    var productFeaturesValue = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,10 +85,7 @@ class DetailViewController: UIViewController {
         scrollView.bounces = false
     }
     
-    private func setupFeaturesProduct() {
-        setFeatures()
-    }
-    
+    //Set favorite icon value
     private func setFavorites(forValue value: Bool) {
         if value == true {
             favoritesButton.setImage(Icons.FavoriteAdded, for: .normal)
@@ -100,27 +97,47 @@ class DetailViewController: UIViewController {
         }
     }
     
+    //Set feaures of products - CHECK
+    private func setupFeaturesProduct() {
+        setFeatures()
+    }
+    
     func getFeatures(forProduct productData: DetailProduct?) {
         guard let attributes = products?.attributes else { return }
-        for i in 0...8 {
+        for i in 0...7 {
             guard let dataValue = attributes[i].value else { return }
             let dataName = attributes[i].name
-            productFeaturesName?.append(dataName)
-            productFeaturesValue?.append(dataValue)
+            productFeaturesName.append(dataName)
+            productFeaturesValue.append(dataValue)
         }
     }
     
+    //CHECK
     private func setFeatures() {
-        guard let featuresName = productFeaturesName, let featuresValue = productFeaturesValue else { return }
-        firstFeature.text = "\(featuresName[0]): \(featuresValue[0])"
-        secondFeature.text = "\(featuresName[1]): \(featuresValue[1])"
-        thirdFeature.text = "\(featuresName[2]): \(featuresValue[2])"
-        fourthFeature.text = "\(featuresName[3]): \(featuresValue[3])"
-        fifthFeature.text = "\(featuresName[4]): \(featuresValue[4])"
-        sixthFeature.text = "\(featuresName[5]): \(featuresValue[5])"
-        seventhFeature.text = "\(featuresName[6]): \(featuresValue[6])"
+        firstFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 0)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 0))"
+        secondFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 1)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 1))"
+        thirdFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 2)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 2))"
+        fourthFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 3)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 3))"
+        fifthFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 4)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 4))"
+        sixthFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 5)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 5))"
+        seventhFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 6)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 6))"
+    }
+    
+    func checkFeaturesIsEmpty(forFeaturesArray array: [String]?, forIndex index: Int) -> String {
+        guard let data = array else { return "Not features" }
+        let features = data
+        var text = String()
+        if features.isEmpty {
+            text = "Not features"
+        }
+        else {
+            text = "\(features[index])"
+        }
+        return text
+        
     }
 
+    //Button Action when favorites change value
     @IBAction func favoritesButtonPressed(_ sender: Any) {
         guard let value = productData?.isFavorite else { return }
         let changeValue = changeValue(forValue: value)
@@ -128,6 +145,7 @@ class DetailViewController: UIViewController {
         favoritesAction(forValue: changeValue, forId: productID)
     }
     
+    //Change value to favorite icon
     func changeValue(forValue value: Bool) -> Bool {
         let valueFinal: Bool
         if value == true {
@@ -167,6 +185,7 @@ class DetailViewController: UIViewController {
         self.perform(#selector(dissapearSnackBar),with: nil,afterDelay: 3)
     }
     
+    //Add products in to cart
     func addToCartAction() {
         products?.quantity = 1
         guard let data = products else { return }
@@ -175,9 +194,12 @@ class DetailViewController: UIViewController {
         UserDefaultsManager.sharedInstance.setProductInCart(value: data)
     }
     
+    
     @objc private func dissapearSnackBar() {
         snackBarView.isHidden = true
     }
+    
+    //Push to CartViewController
     @IBAction func goToCartPressed(_ sender: Any) {
         goToCartAction()
     }
@@ -191,6 +213,7 @@ class DetailViewController: UIViewController {
     }
 }
 
+//MARK: - API CALL
 extension DetailViewController {
     
     func getDetailProduct(forId id: String?) {
@@ -212,6 +235,7 @@ extension DetailViewController {
     
 }
 
+//MARK: - ImagesCollectionView
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func setupCollectionView() {

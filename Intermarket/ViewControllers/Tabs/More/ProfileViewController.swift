@@ -46,6 +46,7 @@ class ProfileViewController: UIViewController {
         imageProfile.image = imageSelected
     }
 
+    
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)
     }
@@ -64,8 +65,10 @@ class ProfileViewController: UIViewController {
     }
 }
 
+//MARK: - UIImagePickerControllerDelegate - UINavigationControllerDelegate
 extension ProfileViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
+    //Open a gallery photos
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         UserDefaultsManager.sharedInstance.setImage(value: chosenImage)

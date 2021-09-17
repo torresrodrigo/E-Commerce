@@ -51,6 +51,7 @@ class PurchaseViewController: UIViewController {
     
 }
 
+//MARK: - ProductsTableView
 extension PurchaseViewController: UITableViewDelegate, UITableViewDataSource {
     
     func setupTableView() {
