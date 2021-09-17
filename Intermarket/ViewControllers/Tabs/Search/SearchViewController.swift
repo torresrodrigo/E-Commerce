@@ -35,8 +35,6 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaultsManager.sharedInstance.remove(key: UserDefaultsKeys.Favorites)
-        UserDefaultsManager.sharedInstance.remove(key: UserDefaultsKeys.ProductInCart)
         setupUI()
         getValuesUserDefaults()
     }
