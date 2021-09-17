@@ -68,6 +68,7 @@ class ProductsTableViewCell: UITableViewCell {
         delegate?.updateCell(forId: id, forQuantity: quantity)
     }
     
+    //Action when add
     private func plusButtonAction() {
         if quantity < totalQuantity {
             quantity = quantity + 1
@@ -78,6 +79,7 @@ class ProductsTableViewCell: UITableViewCell {
         }
     }
     
+    //Action when minus
     private func minusButtonActionn() {
         if quantity > 1 {
             quantity = quantity - 1

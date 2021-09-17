@@ -41,6 +41,11 @@ class SearchViewController: UIViewController {
         getValuesUserDefaults()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        getValuesUserDefaults()
+        suggestionTableView.reloadData()
+    }
+    
     private func setupUI() {
         setupSearchBar()
         setupCollectionView()
@@ -63,6 +68,7 @@ class SearchViewController: UIViewController {
         }
     }
     
+    
     private func totalEmptyUI() {
         imgSearch.isHidden = true
         searchLabel.isHidden = true
@@ -71,6 +77,7 @@ class SearchViewController: UIViewController {
         productsCollectionViewCell.isHidden = true
     }
     
+    //Keyboard Actions
     func hideKeyboard() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         tapGesture.cancelsTouchesInView = false
@@ -81,6 +88,7 @@ class SearchViewController: UIViewController {
         searchBar.resignFirstResponder()
     }
     
+    //API call
     func getResultsSearch(forQuery query: String?) {
         guard let searchText = query else { return }
         NetworkService.shared.getProducts(query: searchText) { response in
@@ -98,6 +106,7 @@ class SearchViewController: UIViewController {
         }
     }
         
+    //Set all values false from API
     func setValuesOfFavorites(forProducts products: [Products]) -> [Products] {
         var productData = products
         if products.isEmpty == false {
@@ -132,6 +141,7 @@ extension SearchViewController: UISearchBarDelegate {
         return totalCharacters <= 50
     }
     
+    //Show empty state when begin typing
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         if searchBar.text?.count == 0 {
             setSearchUI(isEmptyText: true)
@@ -154,25 +164,7 @@ extension SearchViewController: UISearchBarDelegate {
         }
     }
     
-    private func suggestionAction() {
-        self.suggestionView.isHidden = false
-        self.totalEmptyUI()
-        getResultsSearch(forQuery: searchBar.text?.remplaceTextInQuery())
-    }
-    
-    //Perform search
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBarAction()
-    }
-    
-    func searchBarAction() {
-        searchBar.resignFirstResponder()
-        guard let searchText = searchBar.text?.remplaceTextInQuery() else { return }
-        getResultsSearch(forQuery: searchText)
-        setSearchUI(isEmptyText: false)
-        suggestionView.isHidden = true
-    }
-    
+    // Action to perform timer to show products in CollectionView
     func reloadData() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchReload), object: nil)
         self.perform(#selector(searchReload), with: nil, afterDelay: 4)
@@ -185,9 +177,31 @@ extension SearchViewController: UISearchBarDelegate {
         setSearchUI(isEmptyText: false)
     }
     
+    private func suggestionAction() {
+        self.suggestionView.isHidden = false
+        self.totalEmptyUI()
+        getResultsSearch(forQuery: searchBar.text?.remplaceTextInQuery())
+    }
+    
+    //Perform search
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBarAction()
+    }
+    
+    //SearchBar Touch Action
+    func searchBarAction() {
+        searchBar.resignFirstResponder()
+        guard let searchText = searchBar.text?.remplaceTextInQuery() else { return }
+        getResultsSearch(forQuery: searchText)
+        setSearchUI(isEmptyText: false)
+        suggestionView.isHidden = true
+    }
+    
 }
 
+//MARK: - SuggestionTableView
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+   
     func setupTableView() {
         suggestionTableView.register(SuggestionProductsTableViewCell.nib(), forCellReuseIdentifier: SuggestionProductsTableViewCell.identifier)
         suggestionTableView.dataSource = self
@@ -220,6 +234,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
+//MARK: - ProductsCollectionView
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func setupCollectionView() {
@@ -258,8 +273,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
 }
 
+//MARK: - ProductsDelegate
 extension SearchViewController: ProductCellDelegate {
     
+    //Action delegate
     func onTouchFavorites(forValue value: Bool, forId id: String) {
         favoritesButtonTouch(forValue: value, forId: id)
     }
@@ -269,6 +286,7 @@ extension SearchViewController: ProductCellDelegate {
         favorites.append(contentsOf: dataUserDefaults)
     }
     
+    //Action when touch Favorite icon
     func favoritesButtonTouch(forValue value: Bool, forId id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         var favoritesUserDefaults = dataFavorites
@@ -285,7 +303,7 @@ extension SearchViewController: ProductCellDelegate {
             else {
                 products[i].isFavorite = value
                 productsCollectionViewCell.reloadData()
-                let newFavorites = favorites.filter {$0.id != id}
+                let newFavorites = products.filter {$0.isFavorite == true && $0.id != id}
                 favorites = newFavorites
                 favoritesUserDefaults = newFavorites
                 UserDefaultsManager.sharedInstance.setFavorites(value: favoritesUserDefaults)
@@ -295,12 +313,15 @@ extension SearchViewController: ProductCellDelegate {
         
 }
 
-
+//MARK: - DetailViewControllerDelegate
 extension SearchViewController: DetailViewControllerDelegate {
+    
+    //Action delegate
     func updateFavorite(forId id: String, forValue value: Bool) {
         actionUpdateFavorites(forId: id, forValue: value)
     }
     
+    //Update from DetailViewController
     func actionUpdateFavorites(forId id: String, forValue value: Bool) {
         if let index = products.firstIndex(where: {$0.id == id }) {
             if value == true {
@@ -313,7 +334,6 @@ extension SearchViewController: DetailViewControllerDelegate {
             }
         }
     }
-    
 }
 
 

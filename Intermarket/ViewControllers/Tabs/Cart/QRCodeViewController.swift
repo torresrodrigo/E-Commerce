@@ -26,8 +26,10 @@ class QRCodeViewController: UIViewController {
     
 }
 
+//MARK: - AVCaptureMetadataOutputObjectsDelegate
 extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
     
+    //Initial configuation
     func setConfiguration() {
         guard let captureDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) else {
             print("Failed to get the camera device")
@@ -53,6 +55,7 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
         session.startRunning()
     }
     
+    //Permision to camera access
     func proceedWithCameraAccess(){
         AVCaptureDevice.requestAccess(for: .video) { success in
           if success {
@@ -69,6 +72,7 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
         }
       }
     
+    //Executed camera
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if metadataObjects.count == 0 {
             qrView.frame = CGRect.zero

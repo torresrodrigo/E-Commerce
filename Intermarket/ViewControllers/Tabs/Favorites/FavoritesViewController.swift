@@ -26,6 +26,7 @@ class FavoritesViewController: UIViewController {
         favoritesCollectionView.reloadData()
     }
     
+    //Validation to check if has products
     private func checkEmptyCart() {
         if favorites.count > 0 {
             setupUI(isEmpty: false)
@@ -36,26 +37,20 @@ class FavoritesViewController: UIViewController {
     }
     
     func setupUI(isEmpty value: Bool) {
-        if value {
-            favoritesCollectionView.isHidden = true
-            favoritesLabel.isHidden = false
-            favoritesEmpty.isHidden = false
-        }
-        else {
-            favoritesCollectionView.isHidden = false
-            favoritesLabel.isHidden = true
-            favoritesEmpty.isHidden = true
-        }
+        favoritesCollectionView.isHidden = value ? true : false
+        favoritesLabel.isHidden = value ? false : true
+        favoritesEmpty.isHidden = value ? false : true
     }
     
+    //Get data from UserDefaults
     func getFavorites() {
         guard let data = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         favorites = data
-        print(favorites.count)
     }
 
 }
 
+//MARK: - FavoritesCollectionView
 extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func setupTableView() {
@@ -71,6 +66,7 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = favoritesCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsCollectionViewCell.identifier, for: indexPath) as! ProductsCollectionViewCell
         cell.setupCell(data: favorites[indexPath.row])
+        cell.cellDelegate = self
         return cell
     }
     
@@ -91,23 +87,49 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     
 }
 
+//MARK: - ProductCellDelegate
+extension FavoritesViewController: ProductCellDelegate {
+    
+    func onTouchFavorites(forValue value: Bool, forId id: String) {
+        if let i = favorites.firstIndex(where: {$0.id == id}) {
+            if value == false {
+                favorites[i].isFavorite = value
+                updateCollectionView()
+                checkEmptyCart()
+            }
+        }
+    }
+}
+
+//MARK: - DetailViewControllerDelegate
 extension FavoritesViewController: DetailViewControllerDelegate {
+    
+    //Action Delegate
     func updateFavorite(forId id: String, forValue value: Bool) {
         actionUpdateFavorites(forId: id, forValue: value)
     }
+    
     
     func actionUpdateFavorites(forId id: String, forValue value: Bool) {
         if let index = favorites.firstIndex(where: {$0.id == id }) {
             if value == true {
                 favorites[index].isFavorite = value
-                favoritesCollectionView.reloadData()
+                updateCollectionView()
             }
             else {
                 favorites[index].isFavorite = value
-                favoritesCollectionView.reloadData()
+                updateCollectionView()
             }
         }
     }
+    
+    func updateCollectionView() {
+        let newFavorites = favorites.filter({$0.isFavorite == true})
+        favorites = newFavorites
+        UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
+        favoritesCollectionView.reloadData()
+    }
+    
 }
 
 

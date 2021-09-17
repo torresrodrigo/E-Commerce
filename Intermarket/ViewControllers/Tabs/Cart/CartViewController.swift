@@ -48,6 +48,7 @@ class CartViewController: UIViewController {
         productsTableView.reloadData()
     }
     
+    //Validation for products
     private func checkEmptyCart() {
         if products.count > 0 {
             addedProductUI()
@@ -101,6 +102,7 @@ class CartViewController: UIViewController {
         products = data
     }
     
+    //Validation for type of Controller to show back button
     func checkTypeController() {
         if isNavigationController == true {
             backButton.isHidden = false
@@ -150,6 +152,7 @@ class CartViewController: UIViewController {
     
 }
 
+//MARK: - ProductsTableView
 extension CartViewController: UITableViewDelegate, UITableViewDataSource {
     
     private func setupTableView() {
@@ -182,8 +185,10 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+//MARK: - ProductsTableViewDelegate
 extension CartViewController: ProductsTableViewCellDelegate {
     
+    //Action Delegate
     func updateCell(forId id: String, forQuantity newQuantity: Int) {
         changeQuantity(forId: id, forQuantity: newQuantity)
         productsTableView.reloadData()
@@ -205,6 +210,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         }
     }
     
+    //Action Delegate
     func deleteProduct(forId id: String) {
         if let i = products.firstIndex(where: {$0.id == id}) {
             deleteProductAction(forIndex: i)
@@ -237,6 +243,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         }
     }
     
+    //SnackBar Actions
     func snackBarUI() {
         snackBarView.isHidden = false
     }
@@ -245,6 +252,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         snackBarView.isHidden = true
     }
     
+    //Action for price
     func setTotalPrice() {
         var prices = [Double]()
         if products.count > 0 {
@@ -258,6 +266,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         priceLabel.text = totalPrice.currency()
     }
     
+    //Action for quantity
     func setTotalQuantityProducts() {
         var quantityProducts = [Int]()
         if products.count > 0 {
