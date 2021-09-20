@@ -24,18 +24,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var snackBarView: UIView!
     @IBOutlet weak var favoritesButton: UIButton!
     @IBOutlet weak var addToCartButton: UIButton!
-    
-    //Outlets Caracteristicas
-    @IBOutlet weak var firstFeature: UILabel!
-    @IBOutlet weak var secondFeature: UILabel!
-    @IBOutlet weak var thirdFeature: UILabel!
-    @IBOutlet weak var fourthFeature: UILabel!
-    @IBOutlet weak var fifthFeature: UILabel!
-    
-    //Outlets InfoAdicional
-    @IBOutlet weak var sixthFeature: UILabel!
-    @IBOutlet weak var seventhFeature: UILabel!
-    
+    @IBOutlet weak var featuresTableView: UITableView!
+
+    //Propierties
     static let identifier = String(describing: DetailViewController.self)
     var delegate: DetailViewControllerDelegate?
     var productID = String()
@@ -43,8 +34,8 @@ class DetailViewController: UIViewController {
     var products: DetailProduct?
     var isFavorites: Bool?
     var productPriceValue: String?
-    var productFeaturesName = [String]()
-    var productFeaturesValue = [String]()
+    var productFeaturesName = [[String]]()
+    var productFeaturesValue = [[String]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +53,7 @@ class DetailViewController: UIViewController {
         setupDataProduct(forProduct: data)
         setupFeaturesProduct()
         setFavorites(forValue: value)
+        setupTableView()
         setupCollectionView()
     }
     
@@ -85,6 +77,10 @@ class DetailViewController: UIViewController {
         scrollView.bounces = false
     }
     
+    func getFeatures(forData data: DetailProduct) {
+        
+    }
+    
     //Set favorite icon value
     private func setFavorites(forValue value: Bool) {
         if value == true {
@@ -99,41 +95,6 @@ class DetailViewController: UIViewController {
     
     //Set feaures of products - CHECK
     private func setupFeaturesProduct() {
-        setFeatures()
-    }
-    
-    func getFeatures(forProduct productData: DetailProduct?) {
-        guard let attributes = products?.attributes else { return }
-        for i in 0...7 {
-            guard let dataValue = attributes[i].value else { return }
-            let dataName = attributes[i].name
-            productFeaturesName.append(dataName)
-            productFeaturesValue.append(dataValue)
-        }
-    }
-    
-    //CHECK
-    private func setFeatures() {
-        firstFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 0)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 0))"
-        secondFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 1)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 1))"
-        thirdFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 2)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 2))"
-        fourthFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 3)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 3))"
-        fifthFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 4)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 4))"
-        sixthFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 5)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 5))"
-        seventhFeature.text = "\(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesName, forIndex: 6)): \(checkFeaturesIsEmpty(forFeaturesArray: productFeaturesValue, forIndex: 6))"
-    }
-    
-    func checkFeaturesIsEmpty(forFeaturesArray array: [String]?, forIndex index: Int) -> String {
-        guard let data = array else { return "Not features" }
-        let features = data
-        var text = String()
-        if features.isEmpty {
-            text = "Not features"
-        }
-        else {
-            text = "\(features[index])"
-        }
-        return text
         
     }
 
@@ -222,10 +183,10 @@ extension DetailViewController {
             switch response {
             case .success(let response):
                 self.products = response
-                self.getFeatures(forProduct: self.products)
                 DispatchQueue.main.async {
                     guard let data = self.products else { return }
                     self.setupUI(forProduct: data)
+                    self.featuresTableView.reloadData()
                 }
             case .failure(let error):
                 print("Something is wrong. Error \(error.localizedDescription)")
@@ -234,6 +195,86 @@ extension DetailViewController {
     }
     
 }
+
+
+extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func setupTableView() {
+        featuresTableView.register(FeaturesTableViewCell.nib(), forCellReuseIdentifier: FeaturesTableViewCell.identifier)
+        featuresTableView.dataSource = self
+        featuresTableView.delegate = self
+        featuresTableView.isScrollEnabled = false
+        featuresTableView.sectionIndexColor = UIColor.white
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        let section = setSections()
+        return section
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        setNameSections(sectionsCount: section)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = setRowForSection(forSections: section)
+        return count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = featuresTableView.dequeueReusableCell(withIdentifier: FeaturesTableViewCell.identifier, for: indexPath) as! FeaturesTableViewCell
+        cell = setCell(forSection: indexPath.section, forIndex: indexPath.row, forCell: cell)
+        return cell
+    }
+    
+    private func setCell(forSection section: Int, forIndex indexPath: Int, forCell cell: FeaturesTableViewCell) -> FeaturesTableViewCell {
+        if let attributes = products?.attributes {
+            if section == 0 {
+                cell.setupCell(forFeatureName: attributes[indexPath].name, forFeatureValue: attributes[indexPath].value)
+            } else {
+                cell.setupCell(forFeatureName: attributes[indexPath + 5].name, forFeatureValue: attributes[indexPath + 5].value)
+            }
+        }
+        return cell
+    }
+    
+    func setSections() -> Int {
+        var count: Int
+        guard let attributes = products?.attributes?.count else { return 0 }
+        if attributes > 5 {
+            count = 2
+        } else {
+            count = 1
+        }
+        return count
+    }
+    
+    func setNameSections(sectionsCount value: Int) -> String {
+        if value == 0 {
+            return "Caracteristicas"
+        } else {
+            return "Info adicional"
+        }
+    }
+    
+    func setRowForSection(forSections value: Int) -> Int {
+        guard let attributes = products?.attributes?.count else { return 0 }
+        if value == 0 {
+            if attributes > 5 {
+                return 5
+            } else {
+                return attributes
+            }
+        } else {
+            if attributes > 7 {
+                return 2
+            } else {
+                return 1
+            }
+        }
+    }
+}
+
 
 //MARK: - ImagesCollectionView
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
