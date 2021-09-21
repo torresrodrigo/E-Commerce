@@ -48,6 +48,10 @@ class OnboardingViewController: UIViewController {
 
     
     @IBAction func touchStartButton(_ sender: Any) {
+        touchStartButtonAction()
+    }
+    
+    func touchStartButtonAction() {
         if currentPage == slices.count - 1 {
             presentLogin(forLogin: LoginViewController())
         } else {
@@ -123,4 +127,5 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
         customPageControl.currentPage = currentPage
         changeTextButton(forIndex: currentPage)
     }
+    
 }

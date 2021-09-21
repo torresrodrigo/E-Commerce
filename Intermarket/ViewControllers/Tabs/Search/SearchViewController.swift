@@ -51,19 +51,11 @@ class SearchViewController: UIViewController {
     }
     
     private func setSearchUI(isEmptyText value: Bool) {
-        if value == false {
-            imgSearch.isHidden = true
-            searchLabel.isHidden = true
-            getSearchTitle.isHidden = false
-            getSearchSubtitle.isHidden = false
-            productsCollectionViewCell.isHidden = false
-        } else {
-            imgSearch.isHidden = false
-            searchLabel.isHidden = false
-            getSearchTitle.isHidden = true
-            getSearchSubtitle.isHidden = true
-            productsCollectionViewCell.isHidden = true
-        }
+        imgSearch.isHidden = value ? false : true
+        searchLabel.isHidden = value ? false : true
+        getSearchTitle.isHidden = value ? true : false
+        getSearchSubtitle.isHidden = value ? true : false
+        productsCollectionViewCell.isHidden = value ? true : false
     }
     
     
@@ -141,6 +133,10 @@ extension SearchViewController: UISearchBarDelegate {
     
     //Show empty state when begin typing
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        textDidBeginAction(forSearchBar: searchBar)
+    }
+    
+    func textDidBeginAction(forSearchBar searchBar: UISearchBar) {
         if searchBar.text?.count == 0 {
             setSearchUI(isEmptyText: true)
             suggestionView.isHidden = true
@@ -150,6 +146,10 @@ extension SearchViewController: UISearchBarDelegate {
     
     //Acelerated Search
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        aceleratedSearchAction(forSearchBar: searchBar)
+    }
+    
+    func aceleratedSearchAction(forSearchBar searchBar: UISearchBar ) {
         guard let count = searchBar.text?.count else { return }
         if count > 2 {
             suggestionAction()
@@ -276,7 +276,7 @@ extension SearchViewController: ProductCellDelegate {
     
     //Action delegate
     func onTouchFavorites(forValue value: Bool, forId id: String) {
-        favoritesButtonTouch(forValue: value, forId: id)
+        favoritesButtonAction(forValue: value, forId: id)
     }
     
     func getValuesUserDefaults() {
@@ -285,28 +285,40 @@ extension SearchViewController: ProductCellDelegate {
     }
     
     //Action when touch Favorite icon
-    func favoritesButtonTouch(forValue value: Bool, forId id: String) {
+    func favoritesButtonAction(forValue value: Bool, forId id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
-        var favoritesUserDefaults = dataFavorites
-        if let i = products.firstIndex(where: {$0.id == id})  {
+        changeValueFavorites(forValueFavorites: value, forId: id, forProductsData: products, forFavoritesUserDefaults: dataFavorites)
+    }
+    
+    func changeValueFavorites(forValueFavorites value: Bool, forId id: String, forProductsData products: [Products], forFavoritesUserDefaults favoritesUserDefaults: [Products]) {
+        if let i = products.firstIndex(where: {$0.id == id}) {
             if value == true {
-                if favoritesUserDefaults.isEmpty || favoritesUserDefaults.contains(where: {$0.id != id }) {
-                    products[i].isFavorite = value
-                    productsCollectionViewCell.reloadData()
-                    favorites.append(products[i])
-                    favoritesUserDefaults.append(products[i])
-                    UserDefaultsManager.sharedInstance.setFavorites(value: favoritesUserDefaults)
+                if favoritesUserDefaults.isEmpty || favoritesUserDefaults.contains(where: {$0.id != id}) {
+                    addFavorite(forIndex: i, forNewValue: value, favoritesUserDefaults: favoritesUserDefaults)
                 }
-            }
-            else {
-                products[i].isFavorite = value
-                productsCollectionViewCell.reloadData()
-                let newFavorites = products.filter {$0.isFavorite == true && $0.id != id}
-                favorites = newFavorites
-                favoritesUserDefaults = newFavorites
-                UserDefaultsManager.sharedInstance.setFavorites(value: favoritesUserDefaults)
+            } else {
+                removeFavorites(forIndex: i, forNewValue: value, favoritesUserDefaults: favoritesUserDefaults, forId: id)
             }
         }
+    }
+    
+    func addFavorite(forIndex index: Int, forNewValue value: Bool, favoritesUserDefaults: [Products]) {
+        var newFavoritesUserDefaults = favoritesUserDefaults
+        products[index].isFavorite = value
+        productsCollectionViewCell.reloadData()
+        favorites.append(products[index])
+        newFavoritesUserDefaults.append(products[index])
+        UserDefaultsManager.sharedInstance.setFavorites(value: newFavoritesUserDefaults)
+    }
+    
+    func removeFavorites(forIndex index: Int, forNewValue value: Bool, favoritesUserDefaults: [Products], forId id: String) {
+        var newFavoritesUserDefaults = favoritesUserDefaults
+        products[index].isFavorite = value
+        productsCollectionViewCell.reloadData()
+        let newFavorites = products.filter {$0.isFavorite == true && $0.id != id}
+        favorites = newFavorites
+        newFavoritesUserDefaults = newFavorites
+        UserDefaultsManager.sharedInstance.setFavorites(value: newFavoritesUserDefaults)
     }
         
 }

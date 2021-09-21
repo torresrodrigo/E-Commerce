@@ -27,6 +27,10 @@ class PurchaseViewController: UIViewController {
 
     //Actions
     @IBAction func backButton(_ sender: Any) {
+        backButtonAction()
+    }
+    
+    private func backButtonAction() {
         if isNavigationController == false {
             self.navigationController?.popToRootViewController(animated: true)
         } else {
@@ -34,20 +38,29 @@ class PurchaseViewController: UIViewController {
         }
     }
     
-    func setupUI() {
+    private func setupUI() {
         productsTotalPrice.text = "Pagás \(totalPrice.currency())"
         productsQuantity.text = "\(productsQuantityTotal) productos"
         setupTableView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        prepareAction(forSegue: segue)
+    }
+    
+    func prepareAction(forSegue segue: UIStoryboardSegue) {
         if segue.identifier == "goToConfirmation" {
-            let vc = segue.destination as? ConfirmationViewController
-            vc?.modalPresentationStyle = .fullScreen
-            vc?.isNavigationController = isNavigationController
-            UserDefaultsManager.sharedInstance.remove(key: UserDefaultsKeys.ProductInCart)
+            goToConfirmationVC(forSegue: segue)
         }
     }
+    
+    func goToConfirmationVC(forSegue segue: UIStoryboardSegue) {
+        let vc = segue.destination as? ConfirmationViewController
+        vc?.modalPresentationStyle = .fullScreen
+        vc?.isNavigationController = isNavigationController
+        UserDefaultsManager.sharedInstance.remove(key: UserDefaultsKeys.ProductInCart)
+    }
+
     
 }
 

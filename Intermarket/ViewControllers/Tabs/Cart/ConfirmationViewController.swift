@@ -38,6 +38,10 @@ class ConfirmationViewController: UIViewController {
     }
     
     @objc private func changeControllerAction() {
+        setViewController()
+    }
+    
+    func setViewController() {
         if isNavigationController == true {
             changeToCartView()
         } else {

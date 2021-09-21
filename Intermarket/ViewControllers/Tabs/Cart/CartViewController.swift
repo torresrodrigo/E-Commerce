@@ -50,40 +50,45 @@ class CartViewController: UIViewController {
     
     //Validation for products
     private func checkEmptyCart() {
-        if products.count > 0 {
+        checkEmptyCartAction(forCount: products.count)
+    }
+    
+    func checkEmptyCartAction(forCount count: Int) {
+        if count > 0 {
             addedProductUI()
-            setupTableView()
-        } else {
-            showEmptyState()
+            setupButtonUI(isEnabled: true)
         }
-        
+        else {
+            setupUI(hasProduct: false)
+            setupButtonUI(isEnabled: false)
+        }
+    }
+    
+    func setupUI(hasProduct value: Bool) {
+        titleLabel.isHidden = value ? true : false
+        imgSearch.isHidden = value ? true : false
+        stackView.isHidden = value ? false : true
+        productsTableView.isHidden = value ? false : true
+        totalView.isHidden = value ? false : true
+        buttonQR.isHidden = value ? false : true
     }
     
     private func addedProductUI() {
-        self.hideEmptyState()
-        self.showButton()
+        self.setupUI(hasProduct: true)
+        self.setupTableView()
+        self.enabledButton()
+    }
+
+    func setupButtonUI(isEnabled value: Bool) {
+        if value {
+            enabledButton()
+        }
+        else {
+            disabledButton()
+        }
     }
     
-    private func hideEmptyState() {
-        titleLabel.isHidden = true
-        imgSearch.isHidden = true
-        stackView.isHidden = false
-        productsTableView.isHidden = false
-        totalView.isHidden = false
-        buttonQR.isHidden = false
-    }
-    
-    private func showEmptyState() {
-        titleLabel.isHidden = false
-        imgSearch.isHidden = false
-        stackView.isHidden = true
-        productsTableView.isHidden = true
-        totalView.isHidden = true
-        buttonQR.isHidden = true
-        buttonUI()
-    }
-    
-    private func showButton() {
+    private func enabledButton() {
         button.borderHeight = 0
         button.isHidden = false
         button.backgroundColor = Colors.Primary
@@ -91,7 +96,7 @@ class CartViewController: UIViewController {
         button.isEnabled = true
     }
 
-    private func buttonUI() {
+    private func disabledButton() {
         button.layer.borderColor = Colors.Secondary?.cgColor
         button.backgroundColor = .white
         button.isEnabled = false
@@ -121,33 +126,43 @@ class CartViewController: UIViewController {
     
     func undoButtonAction(forProduct product: DetailProduct, useButtonAction: Bool) {
         if useButtonAction {
-            products.append(product)
-            UserDefaultsManager.sharedInstance.setProductInCart(value: product)
-            checkEmptyCart()
-            productsTableView.reloadData()
-            snackBarView.isHidden = true
-        } else {
-            products.append(product)
-            UserDefaultsManager.sharedInstance.setProductInCart(value: product)
-            checkEmptyCart()
-            productsTableView.reloadData()
-            snackBarView.isHidden = true
+            reAddProduct(forProduct: product)
         }
         setTotalPrice()
     }
     
+    func reAddProduct(forProduct product: DetailProduct) {
+        products.append(product)
+        UserDefaultsManager.sharedInstance.setProductInCart(value: product)
+        checkEmptyCart()
+        productsTableView.reloadData()
+        snackBarView.isHidden = true
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        prepareAction(forSegue: segue)
+    }
+    
+    private func prepareAction(forSegue segue: UIStoryboardSegue) {
         if segue.identifier == "goToPurchase" {
-            let vc = segue.destination as? PurchaseViewController
-            vc?.modalPresentationStyle = .fullScreen
-            vc?.isNavigationController = isNavigationController
-            vc?.totalPrice = totalPrice
-            vc?.productsQuantityTotal = totalQuantityProducts
-            vc?.productsPurchase = products
+            goToPurchaseVC(forSegue: segue)
         } else if segue.identifier == "goToQrCode" {
-            let vc = segue.destination as? QRCodeViewController
-            vc?.modalPresentationStyle = .fullScreen
+            goToQrCodeVC(forSegue: segue)
         }
+    }
+    
+    private func goToPurchaseVC(forSegue segue: UIStoryboardSegue) {
+        let vc = segue.destination as? PurchaseViewController
+        vc?.modalPresentationStyle = .fullScreen
+        vc?.isNavigationController = isNavigationController
+        vc?.totalPrice = totalPrice
+        vc?.productsQuantityTotal = totalQuantityProducts
+        vc?.productsPurchase = products
+    }
+    
+    private func goToQrCodeVC(forSegue segue: UIStoryboardSegue) {
+        let vc = segue.destination as? QRCodeViewController
+        vc?.modalPresentationStyle = .fullScreen
     }
     
 }
