@@ -34,8 +34,6 @@ class DetailViewController: UIViewController {
     var products: DetailProduct?
     var isFavorites: Bool?
     var productPriceValue: String?
-    var productFeaturesName = [[String]]()
-    var productFeaturesValue = [[String]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +49,6 @@ class DetailViewController: UIViewController {
         guard let value = productData?.isFavorite else { return }
         setupScrollView()
         setupDataProduct(forProduct: data)
-        setupFeaturesProduct()
         setFavorites(forValue: value)
         setupTableView()
         setupCollectionView()
@@ -93,17 +90,17 @@ class DetailViewController: UIViewController {
         }
     }
     
-    //Set feaures of products - CHECK
-    private func setupFeaturesProduct() {
-        
-    }
 
     //Button Action when favorites change value
     @IBAction func favoritesButtonPressed(_ sender: Any) {
         guard let value = productData?.isFavorite else { return }
-        let changeValue = changeValue(forValue: value)
-        isFavorites = changeValue
-        favoritesAction(forValue: changeValue, forId: productID)
+        favoritesButtonAction(forValueFavorite: value)
+    }
+    
+    func favoritesButtonAction(forValueFavorite value: Bool) {
+        let finalValue = changeValue(forValue: value)
+        isFavorites = finalValue
+        setFavorites(forValue: finalValue, forId: productID)
     }
     
     //Change value to favorite icon
@@ -118,7 +115,7 @@ class DetailViewController: UIViewController {
         return valueFinal
     }
     
-    func favoritesAction(forValue value: Bool, forId id: String) {
+    func setFavorites(forValue value: Bool, forId id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         var favorites = dataFavorites
         guard let value  = isFavorites else { return }

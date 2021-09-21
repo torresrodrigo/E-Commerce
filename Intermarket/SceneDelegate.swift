@@ -20,29 +20,39 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        
+        loginCheck(forWindowScene: windowScene, forWindow: window)
+    }
+    
+    func loginCheck(forWindowScene windowScene: UIWindowScene, forWindow window: UIWindow) {
         let isLogged = getUserDefaultsLoggedUser()
-        let onBoardingCheck = getUserDefaultsOnboardingCheck()
-        
-        switch (onBoardingCheck, isLogged) {
-        case (onBoardingCheck == nil, isLogged == nil) :
+        let onBoardbingCheck = getUserDefaultsOnboardingCheck()
+        loginCheckAction(forLogin: isLogged, forOnboarding: onBoardbingCheck, forWindowSecene: windowScene, forWindow: window)
+    }
+    
+    func loginCheckAction(forLogin valueLogin: Bool?, forOnboarding valueOnboarding: Bool?, forWindowSecene windowScene: UIWindowScene, forWindow window: UIWindow) {
+        switch (valueLogin, valueOnboarding) {
+        case (valueOnboarding == nil, valueLogin == nil):
             setupViewController(forController: OnboardingViewController(), forWindowScene: windowScene, forWindow: window)
-        case (onBoardingCheck == true, isLogged == nil):
+        case (valueOnboarding == true, valueLogin == nil):
             setupViewController(forController: LoginViewController(), forWindowScene: windowScene, forWindow: window)
-        case (onBoardingCheck == true, isLogged == true):
-            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-            setupViewController(forController: destinationVC, forWindowScene: windowScene, forWindow: window)
+        case (valueOnboarding == true, valueLogin == true):
+            goToTabBar(forWindowScene: windowScene, forWindow: window)
         default:
             break
         }
-        
     }
+    
     
     func setupViewController(forController controller: UIViewController, forWindowScene windowScene: UIWindowScene, forWindow window: UIWindow ) {
         window.rootViewController = controller
         window.makeKeyAndVisible()
         self.window = window
+    }
+    
+    func goToTabBar(forWindowScene windowScene: UIWindowScene, forWindow window: UIWindow) {
+        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+        setupViewController(forController: destinationVC, forWindowScene: windowScene, forWindow: window)
     }
     
     func getUserDefaultsLoggedUser() -> Bool? {
