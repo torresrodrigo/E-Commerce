@@ -10,7 +10,7 @@ import UIKit
 class MainTabViewController: UITabBarController {
 
     let titleNav = "Inter Market"
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBottomNavBar()
@@ -24,4 +24,6 @@ class MainTabViewController: UITabBarController {
     }
     
 }
+
+
 
