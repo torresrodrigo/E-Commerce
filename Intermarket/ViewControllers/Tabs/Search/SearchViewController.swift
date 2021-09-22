@@ -59,7 +59,6 @@ class SearchViewController: UIViewController {
         productsCollectionViewCell.isHidden = value ? true : false
     }
     
-    
     private func totalEmptyUI() {
         imgSearch.isHidden = true
         searchLabel.isHidden = true
@@ -89,6 +88,7 @@ class SearchViewController: UIViewController {
                 self.suggestions = response.results
                 DispatchQueue.main.async {
                     self.suggestionTableView.reloadData()
+                    self.checkFavoritesUserDefaults()
                     self.productsCollectionViewCell.reloadData()
                 }
             case .failure(let error):
@@ -109,6 +109,16 @@ class SearchViewController: UIViewController {
         return productData
     }
     
+    func checkFavoritesUserDefaults() {
+        guard let userDefaultsData = UserDefaultsManager.sharedInstance.getFavorites() else { return }
+        let favoritesUserDefaults = userDefaultsData
+        
+        favoritesUserDefaults.forEach({ data in
+            if let index = products.firstIndex(where: {$0.id == data.id} ) {
+                products[index].isFavorite = true
+            }
+        })
+    }
 }
 
 //MARK: -Search Bar
@@ -306,6 +316,7 @@ extension SearchViewController: ProductCellDelegate {
         var newFavoritesUserDefaults = favoritesUserDefaults
         products[index].isFavorite = value
         favorites.append(products[index])
+        productsCollectionViewCell.reloadData()
         newFavoritesUserDefaults.append(products[index])
         UserDefaultsManager.sharedInstance.setFavorites(value: newFavoritesUserDefaults)
     }
@@ -313,6 +324,7 @@ extension SearchViewController: ProductCellDelegate {
     func removeFavorites(forIndex index: Int, forNewValue value: Bool, favoritesUserDefaults: [Products], forId id: String) {
         var newFavoritesUserDefaults = favoritesUserDefaults
         products[index].isFavorite = value
+        productsCollectionViewCell.reloadData()
         let newFavorites = products.filter {$0.isFavorite == true && $0.id != id}
         favorites = newFavorites
         newFavoritesUserDefaults = newFavorites
@@ -334,10 +346,12 @@ extension SearchViewController: DetailViewControllerDelegate {
     func actionUpdateFavorites(forId id: String, forValue value: Bool, ForUserDefaults userDefaults: [Products] ) {
         if let index = products.firstIndex(where: {$0.id == id }) {
             if value == true {
-                addFavorite(forIndex: index, forNewValue: value, favoritesUserDefaults: userDefaults)
+                products[index].isFavorite = value
+                productsCollectionViewCell.reloadData()
             }
             else {
-                removeFavorites(forIndex: index, forNewValue: value, favoritesUserDefaults: userDefaults, forId: id)
+                products[index].isFavorite = value
+                productsCollectionViewCell.reloadData()
             }
         }
     }
@@ -360,7 +374,6 @@ extension SearchViewController {
         }
     }
     
-
     func setFalseFavorites(forId id: String) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             products[index].isFavorite = false
