@@ -40,6 +40,8 @@ class DetailViewController: UIViewController {
         getDataFromSearchViewController(forData: productData)
         getDetailProduct(forId: productData?.id)
     }
+    
+    
 
     @IBAction func backButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -49,7 +51,7 @@ class DetailViewController: UIViewController {
         guard let value = productData?.isFavorite else { return }
         setupScrollView()
         setupDataProduct(forProduct: data)
-        setFavorites(forValue: value)
+        setFavoritesIcon(forValue: value)
         setupTableView()
         setupCollectionView()
     }
@@ -79,7 +81,7 @@ class DetailViewController: UIViewController {
     }
     
     //Set favorite icon value
-    private func setFavorites(forValue value: Bool) {
+    private func setFavoritesIcon(forValue value: Bool) {
         if value == true {
             favoritesButton.setImage(Icons.FavoriteAdded, for: .normal)
             productData?.isFavorite = value
@@ -121,9 +123,9 @@ class DetailViewController: UIViewController {
         guard let value  = isFavorites else { return }
         if value == true {
             if favorites.isEmpty == true || favorites.contains(where: {$0.id != id}) {
+                setFavoritesIcon(forValue: value)
                 guard let data = productData else { return }
                 favorites.append(data)
-                setFavorites(forValue: value)
                 UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
                 delegate?.updateFavorite(forId: data.id, forValue: value)
             }
@@ -131,7 +133,7 @@ class DetailViewController: UIViewController {
         else {
             guard let data = productData else { return }
             let newFavorites = favorites.filter {$0.id != id}
-            setFavorites(forValue: value)
+            setFavoritesIcon(forValue: value)
             favorites = newFavorites
             UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
             delegate?.updateFavorite(forId: data.id, forValue: value)

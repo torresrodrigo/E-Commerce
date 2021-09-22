@@ -203,14 +203,14 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 extension CartViewController: ProductsTableViewCellDelegate {
     
     //Action Delegate
-    func updateCell(forId id: String, forQuantity newQuantity: Int) {
-        changeQuantity(forId: id, forQuantity: newQuantity)
+    func updateCell(forId id: String, forQuantity newQuantity: Int, forTotalQuantity totalQuantity: Int) {
+        changeQuantity(forId: id, forQuantity: newQuantity, maxQuantity: totalQuantity)
         productsTableView.reloadData()
         setTotalPrice()
         setTotalQuantityProducts()
     }
     
-    func changeQuantity(forId id: String, forQuantity valueQuantity: Int) {
+    func changeQuantity(forId id: String, forQuantity valueQuantity: Int, maxQuantity: Int) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             if valueQuantity == 0 {
                 products[index].quantity = 1
@@ -218,10 +218,25 @@ extension CartViewController: ProductsTableViewCellDelegate {
                 checkEmptyCart()
                 snackBarUI()
                 self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 4)
-            } else {
+            }
+            else if valueQuantity == maxQuantity {
+                showAlert()
+            }
+            else {
                 products[index].quantity = valueQuantity
             }
         }
+    }
+    
+//    func saveProductQuantity(forProduct productData: DetailProduct, forQuantity quantity: Int) {
+//        UserDefaultsManager.sharedInstance.setProductsInCart(forValue: <#T##[DetailProduct]#>)
+//    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "No hay mas articulos disponiles", message: "Esta es la cantidad maxima de articulos", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Continuar", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
     //Action Delegate

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ProductsTableViewCellDelegate {
-    func updateCell(forId id: String, forQuantity newQuantity: Int)
+    func updateCell(forId id: String, forQuantity newQuantity: Int, forTotalQuantity maxQuantity: Int)
     func deleteProduct(forId id: String)
 }
 
@@ -60,12 +60,12 @@ class ProductsTableViewCell: UITableViewCell {
     
     @IBAction func plusButtonPressed(_ sender: Any) {
         plusButtonAction()
-        delegate?.updateCell(forId: id, forQuantity : quantity)
+        delegate?.updateCell(forId: id, forQuantity: quantity, forTotalQuantity: totalQuantity)
     }
     
     @IBAction func minusButtonPressed(_ sender: Any) {
         minusButtonActionn()
-        delegate?.updateCell(forId: id, forQuantity: quantity)
+        delegate?.updateCell(forId: id, forQuantity: quantity, forTotalQuantity: totalQuantity)
     }
     
     //Action when add
@@ -76,6 +76,7 @@ class ProductsTableViewCell: UITableViewCell {
         } else {
             quantity = totalQuantity
             productQuantity.text = "\(quantity)"
+            print("Max quantity")
         }
     }
     
@@ -89,6 +90,7 @@ class ProductsTableViewCell: UITableViewCell {
             productQuantity.text = "\(quantity)"
         }
     }
+    
     
 }
 
