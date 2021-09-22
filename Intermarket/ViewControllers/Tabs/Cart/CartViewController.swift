@@ -26,7 +26,6 @@ class CartViewController: UIViewController {
     @IBOutlet weak var snackBarView: UIView!
     
     var isNavigationController = false
-    
     var totalPrice = 0.0
     var arrayPrices = [Double]()
     var products = [DetailProduct]()

@@ -19,7 +19,7 @@
                         <segue destination="qfc-RE-mhS" kind="relationship" relationship="viewControllers" id="84W-3U-3aJ"/>
                         <segue destination="cEQ-Oe-Qiy" kind="relationship" relationship="viewControllers" id="Y9V-1B-EJi"/>
                         <segue destination="LPH-Us-0gc" kind="relationship" relationship="viewControllers" id="aSg-Gn-EMg"/>
-                        <segue destination="8XF-X6-LGL" kind="relationship" relationship="viewControllers" id="4bn-v8-PIY"/>
+                        <segue destination="8XF-X6-LGL" kind="relationship" relationship="viewControllers" destinationCreationSelector="goToFavoritesStoryboard" id="4bn-v8-PIY"/>
                         <segue destination="j8I-VZ-yWv" kind="relationship" relationship="viewControllers" id="rct-J1-miZ"/>
                     </connections>
                 </tabBarController>

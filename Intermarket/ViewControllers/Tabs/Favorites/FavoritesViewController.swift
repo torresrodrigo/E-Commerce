@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol FavoritesViewControllerDelegate {
+    func updateFavorites(forId id: String, forValue value: Bool)
+}
+
 class FavoritesViewController: UIViewController {
     
     static let identifier = String(describing: FavoritesViewController.self)
@@ -14,6 +18,7 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak var favoritesEmpty: UIImageView!
     @IBOutlet weak var favoritesCollectionView: UICollectionView!
     var favorites = [Products]()
+    var delegate: FavoritesViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,11 +99,20 @@ extension FavoritesViewController: ProductCellDelegate {
         if let i = favorites.firstIndex(where: {$0.id == id}) {
             if value == false {
                 favorites[i].isFavorite = value
+                delegate?.updateFavorites(forId: id, forValue: value)
+                changeFavorites(forId: id)
                 updateCollectionView()
                 checkEmptyCart()
             }
         }
     }
+    
+    func changeFavorites(forId id: String) {
+        let dict: [String : String] = ["id" : id]
+        let notification = Notification.Name(rawValue: NotificationsKeys.Favorites)
+        NotificationCenter.default.post(name: notification, object: dict)
+    }
+    
 }
 
 //MARK: - DetailViewControllerDelegate
@@ -108,7 +122,6 @@ extension FavoritesViewController: DetailViewControllerDelegate {
     func updateFavorite(forId id: String, forValue value: Bool) {
         actionUpdateFavorites(forId: id, forValue: value)
     }
-    
     
     func actionUpdateFavorites(forId id: String, forValue value: Bool) {
         if let index = favorites.firstIndex(where: {$0.id == id }) {
@@ -131,5 +144,3 @@ extension FavoritesViewController: DetailViewControllerDelegate {
     }
     
 }
-
-
