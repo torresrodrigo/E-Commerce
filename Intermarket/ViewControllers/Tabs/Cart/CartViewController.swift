@@ -161,6 +161,7 @@ class CartViewController: UIViewController {
     
     private func goToQrCodeVC(forSegue segue: UIStoryboardSegue) {
         let vc = segue.destination as? QRCodeViewController
+        vc?.isNavigationController = isNavigationController
         vc?.modalPresentationStyle = .fullScreen
     }
     
@@ -226,11 +227,14 @@ extension CartViewController: ProductsTableViewCellDelegate {
                 products[index].quantity = valueQuantity
             }
         }
+        
+        saveProductQuantity(forProduct: products)
+        
     }
     
-//    func saveProductQuantity(forProduct productData: DetailProduct, forQuantity quantity: Int) {
-//        UserDefaultsManager.sharedInstance.setProductsInCart(forValue: <#T##[DetailProduct]#>)
-//    }
+    func saveProductQuantity(forProduct productData: [DetailProduct]) {
+        UserDefaultsManager.sharedInstance.setProductsInCart(forValue: productData)
+    }
     
     func showAlert() {
         let alert = UIAlertController(title: "No hay mas articulos disponiles", message: "Esta es la cantidad maxima de articulos", preferredStyle: .alert)

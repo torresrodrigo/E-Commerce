@@ -14,6 +14,7 @@ class QRCodeViewController: UIViewController {
     @IBOutlet weak var qrLabel: UILabel!
     var video = AVCaptureVideoPreviewLayer()
     let session = AVCaptureSession()
+    var isNavigationController = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,15 @@ class QRCodeViewController: UIViewController {
     }
     
     @IBAction func backButton(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        backButtonAction()
+    }
+    
+    private func backButtonAction() {
+        if isNavigationController == false {
+            self.navigationController?.popToRootViewController(animated: true)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
 }

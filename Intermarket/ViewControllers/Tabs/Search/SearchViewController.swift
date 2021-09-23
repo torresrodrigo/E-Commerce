@@ -20,7 +20,7 @@ class SearchViewController: UIViewController {
     @IBOutlet var containerView: UIView!
     @IBOutlet weak var getSearchTitle: UILabel!
     @IBOutlet weak var getSearchSubtitle: UILabel!
-    @IBOutlet weak var productsCollectionViewCell: UICollectionView!
+    @IBOutlet weak var productsCollectionView: UICollectionView!
     @IBOutlet weak var suggestionView: UIView!
     @IBOutlet weak var suggestionTableView: UITableView!
     
@@ -28,9 +28,9 @@ class SearchViewController: UIViewController {
     var products = [Products]()
     var suggestions = [Products]()
     var favorites = [Products]()
-    var cellPressed = false
     
     let notificationFavorites = Notification.Name(rawValue: NotificationsKeys.Favorites)
+    let notificationSearch = Notification.Name(rawValue: NotificationsKeys.Search)
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -39,9 +39,6 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
     }
     
     private func setupUI() {
@@ -56,7 +53,7 @@ class SearchViewController: UIViewController {
         searchLabel.isHidden = value ? false : true
         getSearchTitle.isHidden = value ? true : false
         getSearchSubtitle.isHidden = value ? true : false
-        productsCollectionViewCell.isHidden = value ? true : false
+        productsCollectionView.isHidden = value ? true : false
     }
     
     private func totalEmptyUI() {
@@ -64,7 +61,7 @@ class SearchViewController: UIViewController {
         searchLabel.isHidden = true
         getSearchTitle.isHidden = true
         getSearchSubtitle.isHidden = true
-        productsCollectionViewCell.isHidden = true
+        productsCollectionView.isHidden = true
     }
     
     //Keyboard Actions
@@ -89,7 +86,7 @@ class SearchViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.suggestionTableView.reloadData()
                     self.checkFavoritesUserDefaults()
-                    self.productsCollectionViewCell.reloadData()
+                    self.productsCollectionView.reloadData()
                 }
             case .failure(let error):
                 print("Something is wrong. Error: \(error.localizedDescription)")
@@ -109,10 +106,10 @@ class SearchViewController: UIViewController {
         return productData
     }
     
+    //Put elements in elements get from API CALL
     func checkFavoritesUserDefaults() {
         guard let userDefaultsData = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         let favoritesUserDefaults = userDefaultsData
-        
         favoritesUserDefaults.forEach({ data in
             if let index = products.firstIndex(where: {$0.id == data.id} ) {
                 products[index].isFavorite = true
@@ -172,6 +169,18 @@ extension SearchViewController: UISearchBarDelegate {
             suggestionTableView.reloadData()
         }
     }
+    
+    func showSuggestion(forCount count: Int) {
+        suggestionAction()
+        count > 2 ? reloadData() : nil
+    }
+    
+    func hideSuggestion() {
+        setSearchUI(isEmptyText: true)
+        suggestionView.isHidden = true
+        suggestionTableView.reloadData()
+    }
+    
     
     // Action to perform timer to show products in CollectionView
     func reloadData() {
@@ -249,9 +258,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func setupCollectionView() {
-        productsCollectionViewCell.register(ProductsCollectionViewCell.nib(), forCellWithReuseIdentifier: ProductsCollectionViewCell.identifier)
-        productsCollectionViewCell.delegate = self
-        productsCollectionViewCell.dataSource = self
+        productsCollectionView.register(ProductsCollectionViewCell.nib(), forCellWithReuseIdentifier: ProductsCollectionViewCell.identifier)
+        productsCollectionView.delegate = self
+        productsCollectionView.dataSource = self
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -259,7 +268,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = productsCollectionViewCell.dequeueReusableCell(withReuseIdentifier: ProductsCollectionViewCell.identifier, for: indexPath) as! ProductsCollectionViewCell
+        let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsCollectionViewCell.identifier, for: indexPath) as! ProductsCollectionViewCell
         cell.setupCell(data: products[indexPath.row])
         cell.cellDelegate = self
         return cell
@@ -299,6 +308,7 @@ extension SearchViewController: ProductCellDelegate {
         changeValueFavorites(forValueFavorites: value, forId: id, forProductsData: products, forFavoritesUserDefaults: dataFavorites)
     }
     
+    //MARK: - Check Refactor
     func changeValueFavorites(forValueFavorites value: Bool, forId id: String, forProductsData products: [Products], forFavoritesUserDefaults favoritesUserDefaults: [Products]) {
         if let i = products.firstIndex(where: {$0.id == id}) {
             if value == true {
@@ -307,28 +317,29 @@ extension SearchViewController: ProductCellDelegate {
                 }
             } else {
                 removeFavorites(forIndex: i, forNewValue: value, favoritesUserDefaults: favoritesUserDefaults, forId: id)
-                productsCollectionViewCell.reloadData()
+                productsCollectionView.reloadData()
             }
         }
     }
     
     func addFavorite(forIndex index: Int, forNewValue value: Bool, favoritesUserDefaults: [Products]) {
         var newFavoritesUserDefaults = favoritesUserDefaults
-        products[index].isFavorite = value
-        favorites.append(products[index])
-        productsCollectionViewCell.reloadData()
+        updateCollectionView(forIndex: index, forValue: value)
         newFavoritesUserDefaults.append(products[index])
         UserDefaultsManager.sharedInstance.setFavorites(value: newFavoritesUserDefaults)
     }
     
     func removeFavorites(forIndex index: Int, forNewValue value: Bool, favoritesUserDefaults: [Products], forId id: String) {
         var newFavoritesUserDefaults = favoritesUserDefaults
-        products[index].isFavorite = value
-        productsCollectionViewCell.reloadData()
-        let newFavorites = products.filter {$0.isFavorite == true && $0.id != id}
-        favorites = newFavorites
+        updateCollectionView(forIndex: index, forValue: value)
+        let newFavorites = newFavoritesUserDefaults.filter {$0.isFavorite == true && $0.id != id}
         newFavoritesUserDefaults = newFavorites
         UserDefaultsManager.sharedInstance.setFavorites(value: newFavoritesUserDefaults)
+    }
+    
+    func updateCollectionView(forIndex index: Int, forValue value: Bool) {
+        products[index].isFavorite = value
+        productsCollectionView.reloadData()
     }
         
 }
@@ -345,14 +356,8 @@ extension SearchViewController: DetailViewControllerDelegate {
     //Update from DetailViewController
     func actionUpdateFavorites(forId id: String, forValue value: Bool, ForUserDefaults userDefaults: [Products] ) {
         if let index = products.firstIndex(where: {$0.id == id }) {
-            if value == true {
-                products[index].isFavorite = value
-                productsCollectionViewCell.reloadData()
-            }
-            else {
-                products[index].isFavorite = value
-                productsCollectionViewCell.reloadData()
-            }
+            products[index].isFavorite = value
+            productsCollectionView.reloadData()
         }
     }
 }
@@ -362,21 +367,21 @@ extension SearchViewController {
     
     func createObserver() {
         NotificationCenter.default.addObserver(self, selector:#selector(SearchViewController.updateFavorites(notification:)) , name: notificationFavorites, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchViewController.updateFavorites(notification:)), name: notificationSearch, object: nil)
     }
     
     @objc func updateFavorites(notification: NSNotification) {
         if let dict = notification.object as? NSDictionary {
-            if let id = dict["id"] as? String {
-                print("\(id)")
-                setFalseFavorites(forId: id)
-                productsCollectionViewCell.reloadData()
+            if let id = dict["id"] as? String, let value = dict["value"] as? Bool {
+                setFalseFavorites(forId: id, forValue: value)
+                productsCollectionView.reloadData()
             }
         }
     }
     
-    func setFalseFavorites(forId id: String) {
+    func setFalseFavorites(forId id: String, forValue value: Bool) {
         if let index = products.firstIndex(where: {$0.id == id}) {
-            products[index].isFavorite = false
+            products[index].isFavorite = value
         }
     }
     

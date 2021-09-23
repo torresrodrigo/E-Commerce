@@ -41,8 +41,6 @@ class DetailViewController: UIViewController {
         getDetailProduct(forId: productData?.id)
     }
     
-    
-
     @IBAction func backButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -76,20 +74,19 @@ class DetailViewController: UIViewController {
         scrollView.bounces = false
     }
     
-    func getFeatures(forData data: DetailProduct) {
-        
-    }
-    
     //Set favorite icon value
     private func setFavoritesIcon(forValue value: Bool) {
-        if value == true {
-            favoritesButton.setImage(Icons.FavoriteAdded, for: .normal)
-            productData?.isFavorite = value
-        }
-        else {
-            favoritesButton.setImage(Icons.Favorite, for: .normal)
-            productData?.isFavorite = value
-        }
+        value ? addIconAdded(forValue: value) : removeIconAdded(forValue: value)
+    }
+    
+    func addIconAdded(forValue value: Bool) {
+        favoritesButton.setImage(Icons.FavoriteAdded, for: .normal)
+        productData?.isFavorite = value
+    }
+    
+    func removeIconAdded(forValue value: Bool) {
+        favoritesButton.setImage(Icons.Favorite, for: .normal)
+        productData?.isFavorite = value
     }
     
 
@@ -107,41 +104,42 @@ class DetailViewController: UIViewController {
     
     //Change value to favorite icon
     func changeValue(forValue value: Bool) -> Bool {
-        let valueFinal: Bool
-        if value == true {
-            valueFinal = false
-        }
-        else {
-            valueFinal = true
-        }
+        let valueFinal = value ? false : true
         return valueFinal
     }
     
+    //Abstraer
     func setFavorites(forValue value: Bool, forId id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         var favorites = dataFavorites
-        guard let value  = isFavorites else { return }
+        guard let value = isFavorites else { return }
         if value == true {
             if favorites.isEmpty == true || favorites.contains(where: {$0.id != id}) {
                 setFavoritesIcon(forValue: value)
                 guard let data = productData else { return }
                 favorites.append(data)
                 UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
-                delegate?.updateFavorite(forId: data.id, forValue: value)
+                notificationToSearch(forId: id, forValue: value)
             }
         }
         else {
-            guard let data = productData else { return }
             let newFavorites = favorites.filter {$0.id != id}
             setFavoritesIcon(forValue: value)
             favorites = newFavorites
             UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
-            delegate?.updateFavorite(forId: data.id, forValue: value)
+            notificationToSearch(forId: id, forValue: value)
         }
     }
     
+    func notificationToSearch(forId id: String, forValue value: Bool) {
+        let dict: [String : Any] = ["id" : id, "value" : value]
+        let notification = Notification.Name(rawValue: NotificationsKeys.Search)
+        NotificationCenter.default.post(name: notification, object: dict)
+    }
+    
+    
     @IBAction func addToCartPressed(_ sender: Any) {
-        addToCartAction()
+        validateProduct(forProduct: products)
         self.perform(#selector(dissapearSnackBar),with: nil,afterDelay: 3)
     }
     
@@ -154,6 +152,18 @@ class DetailViewController: UIViewController {
         UserDefaultsManager.sharedInstance.setProductInCart(value: data)
     }
     
+    func validateProduct(forProduct product: DetailProduct?) {
+        guard let data = product else { return }
+        let dataProductsCart = UserDefaultsManager.sharedInstance.getProductInCar()
+        dataProductsCart.contains(where: {$0.id == data.id}) ? showAlertAddProduct() : addToCartAction()
+    }
+    
+    private func showAlertAddProduct() {
+        let alert = UIAlertController(title: "Este producto ya esta agregado a tu carrito", message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Continuar", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     @objc private func dissapearSnackBar() {
         snackBarView.isHidden = true
@@ -203,7 +213,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         featuresTableView.dataSource = self
         featuresTableView.delegate = self
         featuresTableView.isScrollEnabled = false
-        featuresTableView.sectionIndexColor = UIColor.white
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -213,6 +222,12 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         setNameSections(sectionsCount: section)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = .white
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = Colors.TextCell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -228,49 +243,36 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     private func setCell(forSection section: Int, forIndex indexPath: Int, forCell cell: FeaturesTableViewCell) -> FeaturesTableViewCell {
         if let attributes = products?.attributes {
-            if section == 0 {
-                cell.setupCell(forFeatureName: attributes[indexPath].name, forFeatureValue: attributes[indexPath].value)
-            } else {
-                cell.setupCell(forFeatureName: attributes[indexPath + 5].name, forFeatureValue: attributes[indexPath + 5].value)
-            }
+            section == 0 ? cell.setupCell(forFeatureName: attributes[indexPath].name, forFeatureValue: attributes[indexPath].value) : cell.setupCell(forFeatureName: attributes[indexPath + 5].name, forFeatureValue: attributes[indexPath + 5].value)
         }
         return cell
     }
     
+    //Check
     func setSections() -> Int {
-        var count: Int
         guard let attributes = products?.attributes?.count else { return 0 }
-        if attributes > 5 {
-            count = 2
-        } else {
-            count = 1
-        }
+        let count = (attributes > 5) ? 2 : 1
         return count
     }
     
     func setNameSections(sectionsCount value: Int) -> String {
-        if value == 0 {
-            return "Caracteristicas"
-        } else {
-            return "Info adicional"
-        }
+        value == 0 ? "Caracteristicas" : "Info adicional"
     }
     
     func setRowForSection(forSections value: Int) -> Int {
         guard let attributes = products?.attributes?.count else { return 0 }
-        if value == 0 {
-            if attributes > 5 {
-                return 5
-            } else {
-                return attributes
-            }
-        } else {
-            if attributes > 7 {
-                return 2
-            } else {
-                return 1
-            }
-        }
+        let row = (value == 0) ? checkFeatures(forAttributes: attributes) :  checkInfoAdditional(forAttributes: attributes)
+        return row
+    }
+    
+    func checkFeatures(forAttributes attributes: Int) -> Int {
+        let count = (attributes > 5) ? 5 : attributes
+        return count
+    }
+    
+    func checkInfoAdditional(forAttributes attributes: Int) -> Int{
+        let count = (attributes > 7) ? 2 : 1
+        return count
     }
 }
 

@@ -155,7 +155,7 @@
                                 </collectionView>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="phd-OG-WdY">
                                     <rect key="frame" x="0.0" y="430.5" width="414" height="569.5"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="White"/>
                                     <color key="sectionIndexColor" name="BorderButton"/>
                                     <color key="sectionIndexBackgroundColor" name="White"/>
                                 </tableView>
