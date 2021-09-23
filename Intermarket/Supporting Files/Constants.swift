@@ -14,6 +14,7 @@ struct Colors {
     static let ButtonRadiusColor = UIColor(named: "ButtonRadiusColor")?.cgColor
     static let BarTint = UIColor(named: "BarTint")
     static let Shadow = UIColor(named: "Shadow")
+    static let TextCell = UIColor(named: "TextCell")
 }
 
 struct Images {
@@ -50,4 +51,5 @@ struct Endpoints {
 
 struct NotificationsKeys {
     static let Favorites = "co.intermarket.favorites"
+    static let Search = "co.intermarket.search"
 }

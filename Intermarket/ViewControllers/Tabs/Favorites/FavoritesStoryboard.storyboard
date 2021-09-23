@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,17 +46,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5O9-0k-Gqa">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zw3-FZ-wQU">
-                                        <rect key="frame" x="12" y="76" width="28" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="28" id="I3j-xk-6Px"/>
-                                            <constraint firstAttribute="height" constant="31" id="pQE-kj-0wY"/>
-                                        </constraints>
-                                        <color key="tintColor" name="White"/>
-                                        <state key="normal" image="chevron.left" catalog="system"/>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAVORITOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kbc-Ej-2zW">
-                                        <rect key="frame" x="48" y="83.5" width="76" height="16.5"/>
+                                        <rect key="frame" x="32" y="85" width="78" height="20"/>
                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -65,11 +55,9 @@
                                 </subviews>
                                 <color key="backgroundColor" name="Primary"/>
                                 <constraints>
-                                    <constraint firstItem="Kbc-Ej-2zW" firstAttribute="leading" secondItem="zw3-FZ-wQU" secondAttribute="trailing" constant="8" symbolic="YES" id="LeT-ZZ-1YG"/>
-                                    <constraint firstAttribute="bottom" secondItem="zw3-FZ-wQU" secondAttribute="bottom" constant="14" id="ONF-IM-Lx4"/>
-                                    <constraint firstItem="Kbc-Ej-2zW" firstAttribute="centerY" secondItem="zw3-FZ-wQU" secondAttribute="centerY" id="XLZ-6x-fJb"/>
-                                    <constraint firstItem="zw3-FZ-wQU" firstAttribute="leading" secondItem="5O9-0k-Gqa" secondAttribute="leading" constant="12" id="ehu-HI-FwA"/>
                                     <constraint firstAttribute="height" constant="121" id="jIG-Yr-uHz"/>
+                                    <constraint firstItem="Kbc-Ej-2zW" firstAttribute="leading" secondItem="5O9-0k-Gqa" secondAttribute="leading" constant="32" id="ncA-ue-4rP"/>
+                                    <constraint firstAttribute="bottom" secondItem="Kbc-Ej-2zW" secondAttribute="bottom" constant="16" id="wR3-ue-rvo"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0c5-X8-Udh">
@@ -79,7 +67,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
                                         <subviews>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbd-uj-Ypc">
-                                                <rect key="frame" x="20" y="24" width="230" height="37.5"/>
+                                                <rect key="frame" x="20" y="24" width="267" height="45"/>
                                                 <string key="text">Todavía no agregaste productos
 favoritos.</string>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
@@ -94,7 +82,7 @@ favoritos.</string>
                                             </imageView>
                                             <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mAT-57-j0S">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="White"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4Fe-60-Co5">
                                                     <size key="itemSize" width="128" height="128"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -113,7 +101,7 @@ favoritos.</string>
                                                 </cells>
                                             </collectionView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="White"/>
                                         <constraints>
                                             <constraint firstItem="r4b-0N-dMq" firstAttribute="centerY" secondItem="X9h-EN-0qw" secondAttribute="centerY" id="Ey4-xh-KcF"/>
                                             <constraint firstItem="r4b-0N-dMq" firstAttribute="centerX" secondItem="X9h-EN-0qw" secondAttribute="centerX" id="M1z-lV-DXh"/>
@@ -139,7 +127,7 @@ favoritos.</string>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="White"/>
                         <constraints>
                             <constraint firstItem="0c5-X8-Udh" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="5X2-DU-9vU"/>
                             <constraint firstItem="5O9-0k-Gqa" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="IVZ-R2-9Wx"/>
@@ -164,7 +152,6 @@ favoritos.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="favoritesEmpty" width="310.5" height="278.5"/>
         <image name="heart" width="22" height="19.5"/>
         <namedColor name="Primary">
@@ -173,8 +160,5 @@ favoritos.</string>
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

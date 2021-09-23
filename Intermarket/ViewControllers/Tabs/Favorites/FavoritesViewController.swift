@@ -33,12 +33,7 @@ class FavoritesViewController: UIViewController {
     
     //Validation to check if has products
     private func checkEmptyCart() {
-        if favorites.count > 0 {
-            setupUI(isEmpty: false)
-        }
-        else {
-            setupUI(isEmpty: true)
-        }
+        favorites.count > 0 ? setupUI(isEmpty: false) : setupUI(isEmpty: true)
     }
     
     func setupUI(isEmpty value: Bool) {
@@ -95,20 +90,21 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
 //MARK: - ProductCellDelegate
 extension FavoritesViewController: ProductCellDelegate {
     
+    //Abstraer
     func onTouchFavorites(forValue value: Bool, forId id: String) {
         if let i = favorites.firstIndex(where: {$0.id == id}) {
             if value == false {
                 favorites[i].isFavorite = value
                 delegate?.updateFavorites(forId: id, forValue: value)
-                changeFavorites(forId: id)
+                changeFavorites(forId: id, forValue: value)
                 updateCollectionView()
                 checkEmptyCart()
             }
         }
     }
     
-    func changeFavorites(forId id: String) {
-        let dict: [String : String] = ["id" : id]
+    func changeFavorites(forId id: String, forValue value: Bool) {
+        let dict: [String : Any] = ["id" : id, "value" : value]
         let notification = Notification.Name(rawValue: NotificationsKeys.Favorites)
         NotificationCenter.default.post(name: notification, object: dict)
     }
@@ -123,16 +119,11 @@ extension FavoritesViewController: DetailViewControllerDelegate {
         actionUpdateFavorites(forId: id, forValue: value)
     }
     
+    //Abstraer
     func actionUpdateFavorites(forId id: String, forValue value: Bool) {
         if let index = favorites.firstIndex(where: {$0.id == id }) {
-            if value == true {
-                favorites[index].isFavorite = value
-                updateCollectionView()
-            }
-            else {
-                favorites[index].isFavorite = value
-                updateCollectionView()
-            }
+            favorites[index].isFavorite = value
+            updateCollectionView()
         }
     }
     
