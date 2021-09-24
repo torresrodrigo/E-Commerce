@@ -92,6 +92,6 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Need use camera</string>
+	<string>Request Permission Camera</string>
 </dict>
 </plist>

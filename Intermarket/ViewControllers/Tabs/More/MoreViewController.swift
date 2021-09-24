@@ -37,9 +37,10 @@ class MoreViewController: UIViewController {
     }
     
     func prepareAction(forSegue segue: UIStoryboardSegue) {
-        if segue.identifier == "goToProfile" {
+        if segue.identifier == Identifier.GoToProfile {
             goToProfileVC(forSegue: segue)
-        } else if segue.identifier == "goToLogOut" {
+        }
+        else if segue.identifier == Identifier.GoToLogOut {
             goToLogOutVC(forSegue: segue)
         }
     }

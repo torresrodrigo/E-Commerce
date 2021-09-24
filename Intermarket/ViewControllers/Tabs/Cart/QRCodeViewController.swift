@@ -8,6 +8,9 @@
 import UIKit
 import AVFoundation
 
+import UIKit
+import AVFoundation
+
 class QRCodeViewController: UIViewController {
 
     @IBOutlet weak var qrView: UIView!
@@ -123,6 +126,3 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
     }
     
 }
-
-
-

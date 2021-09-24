@@ -88,43 +88,26 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
 }
 
 //MARK: - ProductCellDelegate
-extension FavoritesViewController: ProductCellDelegate {
+extension FavoritesViewController: ProductCollectionViewCellDelegate {
     
     //Abstraer
-    func onTouchFavorites(forValue value: Bool, forId id: String) {
+    func onTouchFavorites(with value: Bool, with id: String) {
         if let i = favorites.firstIndex(where: {$0.id == id}) {
-            if value == false {
-                favorites[i].isFavorite = value
-                delegate?.updateFavorites(forId: id, forValue: value)
-                changeFavorites(forId: id, forValue: value)
-                updateCollectionView()
-                checkEmptyCart()
-            }
+            value ? nil : removeCell(with: id, with: value, for: i)
         }
     }
     
-    func changeFavorites(forId id: String, forValue value: Bool) {
+    func removeCell(with id: String, with value: Bool, for index: Int) {
+        favorites[index].isFavorite = value
+        changeFavorites(with: id, with: value)
+        updateCollectionView()
+        checkEmptyCart()
+    }
+    
+    func changeFavorites(with id: String, with value: Bool) {
         let dict: [String : Any] = ["id" : id, "value" : value]
         let notification = Notification.Name(rawValue: NotificationsKeys.Favorites)
         NotificationCenter.default.post(name: notification, object: dict)
-    }
-    
-}
-
-//MARK: - DetailViewControllerDelegate
-extension FavoritesViewController: DetailViewControllerDelegate {
-    
-    //Action Delegate
-    func updateFavorite(forId id: String, forValue value: Bool) {
-        actionUpdateFavorites(forId: id, forValue: value)
-    }
-    
-    //Abstraer
-    func actionUpdateFavorites(forId id: String, forValue value: Bool) {
-        if let index = favorites.firstIndex(where: {$0.id == id }) {
-            favorites[index].isFavorite = value
-            updateCollectionView()
-        }
     }
     
     func updateCollectionView() {
@@ -135,3 +118,4 @@ extension FavoritesViewController: DetailViewControllerDelegate {
     }
     
 }
+

@@ -52,16 +52,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jUe-Oh-cyb" userLabel="Header">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MI CARRITO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHK-bs-gc4">
-                                        <rect key="frame" x="33" y="81" width="81" height="20"/>
-                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gch-1t-U9y">
-                                        <rect key="frame" x="16" y="79" width="12.5" height="24"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gch-1t-U9y">
+                                        <rect key="frame" x="16" y="81" width="123" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="14m-ZG-UrN"/>
+                                            <constraint firstAttribute="width" constant="123" id="ang-aq-MdN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                         <color key="tintColor" name="White"/>
-                                        <state key="normal" image="chevron.left" catalog="system"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="MI CARRITO" image="chevron.left" catalog="system"/>
                                         <connections>
                                             <action selector="backButtonPressed:" destination="aD0-eX-ghW" eventType="touchUpInside" id="hI3-eH-8Fh"/>
                                         </connections>
@@ -69,12 +69,9 @@
                                 </subviews>
                                 <color key="backgroundColor" name="Primary"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="gch-1t-U9y" secondAttribute="bottom" constant="18" id="1Ff-lI-Jrq"/>
+                                    <constraint firstAttribute="height" constant="121" id="3Yo-lg-GbJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="gch-1t-U9y" secondAttribute="bottom" constant="18" id="8Ok-De-sNr"/>
                                     <constraint firstItem="gch-1t-U9y" firstAttribute="leading" secondItem="jUe-Oh-cyb" secondAttribute="leading" constant="16" id="QMx-Xu-a8V"/>
-                                    <constraint firstItem="kHK-bs-gc4" firstAttribute="leading" secondItem="jUe-Oh-cyb" secondAttribute="leading" constant="33" id="QV1-X6-ceR"/>
-                                    <constraint firstItem="kHK-bs-gc4" firstAttribute="top" secondItem="jUe-Oh-cyb" secondAttribute="top" constant="81" id="XRw-k4-z2x"/>
-                                    <constraint firstAttribute="bottom" secondItem="kHK-bs-gc4" secondAttribute="bottom" constant="20" symbolic="YES" id="Yzb-eD-Qft"/>
-                                    <constraint firstItem="gch-1t-U9y" firstAttribute="centerY" secondItem="kHK-bs-gc4" secondAttribute="centerY" id="qCA-6D-WS2"/>
                                 </constraints>
                             </view>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PuS-Cg-Bhc">
@@ -307,27 +304,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biF-rV-kMt">
-                                        <rect key="frame" x="14" y="68" width="13" height="22"/>
+                                        <rect key="frame" x="14" y="67" width="84.5" height="23"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="chevron.left" catalog="system"/>
+                                        <state key="normal" title="QR CODE" image="chevron.left" catalog="system"/>
                                         <connections>
                                             <action selector="backButton:" destination="5ur-9g-Zk3" eventType="touchUpInside" id="nIT-J1-CfW"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AGREGAR PRODUCTO POR QR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifr-xl-l1J">
-                                        <rect key="frame" x="37" y="69" width="203" height="20"/>
-                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" name="Primary"/>
                                 <constraints>
                                     <constraint firstItem="biF-rV-kMt" firstAttribute="leading" secondItem="tyv-S7-TtI" secondAttribute="leading" constant="14" id="OBj-GB-3gL"/>
                                     <constraint firstAttribute="height" constant="105" id="UJh-qE-Cfw"/>
                                     <constraint firstAttribute="bottom" secondItem="biF-rV-kMt" secondAttribute="bottom" constant="15" id="a84-DH-gtZ"/>
-                                    <constraint firstItem="Ifr-xl-l1J" firstAttribute="centerY" secondItem="biF-rV-kMt" secondAttribute="centerY" id="bmh-Gz-dVe"/>
-                                    <constraint firstItem="Ifr-xl-l1J" firstAttribute="leading" secondItem="biF-rV-kMt" secondAttribute="trailing" constant="10" id="mEA-Lm-Ee3"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wdT-mk-uj9">
@@ -376,16 +366,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4r3-jK-g2a">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="260"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONFIRMAR COMPRA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGX-Wm-SkB">
-                                        <rect key="frame" x="47.5" y="63" width="147.5" height="20"/>
-                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0c-9I-1dn">
-                                        <rect key="frame" x="12" y="62" width="12.5" height="22"/>
+                                        <rect key="frame" x="12" y="62" width="224" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="224" id="DUS-fO-XxA"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                         <color key="tintColor" name="White"/>
-                                        <state key="normal" image="chevron.left" catalog="system"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="30" maxY="0.0"/>
+                                        <state key="normal" title="CONFIRMAR COMPRA" image="chevron.left" catalog="system"/>
                                         <connections>
                                             <action selector="backButton:" destination="63D-o9-zQT" eventType="touchUpInside" id="Wu9-sh-p5A"/>
                                         </connections>
@@ -449,10 +439,7 @@
                                 </subviews>
                                 <color key="backgroundColor" name="Primary"/>
                                 <constraints>
-                                    <constraint firstItem="N0c-9I-1dn" firstAttribute="centerY" secondItem="yGX-Wm-SkB" secondAttribute="centerY" id="AMN-h4-jwO"/>
                                     <constraint firstItem="N0c-9I-1dn" firstAttribute="leading" secondItem="4r3-jK-g2a" secondAttribute="leading" constant="12" id="DmF-9l-B5K"/>
-                                    <constraint firstAttribute="trailing" secondItem="yGX-Wm-SkB" secondAttribute="trailing" constant="219" id="Fpi-fF-ZZa"/>
-                                    <constraint firstItem="yGX-Wm-SkB" firstAttribute="top" secondItem="4r3-jK-g2a" secondAttribute="top" constant="63" id="Jcq-9m-wPC"/>
                                     <constraint firstItem="ZMO-wR-xSR" firstAttribute="centerX" secondItem="4r3-jK-g2a" secondAttribute="centerX" id="VaQ-4L-p68"/>
                                     <constraint firstItem="N0c-9I-1dn" firstAttribute="top" secondItem="4r3-jK-g2a" secondAttribute="top" constant="62" id="ibN-Yq-RaR"/>
                                     <constraint firstItem="Nsk-dZ-vvM" firstAttribute="centerX" secondItem="4r3-jK-g2a" secondAttribute="centerX" id="m3L-om-50R"/>

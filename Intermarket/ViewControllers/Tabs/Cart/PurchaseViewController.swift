@@ -33,7 +33,8 @@ class PurchaseViewController: UIViewController {
     private func backButtonAction() {
         if isNavigationController == false {
             self.navigationController?.popToRootViewController(animated: true)
-        } else {
+        }
+        else {
             dismiss(animated: true, completion: nil)
         }
     }
@@ -45,16 +46,16 @@ class PurchaseViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        prepareAction(forSegue: segue)
+        prepareAction(for: segue)
     }
     
-    func prepareAction(forSegue segue: UIStoryboardSegue) {
-        if segue.identifier == "goToConfirmation" {
-            goToConfirmationVC(forSegue: segue)
+    func prepareAction(for segue: UIStoryboardSegue) {
+        if segue.identifier == Identifier.GoToConfirmation {
+            goToConfirmationVC(for: segue)
         }
     }
     
-    func goToConfirmationVC(forSegue segue: UIStoryboardSegue) {
+    func goToConfirmationVC(for segue: UIStoryboardSegue) {
         let vc = segue.destination as? ConfirmationViewController
         vc?.modalPresentationStyle = .fullScreen
         vc?.isNavigationController = isNavigationController

@@ -49,10 +49,10 @@ class CartViewController: UIViewController {
     
     //Validation for products
     private func checkEmptyCart() {
-        checkEmptyCartAction(forCount: products.count)
+        checkEmptyCartAction(for: products.count)
     }
     
-    func checkEmptyCartAction(forCount count: Int) {
+    func checkEmptyCartAction(for count: Int) {
         if count > 0 {
             addedProductUI()
             setupButtonUI(isEnabled: true)
@@ -64,12 +64,12 @@ class CartViewController: UIViewController {
     }
     
     func setupUI(hasProduct value: Bool) {
-        titleLabel.isHidden = value ? true : false
-        imgSearch.isHidden = value ? true : false
-        stackView.isHidden = value ? false : true
-        productsTableView.isHidden = value ? false : true
-        totalView.isHidden = value ? false : true
-        buttonQR.isHidden = value ? false : true
+        titleLabel.isHidden = value
+        imgSearch.isHidden = value
+        stackView.isHidden = !value
+        productsTableView.isHidden = !value
+        totalView.isHidden = !value
+        buttonQR.isHidden = !value
     }
     
     private func addedProductUI() {
@@ -79,12 +79,7 @@ class CartViewController: UIViewController {
     }
 
     func setupButtonUI(isEnabled value: Bool) {
-        if value {
-            enabledButton()
-        }
-        else {
-            disabledButton()
-        }
+        value ? enabledButton() : disabledButton()
     }
     
     private func enabledButton() {
@@ -108,8 +103,8 @@ class CartViewController: UIViewController {
     
     //Validation for type of Controller to show back button
     func checkTypeController() {
-        if isNavigationController == true {
-            backButton.isHidden = false
+        if isNavigationController == false {
+            backButton.setImage(nil, for: .normal)
         }
     }
     
@@ -119,18 +114,16 @@ class CartViewController: UIViewController {
     
     @IBAction func undoButton(_ sender: Any) {
         guard let product = productRemoved else {return }
-        undoButtonAction(forProduct: product, useButtonAction: true)
+        undoButtonAction(with: product, for: true)
         button.isHidden = false
     }
     
-    func undoButtonAction(forProduct product: DetailProduct, useButtonAction: Bool) {
-        if useButtonAction {
-            reAddProduct(forProduct: product)
-        }
+    func undoButtonAction(with product: DetailProduct, for useButtonAction: Bool) {
+        useButtonAction ? reAddProduct(with: product) : nil
         setTotalPrice()
     }
     
-    func reAddProduct(forProduct product: DetailProduct) {
+    func reAddProduct(with product: DetailProduct) {
         products.append(product)
         UserDefaultsManager.sharedInstance.setProductInCart(value: product)
         checkEmptyCart()
@@ -139,18 +132,18 @@ class CartViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        prepareAction(forSegue: segue)
+        prepareAction(for: segue)
     }
     
-    private func prepareAction(forSegue segue: UIStoryboardSegue) {
-        if segue.identifier == "goToPurchase" {
-            goToPurchaseVC(forSegue: segue)
-        } else if segue.identifier == "goToQrCode" {
-            goToQrCodeVC(forSegue: segue)
+    private func prepareAction(for segue: UIStoryboardSegue) {
+        if segue.identifier == Identifier.GoToPurchase {
+            goToPurchaseVC(for: segue)
+        } else if segue.identifier == Identifier.GoToQRCode {
+            goToQrCodeVC(for: segue)
         }
     }
     
-    private func goToPurchaseVC(forSegue segue: UIStoryboardSegue) {
+    private func goToPurchaseVC(for segue: UIStoryboardSegue) {
         let vc = segue.destination as? PurchaseViewController
         vc?.modalPresentationStyle = .fullScreen
         vc?.isNavigationController = isNavigationController
@@ -159,7 +152,7 @@ class CartViewController: UIViewController {
         vc?.productsPurchase = products
     }
     
-    private func goToQrCodeVC(forSegue segue: UIStoryboardSegue) {
+    private func goToQrCodeVC(for segue: UIStoryboardSegue) {
         let vc = segue.destination as? QRCodeViewController
         vc?.isNavigationController = isNavigationController
         vc?.modalPresentationStyle = .fullScreen
@@ -194,7 +187,7 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = productsTableView.dequeueReusableCell(withIdentifier: ProductsTableViewCell.identifier, for: indexPath) as! ProductsTableViewCell
         cell.delegate = self
-        cell.setupCell(forData: products[indexPath.row])
+        cell.setupCell(for: products[indexPath.row])
         return cell
     }
     
@@ -204,14 +197,15 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 extension CartViewController: ProductsTableViewCellDelegate {
     
     //Action Delegate
-    func updateCell(forId id: String, forQuantity newQuantity: Int, forTotalQuantity totalQuantity: Int) {
-        changeQuantity(forId: id, forQuantity: newQuantity, maxQuantity: totalQuantity)
+    func updateCell(for id: String, for newQuantity: Int, for totalQuantity: Int) {
+        changeQuantity(for: id, for: newQuantity, for: totalQuantity)
         productsTableView.reloadData()
         setTotalPrice()
         setTotalQuantityProducts()
     }
     
-    func changeQuantity(forId id: String, forQuantity valueQuantity: Int, maxQuantity: Int) {
+    //MARK- Mejorar
+    func changeQuantity(for id: String, for valueQuantity: Int, for maxQuantity: Int) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             if valueQuantity == 0 {
                 products[index].quantity = 1
@@ -228,11 +222,11 @@ extension CartViewController: ProductsTableViewCellDelegate {
             }
         }
         
-        saveProductQuantity(forProduct: products)
+        saveProductQuantity(with: products)
         
     }
     
-    func saveProductQuantity(forProduct productData: [DetailProduct]) {
+    func saveProductQuantity(with productData: [DetailProduct]) {
         UserDefaultsManager.sharedInstance.setProductsInCart(forValue: productData)
     }
     
@@ -243,16 +237,16 @@ extension CartViewController: ProductsTableViewCellDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    //Action Delegate
+    //Action Delegate - Mejorar
     func deleteProduct(forId id: String) {
         if let i = products.firstIndex(where: {$0.id == id}) {
             deleteProductAction(forIndex: i)
             setTotalPrice()
             if products.count > 0 {
-                checkProducts(isEmpty: false)
+                checkProducts(for: false)
             }
             else {
-                checkProducts(isEmpty: true)
+                checkProducts(for: true)
             }
         }
     }
@@ -264,15 +258,16 @@ extension CartViewController: ProductsTableViewCellDelegate {
         UserDefaultsManager.sharedInstance.setProductsInCart(forValue: products)
     }
     
-    func checkProducts(isEmpty value: Bool) {
-        if value {
+    //Mejorar
+    func checkProducts(for isEmpty: Bool) {
+        if isEmpty {
             checkEmptyCart()
             snackBarUI()
-            self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 4)
+            self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 3)
         }
         else {
             snackBarUI()
-            self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 4)
+            self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 3)
         }
     }
     
@@ -285,7 +280,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         snackBarView.isHidden = true
     }
     
-    //Action for price
+    //Action for price - Mejorar
     func setTotalPrice() {
         var prices = [Double]()
         if products.count > 0 {

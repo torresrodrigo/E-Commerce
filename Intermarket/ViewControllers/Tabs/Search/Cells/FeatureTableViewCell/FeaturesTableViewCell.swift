@@ -21,7 +21,7 @@ class FeaturesTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    func setupCell(forFeatureName featureName: String, forFeatureValue featureValue: String?) {
+    func setupCell(for featureName: String, for featureValue: String?) {
         guard let value = featureValue else {
             featureLabel.text = "\(featureName): Not description"
             return }

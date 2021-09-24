@@ -8,10 +8,6 @@
 import UIKit
 import SDWebImage
 
-protocol DetailViewControllerDelegate {
-    func updateFavorite(forId id: String, forValue value: Bool)
-}
-
 class DetailViewController: UIViewController {
     
     //Outlets
@@ -28,7 +24,6 @@ class DetailViewController: UIViewController {
 
     //Propierties
     static let identifier = String(describing: DetailViewController.self)
-    var delegate: DetailViewControllerDelegate?
     var productID = String()
     var productData: Products?
     var products: DetailProduct?
@@ -37,24 +32,24 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getDataFromSearchViewController(forData: productData)
-        getDetailProduct(forId: productData?.id)
+        getDataFromSearchViewController(with: productData)
+        getDetailProduct(with: productData?.id)
     }
     
     @IBAction func backButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func setupUI(forProduct data: DetailProduct) {
+    func setupUI(with data: DetailProduct) {
         guard let value = productData?.isFavorite else { return }
         setupScrollView()
-        setupDataProduct(forProduct: data)
-        setFavoritesIcon(forValue: value)
+        setupDataProduct(with: data)
+        setFavoritesIcon(for: value)
         setupTableView()
         setupCollectionView()
     }
     
-    private func setupDataProduct(forProduct productData: DetailProduct) {
+    private func setupDataProduct(with productData: DetailProduct) {
         guard let quantity = productData.quantityAvaibable else { return }
         guard let hasDescription = productData.subtitle != nil ? true : false else { return }
         productTitle.text = productData.title
@@ -63,7 +58,7 @@ class DetailViewController: UIViewController {
         quantityProduct.text = "\(quantity) unidades disponibles"
     }
     
-    func getDataFromSearchViewController(forData data: Products?) {
+    func getDataFromSearchViewController(with data: Products?) {
         guard let productData = data else { return }
         productID = productData.id
         isFavorites = productData.isFavorite
@@ -75,16 +70,16 @@ class DetailViewController: UIViewController {
     }
     
     //Set favorite icon value
-    private func setFavoritesIcon(forValue value: Bool) {
-        value ? addIconAdded(forValue: value) : removeIconAdded(forValue: value)
+    private func setFavoritesIcon(for value: Bool) {
+        value ? addIconAdded(for: value) : removeIconAdded(for: value)
     }
     
-    func addIconAdded(forValue value: Bool) {
+    func addIconAdded(for value: Bool) {
         favoritesButton.setImage(Icons.FavoriteAdded, for: .normal)
         productData?.isFavorite = value
     }
     
-    func removeIconAdded(forValue value: Bool) {
+    func removeIconAdded(for value: Bool) {
         favoritesButton.setImage(Icons.Favorite, for: .normal)
         productData?.isFavorite = value
     }
@@ -93,45 +88,44 @@ class DetailViewController: UIViewController {
     //Button Action when favorites change value
     @IBAction func favoritesButtonPressed(_ sender: Any) {
         guard let value = productData?.isFavorite else { return }
-        favoritesButtonAction(forValueFavorite: value)
+        favoritesButtonAction(for: value)
     }
     
-    func favoritesButtonAction(forValueFavorite value: Bool) {
-        let finalValue = changeValue(forValue: value)
+    func favoritesButtonAction(for value: Bool) {
+        let finalValue = changeValue(with: value)
         isFavorites = finalValue
-        setFavorites(forValue: finalValue, forId: productID)
+        setFavorites(with: finalValue, with: productID)
     }
     
     //Change value to favorite icon
-    func changeValue(forValue value: Bool) -> Bool {
-        let valueFinal = value ? false : true
-        return valueFinal
+    func changeValue(with value: Bool) -> Bool {
+        return value ? false : true
     }
     
     //Abstraer
-    func setFavorites(forValue value: Bool, forId id: String) {
+    func setFavorites(with value: Bool, with id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         var favorites = dataFavorites
         guard let value = isFavorites else { return }
         if value == true {
             if favorites.isEmpty == true || favorites.contains(where: {$0.id != id}) {
-                setFavoritesIcon(forValue: value)
+                setFavoritesIcon(for: value)
                 guard let data = productData else { return }
                 favorites.append(data)
                 UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
-                notificationToSearch(forId: id, forValue: value)
+                notificationToSearch(for: id, for: value)
             }
         }
         else {
             let newFavorites = favorites.filter {$0.id != id}
-            setFavoritesIcon(forValue: value)
+            setFavoritesIcon(for: value)
             favorites = newFavorites
             UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
-            notificationToSearch(forId: id, forValue: value)
+            notificationToSearch(for: id, for: value)
         }
     }
     
-    func notificationToSearch(forId id: String, forValue value: Bool) {
+    func notificationToSearch(for id: String, for value: Bool) {
         let dict: [String : Any] = ["id" : id, "value" : value]
         let notification = Notification.Name(rawValue: NotificationsKeys.Search)
         NotificationCenter.default.post(name: notification, object: dict)
@@ -139,7 +133,7 @@ class DetailViewController: UIViewController {
     
     
     @IBAction func addToCartPressed(_ sender: Any) {
-        validateProduct(forProduct: products)
+        validateProduct(for: products)
         self.perform(#selector(dissapearSnackBar),with: nil,afterDelay: 3)
     }
     
@@ -152,7 +146,7 @@ class DetailViewController: UIViewController {
         UserDefaultsManager.sharedInstance.setProductInCart(value: data)
     }
     
-    func validateProduct(forProduct product: DetailProduct?) {
+    func validateProduct(for product: DetailProduct?) {
         guard let data = product else { return }
         let dataProductsCart = UserDefaultsManager.sharedInstance.getProductInCar()
         dataProductsCart.contains(where: {$0.id == data.id}) ? showAlertAddProduct() : addToCartAction()
@@ -186,7 +180,7 @@ class DetailViewController: UIViewController {
 //MARK: - API CALL
 extension DetailViewController {
     
-    func getDetailProduct(forId id: String?) {
+    func getDetailProduct(with id: String?) {
         guard let dataId = id else { return }
         NetworkService.shared.getDetailsProducts(query: dataId) { response in
             switch response {
@@ -194,7 +188,7 @@ extension DetailViewController {
                 self.products = response
                 DispatchQueue.main.async {
                     guard let data = self.products else { return }
-                    self.setupUI(forProduct: data)
+                    self.setupUI(with: data)
                     self.featuresTableView.reloadData()
                 }
             case .failure(let error):
@@ -221,7 +215,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        setNameSections(sectionsCount: section)
+        setNameSections(with: section)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -231,46 +225,50 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = setRowForSection(forSections: section)
+        let count = setRowForSection(for: section)
         return count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = featuresTableView.dequeueReusableCell(withIdentifier: FeaturesTableViewCell.identifier, for: indexPath) as! FeaturesTableViewCell
-        cell = setCell(forSection: indexPath.section, forIndex: indexPath.row, forCell: cell)
+        cell = setCell(for: indexPath.section, for: indexPath.row, for: cell)
         return cell
     }
     
-    private func setCell(forSection section: Int, forIndex indexPath: Int, forCell cell: FeaturesTableViewCell) -> FeaturesTableViewCell {
+    private func setCell(for section: Int, for indexPath: Int, for cell: FeaturesTableViewCell) -> FeaturesTableViewCell {
         if let attributes = products?.attributes {
-            section == 0 ? cell.setupCell(forFeatureName: attributes[indexPath].name, forFeatureValue: attributes[indexPath].value) : cell.setupCell(forFeatureName: attributes[indexPath + 5].name, forFeatureValue: attributes[indexPath + 5].value)
+            section == 0 ? cell.setupCell(for: attributes[indexPath].name, for: attributes[indexPath].value) : cell.setupCell(for: attributes[indexPath + 5].name, for: attributes[indexPath + 5].value)
         }
         return cell
     }
     
-    //Check
+    //Set quantity of Section TableView
     func setSections() -> Int {
         guard let attributes = products?.attributes?.count else { return 0 }
         let count = (attributes > 5) ? 2 : 1
         return count
     }
     
-    func setNameSections(sectionsCount value: Int) -> String {
+    //Set Name of Section TableView
+    func setNameSections(with value: Int) -> String {
         value == 0 ? "Caracteristicas" : "Info adicional"
     }
     
-    func setRowForSection(forSections value: Int) -> Int {
+    //Set quantity of row for Section TableView
+    func setRowForSection(for row: Int) -> Int {
         guard let attributes = products?.attributes?.count else { return 0 }
-        let row = (value == 0) ? checkFeatures(forAttributes: attributes) :  checkInfoAdditional(forAttributes: attributes)
+        let row = (row == 0) ? checkFeatures(with: attributes) :  checkInfoAdditional(with: attributes)
         return row
     }
     
-    func checkFeatures(forAttributes attributes: Int) -> Int {
+    //Set quantity of Section Features
+    func checkFeatures(with attributes: Int) -> Int {
         let count = (attributes > 5) ? 5 : attributes
         return count
     }
     
-    func checkInfoAdditional(forAttributes attributes: Int) -> Int{
+    //Set quantity of Section InfoAdditional
+    func checkInfoAdditional(with attributes: Int) -> Int{
         let count = (attributes > 7) ? 2 : 1
         return count
     }

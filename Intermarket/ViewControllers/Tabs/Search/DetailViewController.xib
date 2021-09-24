@@ -47,21 +47,18 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="127"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="To8-Ru-fH6">
-                            <rect key="frame" x="16" y="76" width="12.5" height="37"/>
+                            <rect key="frame" x="16" y="76" width="116" height="37"/>
                             <constraints>
+                                <constraint firstAttribute="width" constant="116" id="4gJ-n7-bds"/>
                                 <constraint firstAttribute="height" constant="37" id="bO5-3R-I9I"/>
                             </constraints>
-                            <state key="normal" image="chevron.left" catalog="system"/>
+                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                            <state key="normal" title="DETALLES" image="chevron.left" catalog="system"/>
                             <connections>
                                 <action selector="backButton:" destination="-1" eventType="touchUpInside" id="CLM-tx-e6p"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DETALLES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XA-f9-Z3w">
-                            <rect key="frame" x="40.5" y="84.5" width="63.5" height="20"/>
-                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" name="Primary"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -69,8 +66,6 @@
                         <constraint firstAttribute="height" constant="127" id="AJ9-cc-Dzy"/>
                         <constraint firstAttribute="bottom" secondItem="To8-Ru-fH6" secondAttribute="bottom" constant="14" id="TKU-AX-Nvf"/>
                         <constraint firstItem="To8-Ru-fH6" firstAttribute="leading" secondItem="WHv-wU-VKk" secondAttribute="leading" constant="16" id="TYW-Wd-iFB"/>
-                        <constraint firstItem="9XA-f9-Z3w" firstAttribute="centerY" secondItem="To8-Ru-fH6" secondAttribute="centerY" id="c75-dP-3Qj"/>
-                        <constraint firstItem="9XA-f9-Z3w" firstAttribute="leading" secondItem="To8-Ru-fH6" secondAttribute="trailing" constant="12" id="lI1-Lu-eo3"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsR-oA-f3i">
