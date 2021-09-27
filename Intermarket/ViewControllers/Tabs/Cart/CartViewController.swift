@@ -174,10 +174,7 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-         switch section {
-         case 0: return "Productos elegidos"
-         default: return nil
-         }
+         return "Productos elegidos"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -197,15 +194,15 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 extension CartViewController: ProductsTableViewCellDelegate {
     
     //Action Delegate
-    func updateCell(for id: String, for newQuantity: Int, for totalQuantity: Int) {
-        changeQuantity(for: id, for: newQuantity, for: totalQuantity)
+    func updateCell(for id: String, newQuantity: Int, maxQuantity: Int) {
+        changeQuantity(for: id, valueQuantity: newQuantity, maxQuantity: maxQuantity)
         productsTableView.reloadData()
         setTotalPrice()
         setTotalQuantityProducts()
     }
     
     //MARK- Mejorar
-    func changeQuantity(for id: String, for valueQuantity: Int, for maxQuantity: Int) {
+    func changeQuantity(for id: String, valueQuantity: Int, maxQuantity: Int) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             if valueQuantity == 0 {
                 products[index].quantity = 1
@@ -221,7 +218,6 @@ extension CartViewController: ProductsTableViewCellDelegate {
                 products[index].quantity = valueQuantity
             }
         }
-        
         saveProductQuantity(with: products)
         
     }
@@ -231,7 +227,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
     }
     
     func showAlert() {
-        let alert = UIAlertController(title: "No hay mas articulos disponiles", message: "Esta es la cantidad maxima de articulos", preferredStyle: .alert)
+        let alert = UIAlertController(title: "No hay mas articulos disponibles", message: "Esta es la cantidad maxima de articulos", preferredStyle: .alert)
         let action = UIAlertAction(title: "Continuar", style: .default, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -239,15 +235,10 @@ extension CartViewController: ProductsTableViewCellDelegate {
     
     //Action Delegate - Mejorar
     func deleteProduct(forId id: String) {
-        if let i = products.firstIndex(where: {$0.id == id}) {
-            deleteProductAction(forIndex: i)
+        if let index = products.firstIndex(where: {$0.id == id}) {
+            deleteProductAction(forIndex: index)
             setTotalPrice()
-            if products.count > 0 {
-                checkProducts(for: false)
-            }
-            else {
-                checkProducts(for: true)
-            }
+            products.count > 0 ? checkProducts(for: false) : checkProducts(for: true)
         }
     }
     
@@ -263,11 +254,17 @@ extension CartViewController: ProductsTableViewCellDelegate {
         if isEmpty {
             checkEmptyCart()
             snackBarUI()
-            self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 3)
+            timerSnackbar()
         }
         else {
             snackBarUI()
-            self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 3)
+            timerSnackbar()
+        }
+    }
+    
+    func timerSnackbar() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            self.snackBarView.isHidden = true
         }
     }
     
@@ -305,5 +302,4 @@ extension CartViewController: ProductsTableViewCellDelegate {
         }
         totalQuantityProducts = quantityProducts.reduce(0, +)
     }
-    
 }

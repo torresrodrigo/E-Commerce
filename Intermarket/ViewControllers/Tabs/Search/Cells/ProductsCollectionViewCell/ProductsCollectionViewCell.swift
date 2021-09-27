@@ -9,11 +9,11 @@ import UIKit
 import SDWebImage
 
 protocol ProductCollectionViewCellDelegate {
-    func onTouchFavorites(with value: Bool, with id: String)
+    func onTouchFavorites(with valueCell: Bool, id: String)
 }
 
 extension ProductCollectionViewCellDelegate {
-    func deleteFavorites(forId id: String){}
+    func deleteFavorites(with id: String){}
 }
 
 class ProductsCollectionViewCell: UICollectionViewCell {
@@ -46,7 +46,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
             let changeValueFavorite = valueFavorite == false ? true : false
             isFavorite = changeValueFavorite
             setFavoritesIcon(forStatusImage: changeValueFavorite)
-            cellDelegate?.onTouchFavorites(with: changeValueFavorite, with: valueId)
+            cellDelegate?.onTouchFavorites(with: changeValueFavorite, id: valueId)
         }
     }
     

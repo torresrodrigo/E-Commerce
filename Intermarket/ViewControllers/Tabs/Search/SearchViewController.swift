@@ -51,7 +51,7 @@ class SearchViewController: UIViewController {
     private func setSearchUI(for isEmptyText: Bool) {
         imgSearch.isHidden = !isEmptyText
         searchLabel.isHidden = !isEmptyText
-        getSearchTitle.isHidden = !isEmptyText
+        getSearchTitle.isHidden = isEmptyText
         getSearchSubtitle.isHidden = isEmptyText
         productsCollectionView.isHidden = isEmptyText
     }
@@ -199,7 +199,10 @@ extension SearchViewController: UISearchBarDelegate {
     
     //Perform search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBarAction()
+        if let isEmpty = searchBar.text?.isEmpty {
+            isEmpty ? nil : searchBarAction()
+        }
+        
     }
     
     //SearchBar Touch Action
@@ -292,18 +295,17 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension SearchViewController: ProductCollectionViewCellDelegate {
     
     //Action delegate
-    func onTouchFavorites(with value: Bool, with id: String) {
-        favoritesButtonAction(for: value, for: id)
+    func onTouchFavorites(with value: Bool, id: String) {
+        favoritesButtonAction(with: value, id: id)
     }
-
     
     //Action when touch Favorite icon
-    func favoritesButtonAction(for value: Bool, for id: String) {
+    func favoritesButtonAction(with value: Bool, id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         changeValueFavorites(with: value, with: id, with: products, for: dataFavorites)
     }
     
-    //MARK: - Check Refactor
+    
     func changeValueFavorites(with value: Bool, with id: String, with products: [Products], for favoritesUserDefaults: [Products]) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             value ? validateFavoritesUserDefaults(for: index, with: value, for: favoritesUserDefaults, with: id) : removeFavorites(for: index, with: value, for: favoritesUserDefaults, with: id)

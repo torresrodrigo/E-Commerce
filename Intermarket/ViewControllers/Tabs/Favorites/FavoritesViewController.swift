@@ -91,21 +91,21 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
 extension FavoritesViewController: ProductCollectionViewCellDelegate {
     
     //Abstraer
-    func onTouchFavorites(with value: Bool, with id: String) {
-        if let i = favorites.firstIndex(where: {$0.id == id}) {
-            value ? nil : removeCell(with: id, with: value, for: i)
+    func onTouchFavorites(with valueCell: Bool, id: String) {
+        if let index = favorites.firstIndex(where: {$0.id == id}) {
+            valueCell ? nil : removeCell(with: id, value: valueCell, index: index)
         }
     }
     
-    func removeCell(with id: String, with value: Bool, for index: Int) {
+    func removeCell(with id: String, value: Bool, index: Int) {
         favorites[index].isFavorite = value
-        changeFavorites(with: id, with: value)
+        changeFavorites(with: id, valueCell: value)
         updateCollectionView()
         checkEmptyCart()
     }
     
-    func changeFavorites(with id: String, with value: Bool) {
-        let dict: [String : Any] = ["id" : id, "value" : value]
+    func changeFavorites(with id: String, valueCell: Bool) {
+        let dict: [String : Any] = ["id" : id, "value" : valueCell]
         let notification = Notification.Name(rawValue: NotificationsKeys.Favorites)
         NotificationCenter.default.post(name: notification, object: dict)
     }

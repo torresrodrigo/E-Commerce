@@ -21,7 +21,7 @@ class QRCodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        proceedWithCameraAccess()
+        requestPermission()
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -44,7 +44,7 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
     //Initial configuation
     func setConfiguration() {
         guard let captureDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) else {
-            print("Failed to get the camera device")
+            print("Camera device not founded")
             return
         }
         
@@ -67,6 +67,16 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
         session.startRunning()
     }
     
+    func requestPermission() {
+        let auth = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        switch(auth) {
+        case .denied, .notDetermined, .restricted:
+            showAlert()
+        case .authorized:
+            proceedWithCameraAccess()
+        }
+    }
+    
     //Permision to camera access
     func proceedWithCameraAccess(){
         AVCaptureDevice.requestAccess(for: .video) { success in
@@ -74,15 +84,17 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
             DispatchQueue.main.async {
                 self.setConfiguration()
             }
-          } else {
-            let alert = UIAlertController(title: "Camera", message: "Camera access is absolutely necessary to use this app", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-            }))
-            self.present(alert, animated: true)
           }
         }
       }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Camera", message: "Camera access is absolutely necessary to use this app", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        }))
+        self.present(alert, animated: true)
+    }
     
     //Executed camera
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {

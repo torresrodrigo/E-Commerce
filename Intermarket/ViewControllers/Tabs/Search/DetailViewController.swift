@@ -99,38 +99,49 @@ class DetailViewController: UIViewController {
     
     //Change value to favorite icon
     func changeValue(with value: Bool) -> Bool {
-        return value ? false : true
+        return !value
     }
     
-    //Abstraer
+    //MARK: - Set Favorites value when touch favorites icon
     func setFavorites(with value: Bool, with id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
-        var favorites = dataFavorites
-        guard let value = isFavorites else { return }
-        if value == true {
-            if favorites.isEmpty == true || favorites.contains(where: {$0.id != id}) {
-                setFavoritesIcon(for: value)
-                guard let data = productData else { return }
-                favorites.append(data)
-                UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
-                notificationToSearch(for: id, for: value)
-            }
-        }
-        else {
-            let newFavorites = favorites.filter {$0.id != id}
-            setFavoritesIcon(for: value)
-            favorites = newFavorites
-            UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
-            notificationToSearch(for: id, for: value)
+        let favorites = dataFavorites
+        guard let valueFavorites = isFavorites else { return }
+        valueFavorites ? addUserDefaults(with: id, with: value, from: favorites) : removeUserDefaults(with: id, with: value, from: favorites)
+    }
+    
+    //MARK: - UserDefaults Actions
+    
+    //Action to add new favorites to user defaults
+    func addUserDefaults(with id: String, with value: Bool, from favorites: [Products]) {
+        if favorites.isEmpty == true || favorites.contains(where: {$0.id != id}) {
+            validationUserDefaults(with: id, with: value, from: favorites)
         }
     }
     
-    func notificationToSearch(for id: String, for value: Bool) {
+    //Action to remove new favorites to user defaults
+    func removeUserDefaults(with id: String, with value: Bool, from favorites: [Products]) {
+        let newFavorites = favorites.filter {$0.id != id}
+        setFavoritesIcon(for: value)
+        UserDefaultsManager.sharedInstance.setFavorites(value: newFavorites)
+        notificationToSearch(with: id, with: value)
+    }
+    
+    //Action to validation favorites
+    func validationUserDefaults(with id: String ,with value: Bool, from favorites: [Products]) {
+        var newFavorites = favorites
+        setFavoritesIcon(for: value)
+        guard let data = productData else { return }
+        newFavorites.append(data)
+        UserDefaultsManager.sharedInstance.setFavorites(value: newFavorites)
+        notificationToSearch(with: id, with: value)
+    }
+    
+    func notificationToSearch(with id: String, with value: Bool) {
         let dict: [String : Any] = ["id" : id, "value" : value]
         let notification = Notification.Name(rawValue: NotificationsKeys.Search)
         NotificationCenter.default.post(name: notification, object: dict)
     }
-    
     
     @IBAction func addToCartPressed(_ sender: Any) {
         validateProduct(for: products)
