@@ -213,10 +213,9 @@ extension SearchViewController: UISearchBarDelegate {
     
     //Perform search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let isEmpty = searchBar.text?.isEmpty {
-            isEmpty ? nil : searchBarAction()
+        if searchBar.text?.isEmpty == false {
+            searchBarAction()
         }
-        
     }
     
     //SearchBar Touch Action
