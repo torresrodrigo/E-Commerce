@@ -30,15 +30,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func loginCheckAction(forLogin valueLogin: Bool?, forOnboarding valueOnboarding: Bool?, forWindowSecene windowScene: UIWindowScene, forWindow window: UIWindow) {
-        switch (valueLogin, valueOnboarding) {
-        case (valueOnboarding == nil, valueLogin == nil):
+        if valueLogin == false && valueOnboarding == false {
             setupViewController(forController: OnboardingViewController(), forWindowScene: windowScene, forWindow: window)
-        case (valueOnboarding == true, valueLogin == nil):
+        }
+        else if valueLogin == false && valueOnboarding == true {
             setupViewController(forController: LoginViewController(), forWindowScene: windowScene, forWindow: window)
-        case (valueOnboarding == true, valueLogin == true):
+        }
+        else {
             goToTabBar(forWindowScene: windowScene, forWindow: window)
-        default:
-            break
         }
     }
     

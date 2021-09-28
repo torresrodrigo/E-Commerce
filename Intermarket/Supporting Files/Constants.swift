@@ -53,3 +53,13 @@ struct NotificationsKeys {
     static let Favorites = "co.intermarket.favorites"
     static let Search = "co.intermarket.search"
 }
+
+struct Identifier {
+    static let GoToPurchase = "goToPurchase"
+    static let GoToQRCode = "goToQrCode"
+    static let GoToConfirmation = "goToConfirmation"
+    static let GoToProfile =  "goToProfile"
+    static let GoToLogOut = "goToLogOut"
+    static let TabBarStoryboard = "TabBar"
+    static let TabBarController = "TabBarController"
+}

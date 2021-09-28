@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import Alamofire
 
 class NetworkService {
@@ -27,7 +28,8 @@ class NetworkService {
                 }
             case .failure(let error):
                 print(error)
-                print(response.response?.statusCode ?? 200)
+                print(response.response?.statusCode ?? 0)
+                completed(.failure(error))
             }
         }
     }
@@ -39,7 +41,6 @@ class NetworkService {
             case .success(let data):
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .useDefaultKeys
-                print(data)
                 do {
                     let result = try decoder.decode(DetailProduct.self, from: data)
                     completed(.success(result))

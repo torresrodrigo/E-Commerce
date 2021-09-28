@@ -25,7 +25,7 @@ class OnboardingViewController: UIViewController {
     }
 
     @IBAction func touchSkipButton(_ sender: Any) {
-        presentLogin(forLogin: LoginViewController())
+        presentLogin(controller: LoginViewController())
     }
     
     func setupCustomPageControl() {
@@ -45,7 +45,6 @@ class OnboardingViewController: UIViewController {
         self.customPageControl.centerXAnchor.constraint(equalTo: slicesCollectionView.centerXAnchor).isActive = true
         self.customPageControl.bottomAnchor.constraint(equalTo: buttonStart.topAnchor, constant: 10).isActive = true
     }
-
     
     @IBAction func touchStartButton(_ sender: Any) {
         touchStartButtonAction()
@@ -53,17 +52,17 @@ class OnboardingViewController: UIViewController {
     
     func touchStartButtonAction() {
         if currentPage == slices.count - 1 {
-            presentLogin(forLogin: LoginViewController())
+            presentLogin(controller: LoginViewController())
         } else {
             currentPage += 1
             let indexPath = IndexPath(item: currentPage, section: 0)
             slicesCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            changeTextButton(forIndex: currentPage)
+            changeTextButton(page: currentPage)
         }
     }
     
-    func presentLogin(forLogin login: UIViewController ) {
-        let navigation = UINavigationController(rootViewController: login)
+    func presentLogin(controller: UIViewController ) {
+        let navigation = UINavigationController(rootViewController: controller)
         navigation.modalPresentationStyle = .fullScreen
         present(navigation, animated: true, completion: nil)
     }
@@ -72,10 +71,10 @@ class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController {
     
-    private func changeTextButton(forIndex index: Int) {
-        if index == 1 {
+    private func changeTextButton(page: Int) {
+        if page == 1 {
             buttonStart.setTitle("Siguiente", for: .normal)
-        } else if index == 2 {
+        } else if page == 2 {
             buttonStart.setTitle("Finalizar", for: .normal)
         } else {
             buttonStart.setTitle("Comenzar", for: .normal)
@@ -125,7 +124,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
         let width = scrollView.frame.width
         currentPage = Int(scrollView.contentOffset.x / width)
         customPageControl.currentPage = currentPage
-        changeTextButton(forIndex: currentPage)
+        changeTextButton(page: currentPage)
     }
     
 }

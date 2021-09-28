@@ -47,11 +47,11 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2B-qZ-cbi">
-                        <rect key="frame" x="119" y="4" width="25" height="25"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2B-qZ-cbi">
+                        <rect key="frame" x="114" y="4" width="30" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="e7N-Xe-rDm"/>
-                            <constraint firstAttribute="width" constant="25" id="pm6-gK-NGV"/>
+                            <constraint firstAttribute="height" constant="30" id="e7N-Xe-rDm"/>
+                            <constraint firstAttribute="width" constant="30" id="pm6-gK-NGV"/>
                         </constraints>
                         <state key="normal" image="favorite"/>
                         <connections>

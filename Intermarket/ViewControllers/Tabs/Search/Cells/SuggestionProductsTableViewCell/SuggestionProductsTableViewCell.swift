@@ -20,7 +20,7 @@ class SuggestionProductsTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func setupCell(forData data: Products) {
+    func setupCell(data: Products) {
         suggestionLabel.text = data.title
     }
     

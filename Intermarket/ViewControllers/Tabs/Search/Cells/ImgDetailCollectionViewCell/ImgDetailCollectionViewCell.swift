@@ -22,8 +22,8 @@ class ImgDetailCollectionViewCell: UICollectionViewCell {
         // Initialization codeO
     }
     
-    func setupCell(forImage url: String?, forCount count: String) {
-        guard let path = url else { return }
+    func setupCell(imageUrl: String?, count: String) {
+        guard let path = imageUrl else { return }
         imgCellProduct.sd_setImage(with: URL(string: path))
         countLabel.text = count
     }

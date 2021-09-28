@@ -28,6 +28,7 @@ class SearchViewController: UIViewController {
     var products = [Products]()
     var suggestions = [Products]()
     var favorites = [Products]()
+    var timer : Timer?
     
     let notificationFavorites = Notification.Name(rawValue: NotificationsKeys.Favorites)
     let notificationSearch = Notification.Name(rawValue: NotificationsKeys.Search)
@@ -44,16 +45,17 @@ class SearchViewController: UIViewController {
     private func setupUI() {
         setupSearchBar()
         setupCollectionView()
-        hideKeyboard()
+        keyboardTapGesture()
         createObserver()
     }
     
-    private func setSearchUI(isEmptyText value: Bool) {
-        imgSearch.isHidden = value ? false : true
-        searchLabel.isHidden = value ? false : true
-        getSearchTitle.isHidden = value ? true : false
-        getSearchSubtitle.isHidden = value ? true : false
-        productsCollectionView.isHidden = value ? true : false
+    private func setSearchUI(isEmptyText: Bool) {
+        imgSearch.isHidden = !isEmptyText
+        searchLabel.isHidden = !isEmptyText
+        getSearchTitle.isHidden = isEmptyText
+        getSearchSubtitle.isHidden = isEmptyText
+        productsCollectionView.isHidden = isEmptyText
+        suggestionView.isHidden = isEmptyText
     }
     
     private func totalEmptyUI() {
@@ -65,7 +67,7 @@ class SearchViewController: UIViewController {
     }
     
     //Keyboard Actions
-    func hideKeyboard() {
+    func keyboardTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
@@ -76,12 +78,12 @@ class SearchViewController: UIViewController {
     }
     
     //API call
-    func getResultsSearch(forQuery query: String?) {
+    func getResultsSearch(query: String?) {
         guard let searchText = query else { return }
         NetworkService.shared.getProducts(query: searchText) { response in
             switch response {
             case .success(let response):
-                self.products = self.setValuesOfFavorites(forProducts: response.results)
+                self.products = self.setValuesOfFavorites(with: response.results)
                 self.suggestions = response.results
                 DispatchQueue.main.async {
                     self.suggestionTableView.reloadData()
@@ -89,13 +91,21 @@ class SearchViewController: UIViewController {
                     self.productsCollectionView.reloadData()
                 }
             case .failure(let error):
-                print("Something is wrong. Error: \(error.localizedDescription)")
+                print(error.localizedDescription)
+                self.alertErrorCallAPI()
             }
         }
     }
+    
+    private func alertErrorCallAPI() {
+        let alert = UIAlertController(title: "Error", message: "Ha ocurrido un problema en InterMarket", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Continuar", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
         
     //Set all values false from API
-    func setValuesOfFavorites(forProducts products: [Products]) -> [Products] {
+    func setValuesOfFavorites(with products: [Products]) -> [Products] {
         var productData = products
         if products.isEmpty == false {
             for i in 0...products.count - 1 {
@@ -131,6 +141,7 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.backgroundColor = .clear
         searchBar.searchTextField.backgroundColor = .white
         searchBar.backgroundImage = UIImage()
+        searchBar.searchTextField.textColor = .black
     }
     
     //Restrict only 50 characters
@@ -141,77 +152,79 @@ extension SearchViewController: UISearchBarDelegate {
     
     //Show empty state when begin typing
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        textDidBeginAction(forSearchBar: searchBar)
+        textDidBeginAction(searchBar: searchBar)
     }
     
-    func textDidBeginAction(forSearchBar searchBar: UISearchBar) {
+    func textDidBeginAction(searchBar: UISearchBar) {
         if searchBar.text?.count == 0 {
             setSearchUI(isEmptyText: true)
-            suggestionView.isHidden = true
             setupTableView()
         }
     }
     
     //Acelerated Search
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        aceleratedSearchAction(forSearchBar: searchBar)
+        aceleratedSearchAction(searchBar: searchBar)
     }
     
-    func aceleratedSearchAction(forSearchBar searchBar: UISearchBar ) {
+    func aceleratedSearchAction(searchBar: UISearchBar ) {
         guard let count = searchBar.text?.count else { return }
-        if count > 2 {
-            suggestionAction()
-            reloadData()
-        }
-        else {
-            setSearchUI(isEmptyText: true)
-            suggestionView.isHidden = true
-            suggestionTableView.reloadData()
-        }
+        (count > 2) ? showSuggestion() : hideSuggestion()
     }
     
-    func showSuggestion(forCount count: Int) {
+    private func showSuggestion() {
         suggestionAction()
-        count > 2 ? reloadData() : nil
+        reloadData()
     }
     
-    func hideSuggestion() {
+    private func hideSuggestion() {
         setSearchUI(isEmptyText: true)
-        suggestionView.isHidden = true
         suggestionTableView.reloadData()
     }
     
-    
     // Action to perform timer to show products in CollectionView
     func reloadData() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchReload), object: nil)
-        self.perform(#selector(searchReload), with: nil, afterDelay: 4)
+        guard timer == nil else { return }
+        timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(searchReload), userInfo: nil, repeats: false)
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
     
     @objc func searchReload() {
+        stopTimer()
         guard let searchText = searchBar.text?.remplaceTextInQuery() else { return }
-        getResultsSearch(forQuery: searchText)
-        suggestionView.isHidden = true
+        getResultsSearch(query: searchText)
+        searchText.count > 2 ? showResults() : nil
+    }
+    
+    private func showResults() {
         setSearchUI(isEmptyText: false)
+        suggestionView.isHidden = true
     }
     
     private func suggestionAction() {
         self.suggestionView.isHidden = false
         self.totalEmptyUI()
-        getResultsSearch(forQuery: searchBar.text?.remplaceTextInQuery())
+        getResultsSearch(query: searchBar.text?.remplaceTextInQuery())
     }
     
     //Perform search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBarAction()
+        if let isEmpty = searchBar.text?.isEmpty {
+            isEmpty ? nil : searchBarAction()
+        }
+        
     }
     
     //SearchBar Touch Action
-    func searchBarAction() {
+    private func searchBarAction() {
         DispatchQueue.main.async {
             self.searchBar.resignFirstResponder()
             guard let searchText = self.searchBar.text?.remplaceTextInQuery() else { return }
-            self.getResultsSearch(forQuery: searchText)
+            self.getResultsSearch(query: searchText)
             self.setSearchUI(isEmptyText: false)
             self.suggestionView.isHidden = true
         }
@@ -234,7 +247,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = suggestionTableView.dequeueReusableCell(withIdentifier: SuggestionProductsTableViewCell.identifier, for: indexPath) as! SuggestionProductsTableViewCell
-        cell.setupCell(forData: suggestions[indexPath.row])
+        cell.setupCell(data: suggestions[indexPath.row])
         return cell
     }
     
@@ -243,9 +256,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchSuggestionCell))
+        let keyboardTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchSuggestionCell))
         let cell = suggestionTableView.cellForRow(at: indexPath) as! SuggestionProductsTableViewCell
-        cell.addGestureRecognizer(tapGesture)
+        cell.addGestureRecognizer(keyboardTapGesture)
     }
     
     @objc func touchSuggestionCell() {
@@ -261,6 +274,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         productsCollectionView.register(ProductsCollectionViewCell.nib(), forCellWithReuseIdentifier: ProductsCollectionViewCell.identifier)
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
+        productsCollectionView.keyboardDismissMode = .onDrag
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -277,7 +291,6 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailViewController(nibName: DetailViewController.identifier, bundle: nil)
         detailVC.hidesBottomBarWhenPushed = true
-        detailVC.delegate = self
         detailVC.productData = products[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
@@ -289,77 +302,61 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
     }
-
     
 }
 
 //MARK: - ProductsDelegate
-extension SearchViewController: ProductCellDelegate {
+extension SearchViewController: ProductCollectionViewCellDelegate {
     
     //Action delegate
-    func onTouchFavorites(forValue value: Bool, forId id: String) {
-        favoritesButtonAction(forValue: value, forId: id)
+    func onTouchFavorites(isFavorite: Bool, id: String) {
+        favoritesButtonAction(isFavorite: isFavorite, id: id)
     }
-
     
     //Action when touch Favorite icon
-    func favoritesButtonAction(forValue value: Bool, forId id: String) {
+    func favoritesButtonAction(isFavorite: Bool, id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
-        changeValueFavorites(forValueFavorites: value, forId: id, forProductsData: products, forFavoritesUserDefaults: dataFavorites)
+        changeValueFavorites(isFavorite: isFavorite, id: id, products: products, favoritesUserDefaults: dataFavorites)
     }
     
-    //MARK: - Check Refactor
-    func changeValueFavorites(forValueFavorites value: Bool, forId id: String, forProductsData products: [Products], forFavoritesUserDefaults favoritesUserDefaults: [Products]) {
-        if let i = products.firstIndex(where: {$0.id == id}) {
-            if value == true {
-                if favoritesUserDefaults.isEmpty || favoritesUserDefaults.contains(where: {$0.id != id}) {
-                    addFavorite(forIndex: i, forNewValue: value, favoritesUserDefaults: favoritesUserDefaults)
-                }
-            } else {
-                removeFavorites(forIndex: i, forNewValue: value, favoritesUserDefaults: favoritesUserDefaults, forId: id)
-                productsCollectionView.reloadData()
+    func changeValueFavorites(isFavorite: Bool, id: String, products: [Products], favoritesUserDefaults: [Products]) {
+        if let index = products.firstIndex(where: {$0.id == id}) {
+            if isFavorite == true {
+                validateFavoritesUserDefaults(index: index, isFavorite: isFavorite, userDefaults: favoritesUserDefaults, id: id)
+            }
+            else {
+                removeFavorites(index: index, isFavorite: isFavorite, favoritesUserDefaults: favoritesUserDefaults, id: id)
             }
         }
     }
     
-    func addFavorite(forIndex index: Int, forNewValue value: Bool, favoritesUserDefaults: [Products]) {
-        var newFavoritesUserDefaults = favoritesUserDefaults
-        updateCollectionView(forIndex: index, forValue: value)
-        newFavoritesUserDefaults.append(products[index])
-        UserDefaultsManager.sharedInstance.setFavorites(value: newFavoritesUserDefaults)
+    func validateFavoritesUserDefaults(index: Int, isFavorite: Bool, userDefaults: [Products], id: String) {
+        if userDefaults.isEmpty || userDefaults.contains(where: {$0.id != id}) {
+            addFavorite(index: index, isFavorite: isFavorite, favoritesUserDefaults: userDefaults)
+        }
     }
     
-    func removeFavorites(forIndex index: Int, forNewValue value: Bool, favoritesUserDefaults: [Products], forId id: String) {
+    func addFavorite(index: Int, isFavorite: Bool, favoritesUserDefaults: [Products]) {
         var newFavoritesUserDefaults = favoritesUserDefaults
-        updateCollectionView(forIndex: index, forValue: value)
+        updateCollectionView(index: index, isFavoriteState: isFavorite)
+        newFavoritesUserDefaults.append(products[index])
+        UserDefaultsManager.sharedInstance.setFavorites(favorites: newFavoritesUserDefaults)
+    }
+    
+    func removeFavorites(index: Int, isFavorite: Bool, favoritesUserDefaults: [Products], id: String) {
+        var newFavoritesUserDefaults = favoritesUserDefaults
+        updateCollectionView(index: index, isFavoriteState: isFavorite)
         let newFavorites = newFavoritesUserDefaults.filter {$0.isFavorite == true && $0.id != id}
         newFavoritesUserDefaults = newFavorites
-        UserDefaultsManager.sharedInstance.setFavorites(value: newFavoritesUserDefaults)
+        UserDefaultsManager.sharedInstance.setFavorites(favorites: newFavoritesUserDefaults)
+        productsCollectionView.reloadData()
     }
     
-    func updateCollectionView(forIndex index: Int, forValue value: Bool) {
-        products[index].isFavorite = value
+    private func updateCollectionView(index: Int, isFavoriteState: Bool) {
+        products[index].isFavorite = isFavoriteState
         productsCollectionView.reloadData()
     }
         
-}
-
-//MARK: - DetailViewControllerDelegate
-extension SearchViewController: DetailViewControllerDelegate {
-    
-    //Action delegate
-    func updateFavorite(forId id: String, forValue value: Bool) {
-        guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
-        actionUpdateFavorites(forId: id, forValue: value, ForUserDefaults: dataFavorites)
-    }
-    
-    //Update from DetailViewController
-    func actionUpdateFavorites(forId id: String, forValue value: Bool, ForUserDefaults userDefaults: [Products] ) {
-        if let index = products.firstIndex(where: {$0.id == id }) {
-            products[index].isFavorite = value
-            productsCollectionView.reloadData()
-        }
-    }
 }
 
 //MARK: - Notification and Observer
@@ -373,15 +370,15 @@ extension SearchViewController {
     @objc func updateFavorites(notification: NSNotification) {
         if let dict = notification.object as? NSDictionary {
             if let id = dict["id"] as? String, let value = dict["value"] as? Bool {
-                setFalseFavorites(forId: id, forValue: value)
+                setFalseFavorites(id: id, isFavoriteState: value)
                 productsCollectionView.reloadData()
             }
         }
     }
     
-    func setFalseFavorites(forId id: String, forValue value: Bool) {
+    func setFalseFavorites(id: String, isFavoriteState: Bool) {
         if let index = products.firstIndex(where: {$0.id == id}) {
-            products[index].isFavorite = value
+            products[index].isFavorite = isFavoriteState
         }
     }
     

@@ -92,6 +92,6 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Need use camera</string>
+	<string>InterMarket necesita acceso a la cámara para escanear los codigos QR de los productos</string>
 </dict>
 </plist>

@@ -33,7 +33,8 @@ class PurchaseViewController: UIViewController {
     private func backButtonAction() {
         if isNavigationController == false {
             self.navigationController?.popToRootViewController(animated: true)
-        } else {
+        }
+        else {
             dismiss(animated: true, completion: nil)
         }
     }
@@ -45,23 +46,22 @@ class PurchaseViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        prepareAction(forSegue: segue)
+        prepareAction(segue: segue)
     }
     
-    func prepareAction(forSegue segue: UIStoryboardSegue) {
-        if segue.identifier == "goToConfirmation" {
-            goToConfirmationVC(forSegue: segue)
+    func prepareAction(segue: UIStoryboardSegue) {
+        if segue.identifier == Identifier.GoToConfirmation {
+            goToConfirmationVC(segue: segue)
         }
     }
     
-    func goToConfirmationVC(forSegue segue: UIStoryboardSegue) {
+    func goToConfirmationVC(segue: UIStoryboardSegue) {
         let vc = segue.destination as? ConfirmationViewController
         vc?.modalPresentationStyle = .fullScreen
         vc?.isNavigationController = isNavigationController
         UserDefaultsManager.sharedInstance.remove(key: UserDefaultsKeys.ProductInCart)
     }
 
-    
 }
 
 //MARK: - ProductsTableView
@@ -81,7 +81,7 @@ extension PurchaseViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = productsTableView.dequeueReusableCell(withIdentifier: PurchaseTableViewCell.identifier, for: indexPath) as! PurchaseTableViewCell
-        cell.setupCell(forData: productsPurchase[indexPath.row])
+        cell.setupCell(data: productsPurchase[indexPath.row])
         return cell
     }
     

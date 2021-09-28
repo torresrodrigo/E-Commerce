@@ -8,8 +8,8 @@
 import UIKit
 
 protocol ProductsTableViewCellDelegate {
-    func updateCell(forId id: String, forQuantity newQuantity: Int, forTotalQuantity maxQuantity: Int)
-    func deleteProduct(forId id: String)
+    func updateCell(id: String, newQuantity: Int, maxQuantity: Int)
+    func deleteProduct(id: String)
 }
 
 class ProductsTableViewCell: UITableViewCell {
@@ -41,7 +41,7 @@ class ProductsTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func setupCell(forData data: DetailProduct) {
+    func setupCell(data: DetailProduct) {
         guard let quantityAvailable = data.quantityAvaibable , let quantitySelected = data.quantity  else { return }
         titleProduct.text = data.title
         priceProduct.text = data.price.currency()
@@ -53,44 +53,49 @@ class ProductsTableViewCell: UITableViewCell {
         totalQuantity = quantityAvailable
     }
     
-    
     @IBAction func deleteButtonPressed(_ sender: Any ){
-        delegate?.deleteProduct(forId: id)
+        delegate?.deleteProduct(id: id)
     }
     
     @IBAction func plusButtonPressed(_ sender: Any) {
         plusButtonAction()
-        delegate?.updateCell(forId: id, forQuantity: quantity, forTotalQuantity: totalQuantity)
+        delegate?.updateCell(id: id, newQuantity: quantity, maxQuantity: totalQuantity)
     }
     
     @IBAction func minusButtonPressed(_ sender: Any) {
         minusButtonActionn()
-        delegate?.updateCell(forId: id, forQuantity: quantity, forTotalQuantity: totalQuantity)
+        delegate?.updateCell(id: id, newQuantity: quantity, maxQuantity: totalQuantity)
     }
     
     //Action when add
     private func plusButtonAction() {
-        if quantity < totalQuantity {
-            quantity = quantity + 1
-            productQuantity.text = "\(quantity)"
-        } else {
-            quantity = totalQuantity
-            productQuantity.text = "\(quantity)"
-            print("Max quantity")
-        }
+        quantity < totalQuantity ? addQuantity() : maxQuantity()
+    }
+    
+    func addQuantity() {
+        quantity = quantity + 1
+        productQuantity.text = "\(quantity)"
+    }
+    
+    func maxQuantity() {
+        quantity = totalQuantity
+        productQuantity.text = "\(quantity)"
     }
     
     //Action when minus
     private func minusButtonActionn() {
-        if quantity > 1 {
-            quantity = quantity - 1
-            productQuantity.text = "\(quantity)"
-        } else {
-            quantity = 0
-            productQuantity.text = "\(quantity)"
-        }
+        quantity > 1 ? minusQuantity() : zeroQuantity()
     }
     
+    func minusQuantity() {
+        quantity = quantity - 1
+        productQuantity.text = "\(quantity)"
+    }
+    
+    func zeroQuantity() {
+        quantity = 0
+        productQuantity.text = "\(quantity)"
+    }
     
 }
 

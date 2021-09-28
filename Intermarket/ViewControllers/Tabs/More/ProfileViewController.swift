@@ -71,7 +71,7 @@ extension ProfileViewController: UINavigationControllerDelegate, UIImagePickerCo
     //Open a gallery photos
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
-        UserDefaultsManager.sharedInstance.setImage(value: chosenImage)
+        UserDefaultsManager.sharedInstance.setImage(image: chosenImage)
         imageProfile.maskCircle(anyImage: chosenImage)
         dismiss(animated: true, completion: nil)
     }

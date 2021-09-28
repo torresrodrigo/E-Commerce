@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol FavoritesViewControllerDelegate {
-    func updateFavorites(forId id: String, forValue value: Bool)
-}
-
 class FavoritesViewController: UIViewController {
     
     static let identifier = String(describing: FavoritesViewController.self)
@@ -18,7 +14,6 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak var favoritesEmpty: UIImageView!
     @IBOutlet weak var favoritesCollectionView: UICollectionView!
     var favorites = [Products]()
-    var delegate: FavoritesViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +31,10 @@ class FavoritesViewController: UIViewController {
         favorites.count > 0 ? setupUI(isEmpty: false) : setupUI(isEmpty: true)
     }
     
-    func setupUI(isEmpty value: Bool) {
-        favoritesCollectionView.isHidden = value ? true : false
-        favoritesLabel.isHidden = value ? false : true
-        favoritesEmpty.isHidden = value ? false : true
+    func setupUI(isEmpty: Bool) {
+        favoritesCollectionView.isHidden = isEmpty
+        favoritesLabel.isHidden = !isEmpty
+        favoritesEmpty.isHidden = !isEmpty
     }
     
     //Get data from UserDefaults
@@ -88,50 +83,36 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
 }
 
 //MARK: - ProductCellDelegate
-extension FavoritesViewController: ProductCellDelegate {
+extension FavoritesViewController: ProductCollectionViewCellDelegate {
     
     //Abstraer
-    func onTouchFavorites(forValue value: Bool, forId id: String) {
-        if let i = favorites.firstIndex(where: {$0.id == id}) {
-            if value == false {
-                favorites[i].isFavorite = value
-                delegate?.updateFavorites(forId: id, forValue: value)
-                changeFavorites(forId: id, forValue: value)
-                updateCollectionView()
-                checkEmptyCart()
+    func onTouchFavorites(isFavorite: Bool, id: String) {
+        if let index = favorites.firstIndex(where: {$0.id == id}) {
+            if isFavorite == false {
+                removeCell(id: id, isFavorites: isFavorite, index: index)
             }
         }
     }
     
-    func changeFavorites(forId id: String, forValue value: Bool) {
-        let dict: [String : Any] = ["id" : id, "value" : value]
+    func removeCell(id: String, isFavorites: Bool, index: Int) {
+        favorites[index].isFavorite = isFavorites
+        changeFavorites(id: id, isFavorites: isFavorites)
+        updateCollectionView()
+        checkEmptyCart()
+    }
+    
+    func changeFavorites(id: String, isFavorites: Bool) {
+        let dict: [String : Any] = ["id" : id, "value" : isFavorites]
         let notification = Notification.Name(rawValue: NotificationsKeys.Favorites)
         NotificationCenter.default.post(name: notification, object: dict)
-    }
-    
-}
-
-//MARK: - DetailViewControllerDelegate
-extension FavoritesViewController: DetailViewControllerDelegate {
-    
-    //Action Delegate
-    func updateFavorite(forId id: String, forValue value: Bool) {
-        actionUpdateFavorites(forId: id, forValue: value)
-    }
-    
-    //Abstraer
-    func actionUpdateFavorites(forId id: String, forValue value: Bool) {
-        if let index = favorites.firstIndex(where: {$0.id == id }) {
-            favorites[index].isFavorite = value
-            updateCollectionView()
-        }
     }
     
     func updateCollectionView() {
         let newFavorites = favorites.filter({$0.isFavorite == true})
         favorites = newFavorites
-        UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
+        UserDefaultsManager.sharedInstance.setFavorites(favorites: favorites)
         favoritesCollectionView.reloadData()
     }
     
 }
+

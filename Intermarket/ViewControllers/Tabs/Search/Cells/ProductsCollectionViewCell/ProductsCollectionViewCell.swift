@@ -8,12 +8,12 @@
 import UIKit
 import SDWebImage
 
-protocol ProductCellDelegate {
-    func onTouchFavorites(forValue value: Bool, forId id: String)
+protocol ProductCollectionViewCellDelegate {
+    func onTouchFavorites(isFavorite: Bool, id: String)
 }
 
-extension ProductCellDelegate {
-    func deleteFavorites(forId id: String){}
+extension ProductCollectionViewCellDelegate {
+    func deleteFavorites(id: String){}
 }
 
 class ProductsCollectionViewCell: UICollectionViewCell {
@@ -23,7 +23,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         return UINib(nibName: String(describing: ProductsCollectionViewCell.self), bundle: nil)
     }
     
-    var cellDelegate: ProductCellDelegate? = nil
+    var cellDelegate: ProductCollectionViewCellDelegate? = nil
     var isFavorite: Bool?
     var idCell: String?
     
@@ -41,12 +41,12 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         setupShadow()
     }
     
+    //CHECK
     @IBAction func favoriteButtonPressed(_ sender: Any) {
-        if let valueFavorite = isFavorite, let valueId = idCell {
-            let changeValueFavorite = valueFavorite == false ? true : false
-            isFavorite = changeValueFavorite
-            setFavoritesIcon(forStatusImage: changeValueFavorite)
-            cellDelegate?.onTouchFavorites(forValue: changeValueFavorite, forId: valueId)
+        if let stateFavorite = isFavorite, let valueId = idCell {
+            isFavorite = !stateFavorite
+            setFavoritesIcon(isFavoriteIcon: !stateFavorite)
+            cellDelegate?.onTouchFavorites(isFavorite: !stateFavorite, id: valueId)
         }
     }
     
@@ -54,7 +54,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         titleProduct.text = data.title.maxLength(length: 30).breakLine()
         priceProduct.text = data.price.currency()
         setupImageProduct(image: data.thumbnail)
-        setFavoritesIcon(forStatusImage: data.isFavorite)
+        setFavoritesIcon(isFavoriteIcon: data.isFavorite)
         isFavorite = data.isFavorite
         idCell = data.id
     }
@@ -68,9 +68,9 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         self.layer.masksToBounds = false
     }
     
-    private func setFavoritesIcon(forStatusImage status: Bool?) {
-        if let value = status {
-            value == true ? favoriteIcon.setImage(Icons.FavoriteAdded, for: .normal) : favoriteIcon.setImage(Icons.Favorite, for: .normal)
+    private func setFavoritesIcon(isFavoriteIcon: Bool?) {
+        if let favoriteIconState = isFavoriteIcon {
+            favoriteIcon.setImage( favoriteIconState ? Icons.FavoriteAdded : Icons.Favorite , for: .normal )
         }
     }
     
