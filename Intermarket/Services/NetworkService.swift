@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import Alamofire
 
 class NetworkService {
@@ -51,6 +52,13 @@ class NetworkService {
                 print(response.response?.statusCode ?? 200)
             }
         }
+    }
+    
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Ha ocurrido un error", message: "Ha ocurrido un problema a la hora de realizar la busqueda", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Continuar", style: .default, handler: nil)
+        alert.addAction(action)
     }
     
 }

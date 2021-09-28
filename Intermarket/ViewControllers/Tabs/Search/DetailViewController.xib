@@ -123,17 +123,22 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOc-cp-B7n">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not description" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOc-cp-B7n">
                                             <rect key="frame" x="0.0" y="34.5" width="374" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="100" id="C1j-oc-DFp"/>
                                             </constraints>
-                                            <string key="text">Las descripciones de producto son textos que explican las características y características de los productos. Por regla general, las descripciones de producto se utilizan en las tiendas online con el objetivo de informar a los clientes potenciales y fomentar su intención de compra.</string>
                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                             <color key="textColor" name="TextsInfoDetail"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="JOc-cp-B7n" firstAttribute="leading" secondItem="1vV-ny-iiH" secondAttribute="leading" id="8zU-S3-pnI"/>
+                                        <constraint firstItem="JOc-cp-B7n" firstAttribute="top" secondItem="X3P-Vj-5hR" secondAttribute="bottom" constant="9" id="P2f-BL-Pbp"/>
+                                        <constraint firstAttribute="bottom" secondItem="JOc-cp-B7n" secondAttribute="bottom" id="Zdp-PN-fJY"/>
+                                        <constraint firstAttribute="trailing" secondItem="JOc-cp-B7n" secondAttribute="trailing" id="ZhE-OS-WhE"/>
+                                    </constraints>
                                 </stackView>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KS8-sj-UGL">
                                     <rect key="frame" x="20" y="25" width="374" height="155"/>
@@ -155,7 +160,7 @@
                                     <color key="sectionIndexBackgroundColor" name="White"/>
                                 </tableView>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64T-gT-vaK" userLabel="Snackbar">
-                                    <rect key="frame" x="0.0" y="688" width="414" height="81"/>
+                                    <rect key="frame" x="0.0" y="708" width="414" height="81"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtW-H0-k6U">
                                             <rect key="frame" x="16" y="21" width="141.5" height="39.5"/>
@@ -186,7 +191,7 @@ al carrito</string>
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZa-Ya-OKV">
-                                    <rect key="frame" x="80" y="688" width="254" height="47"/>
+                                    <rect key="frame" x="80" y="708" width="254" height="47"/>
                                     <color key="backgroundColor" name="BarTint"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="47" id="TQP-ce-N6U"/>

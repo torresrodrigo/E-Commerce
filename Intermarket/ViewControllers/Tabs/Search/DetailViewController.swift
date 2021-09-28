@@ -24,16 +24,17 @@ class DetailViewController: UIViewController {
 
     //Propierties
     static let identifier = String(describing: DetailViewController.self)
-    var productID = String()
+    //var productID = String()
     var productData: Products?
     var products: DetailProduct?
     var isFavorites: Bool?
     var productPriceValue: String?
 
+    //CHECK THIS
     override func viewDidLoad() {
         super.viewDidLoad()
-        getDataFromSearchViewController(with: productData)
-        getDetailProduct(with: productData?.id)
+        getDataFromSearchViewController()
+        getDetailProduct()
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -41,28 +42,28 @@ class DetailViewController: UIViewController {
     }
     
     func setupUI(with data: DetailProduct) {
-        guard let value = productData?.isFavorite else { return }
+        guard let favoriteIcon = productData?.isFavorite else { return }
         setupScrollView()
         setupDataProduct(with: data)
-        setFavoritesIcon(for: value)
+        setFavoritesIcon(isFavoriteIcon: favoriteIcon)
         setupTableView()
         setupCollectionView()
     }
     
     private func setupDataProduct(with productData: DetailProduct) {
         guard let quantity = productData.quantityAvaibable else { return }
-        guard let hasDescription = productData.subtitle != nil ? true : false else { return }
-        productTitle.text = productData.title
-        productDescription.text = hasDescription ? productData.subtitle : "Not description"
+        //CHECK THIS
         productPrice.text = productData.price.currency()
+        productTitle.text = productData.title
         quantityProduct.text = "\(quantity) unidades disponibles"
+        guard  let hasDescription = productData.subtitle  else { return }
+        productDescription.text = hasDescription
     }
     
-    func getDataFromSearchViewController(with data: Products?) {
-        guard let productData = data else { return }
-        productID = productData.id
-        isFavorites = productData.isFavorite
-        productPriceValue = productData.price.currency()
+    func getDataFromSearchViewController() {
+        guard let data = self.productData else { return }
+        isFavorites = data.isFavorite
+        productPriceValue = data.price.currency()
     }
     
     private func setupScrollView() {
@@ -70,75 +71,64 @@ class DetailViewController: UIViewController {
     }
     
     //Set favorite icon value
-    private func setFavoritesIcon(for value: Bool) {
-        value ? addIconAdded(for: value) : removeIconAdded(for: value)
+    private func setFavoritesIcon(isFavoriteIcon : Bool) {
+        changeFavoriteIcon(favoriteIcon: isFavoriteIcon)
     }
     
-    func addIconAdded(for value: Bool) {
-        favoritesButton.setImage(Icons.FavoriteAdded, for: .normal)
-        productData?.isFavorite = value
+    func changeFavoriteIcon(favoriteIcon: Bool) {
+        favoritesButton.setImage(favoriteIcon ? Icons.FavoriteAdded : Icons.Favorite , for: .normal)
+        productData?.isFavorite = favoriteIcon
     }
     
-    func removeIconAdded(for value: Bool) {
-        favoritesButton.setImage(Icons.Favorite, for: .normal)
-        productData?.isFavorite = value
-    }
-    
-
     //Button Action when favorites change value
     @IBAction func favoritesButtonPressed(_ sender: Any) {
         guard let value = productData?.isFavorite else { return }
-        favoritesButtonAction(for: value)
+        favoritesButtonAction(isFavorites: value)
     }
     
-    func favoritesButtonAction(for value: Bool) {
-        let finalValue = changeValue(with: value)
-        isFavorites = finalValue
-        setFavorites(with: finalValue, with: productID)
-    }
-    
-    //Change value to favorite icon
-    func changeValue(with value: Bool) -> Bool {
-        return !value
+    func favoritesButtonAction(isFavorites: Bool) {
+        guard let id = products?.id else { return }
+        setFavorites(isFavoritesState: !isFavorites, id: id)
     }
     
     //MARK: - Set Favorites value when touch favorites icon
-    func setFavorites(with value: Bool, with id: String) {
+    func setFavorites(isFavoritesState: Bool, id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
         let favorites = dataFavorites
-        guard let valueFavorites = isFavorites else { return }
-        valueFavorites ? addUserDefaults(with: id, with: value, from: favorites) : removeUserDefaults(with: id, with: value, from: favorites)
+        isFavorites = isFavoritesState
+        guard let stateFavorite = isFavorites else { return }
+        stateFavorite ? addUserDefaults(with: id, isFavorite: stateFavorite, favorites: favorites) : removeUserDefaults(with: id, isFavorite: stateFavorite, favorites: favorites)
     }
     
     //MARK: - UserDefaults Actions
     
     //Action to add new favorites to user defaults
-    func addUserDefaults(with id: String, with value: Bool, from favorites: [Products]) {
+    func addUserDefaults(with id: String, isFavorite: Bool, favorites: [Products]) {
         if favorites.isEmpty == true || favorites.contains(where: {$0.id != id}) {
-            validationUserDefaults(with: id, with: value, from: favorites)
+            validationUserDefaults(with: id, isFavorite: isFavorite, favorites: favorites)
         }
     }
     
     //Action to remove new favorites to user defaults
-    func removeUserDefaults(with id: String, with value: Bool, from favorites: [Products]) {
+    func removeUserDefaults(with id: String, isFavorite: Bool, favorites: [Products]) {
         let newFavorites = favorites.filter {$0.id != id}
-        setFavoritesIcon(for: value)
+        setFavoritesIcon(isFavoriteIcon: isFavorite)
         UserDefaultsManager.sharedInstance.setFavorites(value: newFavorites)
-        notificationToSearch(with: id, with: value)
+        notificationToSearch(with: id, isFavorite: isFavorite)
     }
     
     //Action to validation favorites
-    func validationUserDefaults(with id: String ,with value: Bool, from favorites: [Products]) {
+    func validationUserDefaults(with id: String, isFavorite: Bool, favorites: [Products]) {
         var newFavorites = favorites
-        setFavoritesIcon(for: value)
+        setFavoritesIcon(isFavoriteIcon: isFavorite)
         guard let data = productData else { return }
         newFavorites.append(data)
         UserDefaultsManager.sharedInstance.setFavorites(value: newFavorites)
-        notificationToSearch(with: id, with: value)
+        notificationToSearch(with: id, isFavorite: isFavorite)
     }
     
-    func notificationToSearch(with id: String, with value: Bool) {
-        let dict: [String : Any] = ["id" : id, "value" : value]
+    func notificationToSearch(with id: String, isFavorite: Bool) {
+        let dict: [String : Any] = ["id" : id, "value" : isFavorite]
         let notification = Notification.Name(rawValue: NotificationsKeys.Search)
         NotificationCenter.default.post(name: notification, object: dict)
     }
@@ -191,9 +181,9 @@ class DetailViewController: UIViewController {
 //MARK: - API CALL
 extension DetailViewController {
     
-    func getDetailProduct(with id: String?) {
-        guard let dataId = id else { return }
-        NetworkService.shared.getDetailsProducts(query: dataId) { response in
+    func getDetailProduct() {
+        guard let id = productData?.id else { return }
+        NetworkService.shared.getDetailsProducts(query: id) { response in
             switch response {
             case .success(let response):
                 self.products = response
@@ -226,7 +216,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        setNameSections(with: section)
+        setNameSections(numberSection: section)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -236,7 +226,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = setRowForSection(for: section)
+        let count = setRowForSection(row: section)
         return count
     }
 
@@ -261,25 +251,25 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     //Set Name of Section TableView
-    func setNameSections(with value: Int) -> String {
-        value == 0 ? "Caracteristicas" : "Info adicional"
+    func setNameSections(numberSection: Int) -> String {
+        numberSection == 0 ? "Caracteristicas" : "Info adicional"
     }
     
     //Set quantity of row for Section TableView
-    func setRowForSection(for row: Int) -> Int {
+    func setRowForSection(row: Int) -> Int {
         guard let attributes = products?.attributes?.count else { return 0 }
-        let row = (row == 0) ? checkFeatures(with: attributes) :  checkInfoAdditional(with: attributes)
+        let row = (row == 0) ? checkFeatures(attributes: attributes) :  checkInfoAdditional(attributes: attributes)
         return row
     }
     
     //Set quantity of Section Features
-    func checkFeatures(with attributes: Int) -> Int {
+    func checkFeatures(attributes: Int) -> Int {
         let count = (attributes > 5) ? 5 : attributes
         return count
     }
     
     //Set quantity of Section InfoAdditional
-    func checkInfoAdditional(with attributes: Int) -> Int{
+    func checkInfoAdditional(attributes: Int) -> Int{
         let count = (attributes > 7) ? 2 : 1
         return count
     }

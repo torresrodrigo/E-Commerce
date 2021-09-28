@@ -194,7 +194,7 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 extension CartViewController: ProductsTableViewCellDelegate {
     
     //Action Delegate
-    func updateCell(for id: String, newQuantity: Int, maxQuantity: Int) {
+    func updateCell(id: String, newQuantity: Int, maxQuantity: Int) {
         changeQuantity(for: id, valueQuantity: newQuantity, maxQuantity: maxQuantity)
         productsTableView.reloadData()
         setTotalPrice()
@@ -234,7 +234,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
     }
     
     //Action Delegate - Mejorar
-    func deleteProduct(forId id: String) {
+    func deleteProduct(id: String) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             deleteProductAction(forIndex: index)
             setTotalPrice()
@@ -263,9 +263,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
     }
     
     func timerSnackbar() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-            self.snackBarView.isHidden = true
-        }
+        Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(dissappearSnackBar), userInfo: nil, repeats: false)
     }
     
     //SnackBar Actions

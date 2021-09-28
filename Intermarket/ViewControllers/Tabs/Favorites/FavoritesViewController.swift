@@ -36,10 +36,10 @@ class FavoritesViewController: UIViewController {
         favorites.count > 0 ? setupUI(isEmpty: false) : setupUI(isEmpty: true)
     }
     
-    func setupUI(isEmpty value: Bool) {
-        favoritesCollectionView.isHidden = value ? true : false
-        favoritesLabel.isHidden = value ? false : true
-        favoritesEmpty.isHidden = value ? false : true
+    func setupUI(isEmpty: Bool) {
+        favoritesCollectionView.isHidden = isEmpty
+        favoritesLabel.isHidden = !isEmpty
+        favoritesEmpty.isHidden = !isEmpty
     }
     
     //Get data from UserDefaults
@@ -91,21 +91,21 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
 extension FavoritesViewController: ProductCollectionViewCellDelegate {
     
     //Abstraer
-    func onTouchFavorites(with valueCell: Bool, id: String) {
+    func onTouchFavorites(isFavorite: Bool, id: String) {
         if let index = favorites.firstIndex(where: {$0.id == id}) {
-            valueCell ? nil : removeCell(with: id, value: valueCell, index: index)
+            isFavorite ? nil : removeCell(id: id, isFavorites: isFavorite, index: index)
         }
     }
     
-    func removeCell(with id: String, value: Bool, index: Int) {
-        favorites[index].isFavorite = value
-        changeFavorites(with: id, valueCell: value)
+    func removeCell(id: String, isFavorites: Bool, index: Int) {
+        favorites[index].isFavorite = isFavorites
+        changeFavorites(with: id, isFavorites: isFavorites)
         updateCollectionView()
         checkEmptyCart()
     }
     
-    func changeFavorites(with id: String, valueCell: Bool) {
-        let dict: [String : Any] = ["id" : id, "value" : valueCell]
+    func changeFavorites(with id: String, isFavorites: Bool) {
+        let dict: [String : Any] = ["id" : id, "value" : isFavorites]
         let notification = Notification.Name(rawValue: NotificationsKeys.Favorites)
         NotificationCenter.default.post(name: notification, object: dict)
     }

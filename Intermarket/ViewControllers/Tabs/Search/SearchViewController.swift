@@ -48,7 +48,7 @@ class SearchViewController: UIViewController {
         createObserver()
     }
     
-    private func setSearchUI(for isEmptyText: Bool) {
+    private func setSearchUI(isEmptyText: Bool) {
         imgSearch.isHidden = !isEmptyText
         searchLabel.isHidden = !isEmptyText
         getSearchTitle.isHidden = isEmptyText
@@ -76,7 +76,7 @@ class SearchViewController: UIViewController {
     }
     
     //API call
-    func getResultsSearch(for query: String?) {
+    func getResultsSearch(query: String?) {
         guard let searchText = query else { return }
         NetworkService.shared.getProducts(query: searchText) { response in
             switch response {
@@ -147,7 +147,7 @@ extension SearchViewController: UISearchBarDelegate {
     
     func textDidBeginAction(for searchBar: UISearchBar) {
         if searchBar.text?.count == 0 {
-            setSearchUI(for: true)
+            setSearchUI(isEmptyText: true)
             suggestionView.isHidden = true
             setupTableView()
         }
@@ -169,7 +169,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func hideSuggestion() {
-        setSearchUI(for: true)
+        setSearchUI(isEmptyText: true)
         suggestionView.isHidden = true
         suggestionTableView.reloadData()
     }
@@ -182,19 +182,19 @@ extension SearchViewController: UISearchBarDelegate {
     
     @objc func searchReload() {
         guard let searchText = searchBar.text?.remplaceTextInQuery() else { return }
-        getResultsSearch(for: searchText)
+        getResultsSearch(query: searchText)
         searchText.count > 2 ? showResults() : nil
     }
     
     func showResults() {
         suggestionView.isHidden = true
-        setSearchUI(for: false)
+        setSearchUI(isEmptyText: false)
     }
     
     private func suggestionAction() {
         self.suggestionView.isHidden = false
         self.totalEmptyUI()
-        getResultsSearch(for: searchBar.text?.remplaceTextInQuery())
+        getResultsSearch(query: searchBar.text?.remplaceTextInQuery())
     }
     
     //Perform search
@@ -210,8 +210,8 @@ extension SearchViewController: UISearchBarDelegate {
         DispatchQueue.main.async {
             self.searchBar.resignFirstResponder()
             guard let searchText = self.searchBar.text?.remplaceTextInQuery() else { return }
-            self.getResultsSearch(for: searchText)
-            self.setSearchUI(for: false)
+            self.getResultsSearch(query: searchText)
+            self.setSearchUI(isEmptyText: false)
             self.suggestionView.isHidden = true
         }
     }
@@ -294,46 +294,47 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 //MARK: - ProductsDelegate
 extension SearchViewController: ProductCollectionViewCellDelegate {
     
+    //MARK: - Mejorar TODO
     //Action delegate
-    func onTouchFavorites(with value: Bool, id: String) {
-        favoritesButtonAction(with: value, id: id)
+    func onTouchFavorites(isFavorite: Bool, id: String) {
+        favoritesButtonAction(isFavorite: isFavorite, id: id)
     }
     
     //Action when touch Favorite icon
-    func favoritesButtonAction(with value: Bool, id: String) {
+    func favoritesButtonAction(isFavorite: Bool, id: String) {
         guard let dataFavorites = UserDefaultsManager.sharedInstance.getFavorites() else { return }
-        changeValueFavorites(with: value, with: id, with: products, for: dataFavorites)
+        changeValueFavorites(isFavorite: isFavorite, id: id, products: products, favoritesUserDefaults: dataFavorites)
     }
     
     
-    func changeValueFavorites(with value: Bool, with id: String, with products: [Products], for favoritesUserDefaults: [Products]) {
+    func changeValueFavorites(isFavorite: Bool, id: String, products: [Products], favoritesUserDefaults: [Products]) {
         if let index = products.firstIndex(where: {$0.id == id}) {
-            value ? validateFavoritesUserDefaults(for: index, with: value, for: favoritesUserDefaults, with: id) : removeFavorites(for: index, with: value, for: favoritesUserDefaults, with: id)
+            isFavorite ? validateFavoritesUserDefaults(for: index, isFavorite: isFavorite, userDefaults: favoritesUserDefaults, id: id) : removeFavorites(for: index, isFavorite: isFavorite, favoritesUserDefaults: favoritesUserDefaults, id: id)
         }
     }
     
-    func validateFavoritesUserDefaults(for index: Int, with value: Bool, for userDefaults: [Products], with id: String) {
-        userDefaults.isEmpty || userDefaults.contains(where: {$0.id != id}) ? addFavorite(for: index, with: value,  for: userDefaults) : nil
+    func validateFavoritesUserDefaults(for index: Int, isFavorite: Bool, userDefaults: [Products], id: String) {
+        userDefaults.isEmpty || userDefaults.contains(where: {$0.id != id}) ? addFavorite(for: index, isFavorite: isFavorite, favoritesUserDefaults: userDefaults) : nil
     }
     
-    func addFavorite(for index: Int, with value: Bool, for favoritesUserDefaults: [Products]) {
+    func addFavorite(for index: Int, isFavorite: Bool, favoritesUserDefaults: [Products]) {
         var newFavoritesUserDefaults = favoritesUserDefaults
-        updateCollectionView(with: index, with: value)
+        updateCollectionView(with: index, with: isFavorite)
         newFavoritesUserDefaults.append(products[index])
         UserDefaultsManager.sharedInstance.setFavorites(value: newFavoritesUserDefaults)
     }
     
-    func removeFavorites(for index: Int, with value: Bool, for favoritesUserDefaults: [Products], with id: String) {
+    func removeFavorites(for index: Int, isFavorite: Bool, favoritesUserDefaults: [Products], id: String) {
         var newFavoritesUserDefaults = favoritesUserDefaults
-        updateCollectionView(with: index, with: value)
+        updateCollectionView(with: index, with: isFavorite)
         let newFavorites = newFavoritesUserDefaults.filter {$0.isFavorite == true && $0.id != id}
         newFavoritesUserDefaults = newFavorites
         UserDefaultsManager.sharedInstance.setFavorites(value: newFavoritesUserDefaults)
         productsCollectionView.reloadData()
     }
     
-    func updateCollectionView(with index: Int, with value: Bool) {
-        products[index].isFavorite = value
+    func updateCollectionView(with index: Int, with isFavoriteState: Bool) {
+        products[index].isFavorite = isFavoriteState
         productsCollectionView.reloadData()
     }
         
@@ -350,15 +351,15 @@ extension SearchViewController {
     @objc func updateFavorites(notification: NSNotification) {
         if let dict = notification.object as? NSDictionary {
             if let id = dict["id"] as? String, let value = dict["value"] as? Bool {
-                setFalseFavorites(forId: id, forValue: value)
+                setFalseFavorites(id: id, isFavoriteState: value)
                 productsCollectionView.reloadData()
             }
         }
     }
     
-    func setFalseFavorites(forId id: String, forValue value: Bool) {
+    func setFalseFavorites(id: String, isFavoriteState: Bool) {
         if let index = products.firstIndex(where: {$0.id == id}) {
-            products[index].isFavorite = value
+            products[index].isFavorite = isFavoriteState
         }
     }
     
