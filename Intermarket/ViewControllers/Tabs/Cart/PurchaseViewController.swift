@@ -46,23 +46,22 @@ class PurchaseViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        prepareAction(for: segue)
+        prepareAction(segue: segue)
     }
     
-    func prepareAction(for segue: UIStoryboardSegue) {
+    func prepareAction(segue: UIStoryboardSegue) {
         if segue.identifier == Identifier.GoToConfirmation {
-            goToConfirmationVC(for: segue)
+            goToConfirmationVC(segue: segue)
         }
     }
     
-    func goToConfirmationVC(for segue: UIStoryboardSegue) {
+    func goToConfirmationVC(segue: UIStoryboardSegue) {
         let vc = segue.destination as? ConfirmationViewController
         vc?.modalPresentationStyle = .fullScreen
         vc?.isNavigationController = isNavigationController
         UserDefaultsManager.sharedInstance.remove(key: UserDefaultsKeys.ProductInCart)
     }
 
-    
 }
 
 //MARK: - ProductsTableView
@@ -82,7 +81,7 @@ extension PurchaseViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = productsTableView.dequeueReusableCell(withIdentifier: PurchaseTableViewCell.identifier, for: indexPath) as! PurchaseTableViewCell
-        cell.setupCell(forData: productsPurchase[indexPath.row])
+        cell.setupCell(data: productsPurchase[indexPath.row])
         return cell
     }
     

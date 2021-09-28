@@ -130,8 +130,8 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
     }
     
     private func goToCart() {
-        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-        let tabBar = storyboard.instantiateViewController(identifier: "TabBarController") as! MainTabViewController
+        let storyboard = UIStoryboard(name: Identifier.TabBarStoryboard, bundle: nil)
+        let tabBar = storyboard.instantiateViewController(identifier: Identifier.TabBarController) as! MainTabViewController
         tabBar.selectedIndex = 2
         self.view.window?.rootViewController = tabBar
         self.view.window?.makeKeyAndVisible()

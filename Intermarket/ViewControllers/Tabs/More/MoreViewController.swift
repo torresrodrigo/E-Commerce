@@ -33,24 +33,24 @@ class MoreViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        prepareAction(forSegue: segue)
+        prepareAction(segue: segue)
     }
     
-    func prepareAction(forSegue segue: UIStoryboardSegue) {
+    func prepareAction(segue: UIStoryboardSegue) {
         if segue.identifier == Identifier.GoToProfile {
-            goToProfileVC(forSegue: segue)
+            goToProfileVC(segue: segue)
         }
         else if segue.identifier == Identifier.GoToLogOut {
-            goToLogOutVC(forSegue: segue)
+            goToLogOutVC(segue: segue)
         }
     }
     
-    func goToProfileVC(forSegue segue: UIStoryboardSegue) {
+    func goToProfileVC(segue: UIStoryboardSegue) {
         let vc = segue.destination as? ProfileViewController
         vc?.modalPresentationStyle = .fullScreen
     }
     
-    func goToLogOutVC(forSegue segue: UIStoryboardSegue) {
+    func goToLogOutVC(segue: UIStoryboardSegue) {
         let vc = segue.destination as? LogOutViewController
         vc?.modalPresentationStyle = .fullScreen
     }

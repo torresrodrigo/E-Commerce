@@ -50,8 +50,8 @@ class ConfirmationViewController: UIViewController {
     }
     
     func changeToCartView() {
-        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-        let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! MainTabViewController
+        let storyboard = UIStoryboard(name: Identifier.TabBarStoryboard, bundle: nil)
+        let tabBar = storyboard.instantiateViewController(withIdentifier: Identifier.TabBarController) as! MainTabViewController
         tabBar.selectedIndex = 2
         self.view.window?.rootViewController = tabBar
         self.view.window?.makeKeyAndVisible()

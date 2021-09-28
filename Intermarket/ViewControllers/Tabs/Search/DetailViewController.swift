@@ -41,16 +41,16 @@ class DetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func setupUI(with data: DetailProduct) {
+    func setupUI(dataDetailProduct: DetailProduct) {
         guard let favoriteIcon = productData?.isFavorite else { return }
         setupScrollView()
-        setupDataProduct(with: data)
+        setupDataProduct(productData: dataDetailProduct)
         setFavoritesIcon(isFavoriteIcon: favoriteIcon)
         setupTableView()
         setupCollectionView()
     }
     
-    private func setupDataProduct(with productData: DetailProduct) {
+    private func setupDataProduct(productData: DetailProduct) {
         guard let quantity = productData.quantityAvaibable else { return }
         //CHECK THIS
         productPrice.text = productData.price.currency()
@@ -97,44 +97,44 @@ class DetailViewController: UIViewController {
         let favorites = dataFavorites
         isFavorites = isFavoritesState
         guard let stateFavorite = isFavorites else { return }
-        stateFavorite ? addUserDefaults(with: id, isFavorite: stateFavorite, favorites: favorites) : removeUserDefaults(with: id, isFavorite: stateFavorite, favorites: favorites)
+        stateFavorite ? addUserDefaults(id: id, isFavorite: stateFavorite, favorites: favorites) : removeUserDefaults(id: id, isFavorite: stateFavorite, favorites: favorites)
     }
     
     //MARK: - UserDefaults Actions
     
     //Action to add new favorites to user defaults
-    func addUserDefaults(with id: String, isFavorite: Bool, favorites: [Products]) {
+    func addUserDefaults(id: String, isFavorite: Bool, favorites: [Products]) {
         if favorites.isEmpty == true || favorites.contains(where: {$0.id != id}) {
-            validationUserDefaults(with: id, isFavorite: isFavorite, favorites: favorites)
+            validationUserDefaults(id: id, isFavorite: isFavorite, favorites: favorites)
         }
     }
     
     //Action to remove new favorites to user defaults
-    func removeUserDefaults(with id: String, isFavorite: Bool, favorites: [Products]) {
+    func removeUserDefaults(id: String, isFavorite: Bool, favorites: [Products]) {
         let newFavorites = favorites.filter {$0.id != id}
         setFavoritesIcon(isFavoriteIcon: isFavorite)
-        UserDefaultsManager.sharedInstance.setFavorites(value: newFavorites)
-        notificationToSearch(with: id, isFavorite: isFavorite)
+        UserDefaultsManager.sharedInstance.setFavorites(favorites: newFavorites)
+        notificationToSearch(id: id, isFavorite: isFavorite)
     }
     
     //Action to validation favorites
-    func validationUserDefaults(with id: String, isFavorite: Bool, favorites: [Products]) {
+    func validationUserDefaults(id: String, isFavorite: Bool, favorites: [Products]) {
         var newFavorites = favorites
         setFavoritesIcon(isFavoriteIcon: isFavorite)
         guard let data = productData else { return }
         newFavorites.append(data)
-        UserDefaultsManager.sharedInstance.setFavorites(value: newFavorites)
-        notificationToSearch(with: id, isFavorite: isFavorite)
+        UserDefaultsManager.sharedInstance.setFavorites(favorites: newFavorites)
+        notificationToSearch(id: id, isFavorite: isFavorite)
     }
     
-    func notificationToSearch(with id: String, isFavorite: Bool) {
+    func notificationToSearch( id: String, isFavorite: Bool) {
         let dict: [String : Any] = ["id" : id, "value" : isFavorite]
         let notification = Notification.Name(rawValue: NotificationsKeys.Search)
         NotificationCenter.default.post(name: notification, object: dict)
     }
     
     @IBAction func addToCartPressed(_ sender: Any) {
-        validateProduct(for: products)
+        validateProduct(product: products)
         self.perform(#selector(dissapearSnackBar),with: nil,afterDelay: 3)
     }
     
@@ -144,10 +144,10 @@ class DetailViewController: UIViewController {
         guard let data = products else { return }
         snackBarView.isHidden = false
         addToCartButton.isHidden = true
-        UserDefaultsManager.sharedInstance.setProductInCart(value: data)
+        UserDefaultsManager.sharedInstance.setProductInCart(dataProduct: data)
     }
     
-    func validateProduct(for product: DetailProduct?) {
+    func validateProduct(product: DetailProduct?) {
         guard let data = product else { return }
         let dataProductsCart = UserDefaultsManager.sharedInstance.getProductInCar()
         dataProductsCart.contains(where: {$0.id == data.id}) ? showAlertAddProduct() : addToCartAction()
@@ -189,7 +189,7 @@ extension DetailViewController {
                 self.products = response
                 DispatchQueue.main.async {
                     guard let data = self.products else { return }
-                    self.setupUI(with: data)
+                    self.setupUI(dataDetailProduct: data)
                     self.featuresTableView.reloadData()
                 }
             case .failure(let error):
@@ -232,13 +232,18 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = featuresTableView.dequeueReusableCell(withIdentifier: FeaturesTableViewCell.identifier, for: indexPath) as! FeaturesTableViewCell
-        cell = setCell(for: indexPath.section, for: indexPath.row, for: cell)
+        cell = setCell(section: indexPath.section, indexPath: indexPath.row, cell: cell)
         return cell
     }
     
-    private func setCell(for section: Int, for indexPath: Int, for cell: FeaturesTableViewCell) -> FeaturesTableViewCell {
+    private func setCell(section: Int, indexPath: Int, cell: FeaturesTableViewCell) -> FeaturesTableViewCell {
         if let attributes = products?.attributes {
-            section == 0 ? cell.setupCell(for: attributes[indexPath].name, for: attributes[indexPath].value) : cell.setupCell(for: attributes[indexPath + 5].name, for: attributes[indexPath + 5].value)
+            if section == 0 {
+                cell.setupCell(featureName: attributes[indexPath].name, featureValue: attributes[indexPath].value)
+            }
+            else {
+                cell.setupCell(featureName: attributes[indexPath + 5].name, featureValue: attributes[indexPath + 5].value)
+            }
         }
         return cell
     }
@@ -295,7 +300,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = imagesCollectionView.dequeueReusableCell(withReuseIdentifier: ImgDetailCollectionViewCell.identifier, for: indexPath) as! ImgDetailCollectionViewCell
         guard let count = products?.pictures.count else { return cell }
         let textLabel = "\(indexPath.row + 1)/\(count)"
-        cell.setupCell(forImage: products?.pictures[indexPath.row].url, forCount: textLabel)
+        cell.setupCell(imageUrl: products?.pictures[indexPath.row].url, count: textLabel)
         return cell
     }
     

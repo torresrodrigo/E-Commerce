@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol FavoritesViewControllerDelegate {
-    func updateFavorites(forId id: String, forValue value: Bool)
-}
-
 class FavoritesViewController: UIViewController {
     
     static let identifier = String(describing: FavoritesViewController.self)
@@ -18,7 +14,6 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak var favoritesEmpty: UIImageView!
     @IBOutlet weak var favoritesCollectionView: UICollectionView!
     var favorites = [Products]()
-    var delegate: FavoritesViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,18 +88,20 @@ extension FavoritesViewController: ProductCollectionViewCellDelegate {
     //Abstraer
     func onTouchFavorites(isFavorite: Bool, id: String) {
         if let index = favorites.firstIndex(where: {$0.id == id}) {
-            isFavorite ? nil : removeCell(id: id, isFavorites: isFavorite, index: index)
+            if isFavorite == false {
+                removeCell(id: id, isFavorites: isFavorite, index: index)
+            }
         }
     }
     
     func removeCell(id: String, isFavorites: Bool, index: Int) {
         favorites[index].isFavorite = isFavorites
-        changeFavorites(with: id, isFavorites: isFavorites)
+        changeFavorites(id: id, isFavorites: isFavorites)
         updateCollectionView()
         checkEmptyCart()
     }
     
-    func changeFavorites(with id: String, isFavorites: Bool) {
+    func changeFavorites(id: String, isFavorites: Bool) {
         let dict: [String : Any] = ["id" : id, "value" : isFavorites]
         let notification = Notification.Name(rawValue: NotificationsKeys.Favorites)
         NotificationCenter.default.post(name: notification, object: dict)
@@ -113,7 +110,7 @@ extension FavoritesViewController: ProductCollectionViewCellDelegate {
     func updateCollectionView() {
         let newFavorites = favorites.filter({$0.isFavorite == true})
         favorites = newFavorites
-        UserDefaultsManager.sharedInstance.setFavorites(value: favorites)
+        UserDefaultsManager.sharedInstance.setFavorites(favorites: favorites)
         favoritesCollectionView.reloadData()
     }
     

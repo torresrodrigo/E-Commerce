@@ -31,6 +31,7 @@ class CartViewController: UIViewController {
     var products = [DetailProduct]()
     var productRemoved: DetailProduct?
     var totalQuantityProducts = 0
+    var timer : Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,37 +50,37 @@ class CartViewController: UIViewController {
     
     //Validation for products
     private func checkEmptyCart() {
-        checkEmptyCartAction(for: products.count)
+        checkEmptyCartAction(count: products.count)
     }
     
-    func checkEmptyCartAction(for count: Int) {
+    func checkEmptyCartAction(count: Int) {
         if count > 0 {
             addedProductUI()
             setupButtonUI(isEnabled: true)
         }
         else {
-            setupUI(hasProduct: false)
+            setupUI(isProductEmpty: false)
             setupButtonUI(isEnabled: false)
         }
     }
     
-    func setupUI(hasProduct value: Bool) {
-        titleLabel.isHidden = value
-        imgSearch.isHidden = value
-        stackView.isHidden = !value
-        productsTableView.isHidden = !value
-        totalView.isHidden = !value
-        buttonQR.isHidden = !value
+    func setupUI(isProductEmpty: Bool) {
+        titleLabel.isHidden = isProductEmpty
+        imgSearch.isHidden = isProductEmpty
+        stackView.isHidden = !isProductEmpty
+        productsTableView.isHidden = !isProductEmpty
+        totalView.isHidden = !isProductEmpty
+        buttonQR.isHidden = !isProductEmpty
     }
     
     private func addedProductUI() {
-        self.setupUI(hasProduct: true)
+        self.setupUI(isProductEmpty: true)
         self.setupTableView()
         self.enabledButton()
     }
 
-    func setupButtonUI(isEnabled value: Bool) {
-        value ? enabledButton() : disabledButton()
+    func setupButtonUI(isEnabled: Bool) {
+        isEnabled ? enabledButton() : disabledButton()
     }
     
     private func enabledButton() {
@@ -114,36 +115,36 @@ class CartViewController: UIViewController {
     
     @IBAction func undoButton(_ sender: Any) {
         guard let product = productRemoved else {return }
-        undoButtonAction(with: product, for: true)
+        undoButtonAction(product: product, useButtonAction: true)
         button.isHidden = false
     }
     
-    func undoButtonAction(with product: DetailProduct, for useButtonAction: Bool) {
-        useButtonAction ? reAddProduct(with: product) : nil
+    func undoButtonAction(product: DetailProduct, useButtonAction: Bool) {
+        useButtonAction ? reAddProduct(previousProduct: product) : nil
         setTotalPrice()
     }
     
-    func reAddProduct(with product: DetailProduct) {
-        products.append(product)
-        UserDefaultsManager.sharedInstance.setProductInCart(value: product)
+    func reAddProduct(previousProduct: DetailProduct) {
+        products.append(previousProduct)
+        UserDefaultsManager.sharedInstance.setProductInCart(dataProduct: previousProduct)
         checkEmptyCart()
         productsTableView.reloadData()
         snackBarView.isHidden = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        prepareAction(for: segue)
+        prepareAction(segue: segue)
     }
     
-    private func prepareAction(for segue: UIStoryboardSegue) {
+    private func prepareAction(segue: UIStoryboardSegue) {
         if segue.identifier == Identifier.GoToPurchase {
-            goToPurchaseVC(for: segue)
+            goToPurchaseVC(segue: segue)
         } else if segue.identifier == Identifier.GoToQRCode {
-            goToQrCodeVC(for: segue)
+            goToQrCodeVC(segue: segue)
         }
     }
     
-    private func goToPurchaseVC(for segue: UIStoryboardSegue) {
+    private func goToPurchaseVC(segue: UIStoryboardSegue) {
         let vc = segue.destination as? PurchaseViewController
         vc?.modalPresentationStyle = .fullScreen
         vc?.isNavigationController = isNavigationController
@@ -152,7 +153,7 @@ class CartViewController: UIViewController {
         vc?.productsPurchase = products
     }
     
-    private func goToQrCodeVC(for segue: UIStoryboardSegue) {
+    private func goToQrCodeVC(segue: UIStoryboardSegue) {
         let vc = segue.destination as? QRCodeViewController
         vc?.isNavigationController = isNavigationController
         vc?.modalPresentationStyle = .fullScreen
@@ -184,7 +185,7 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = productsTableView.dequeueReusableCell(withIdentifier: ProductsTableViewCell.identifier, for: indexPath) as! ProductsTableViewCell
         cell.delegate = self
-        cell.setupCell(for: products[indexPath.row])
+        cell.setupCell(data: products[indexPath.row])
         return cell
     }
     
@@ -195,21 +196,18 @@ extension CartViewController: ProductsTableViewCellDelegate {
     
     //Action Delegate
     func updateCell(id: String, newQuantity: Int, maxQuantity: Int) {
-        changeQuantity(for: id, valueQuantity: newQuantity, maxQuantity: maxQuantity)
+        changeQuantity(id: id, valueQuantity: newQuantity, maxQuantity: maxQuantity)
         productsTableView.reloadData()
         setTotalPrice()
         setTotalQuantityProducts()
     }
     
     //MARK- Mejorar
-    func changeQuantity(for id: String, valueQuantity: Int, maxQuantity: Int) {
+    func changeQuantity(id: String, valueQuantity: Int, maxQuantity: Int) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             if valueQuantity == 0 {
                 products[index].quantity = 1
-                deleteProductAction(forIndex: index)
-                checkEmptyCart()
-                snackBarUI()
-                self.perform(#selector(dissappearSnackBar), with: nil, afterDelay: 4)
+                deleteProductAction(index: index)
             }
             else if valueQuantity == maxQuantity {
                 showAlert()
@@ -218,12 +216,11 @@ extension CartViewController: ProductsTableViewCellDelegate {
                 products[index].quantity = valueQuantity
             }
         }
-        saveProductQuantity(with: products)
-        
+        saveProductQuantity(productData: products)
     }
     
-    func saveProductQuantity(with productData: [DetailProduct]) {
-        UserDefaultsManager.sharedInstance.setProductsInCart(forValue: productData)
+    func saveProductQuantity(productData: [DetailProduct]) {
+        UserDefaultsManager.sharedInstance.setProductsInCart(totalProductsData: productData)
     }
     
     func showAlert() {
@@ -236,21 +233,21 @@ extension CartViewController: ProductsTableViewCellDelegate {
     //Action Delegate - Mejorar
     func deleteProduct(id: String) {
         if let index = products.firstIndex(where: {$0.id == id}) {
-            deleteProductAction(forIndex: index)
+            deleteProductAction(index: index)
             setTotalPrice()
-            products.count > 0 ? checkProducts(for: false) : checkProducts(for: true)
+            productsTableView.reloadData()
         }
     }
     
-    func deleteProductAction(forIndex index: Int) {
+    func deleteProductAction(index: Int) {
         productRemoved = products[index]
         products.remove(at: index)
-        productsTableView.reloadData()
-        UserDefaultsManager.sharedInstance.setProductsInCart(forValue: products)
+        UserDefaultsManager.sharedInstance.setProductsInCart(totalProductsData: products)
+        products.count > 0 ? checkProducts(isEmpty: false) : checkProducts(isEmpty: true)
     }
     
     //Mejorar
-    func checkProducts(for isEmpty: Bool) {
+    func checkProducts(isEmpty: Bool) {
         if isEmpty {
             checkEmptyCart()
             snackBarUI()
@@ -263,11 +260,18 @@ extension CartViewController: ProductsTableViewCellDelegate {
     }
     
     func timerSnackbar() {
-        Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(dissappearSnackBar), userInfo: nil, repeats: false)
+        guard timer == nil else { return }
+        timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(dissappearSnackBar), userInfo: nil, repeats: false)
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
     
     //SnackBar Actions
     func snackBarUI() {
+        stopTimer()
         snackBarView.isHidden = false
     }
     
@@ -275,7 +279,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         snackBarView.isHidden = true
     }
     
-    //Action for price - Mejorar
+    //Action for price
     func setTotalPrice() {
         var prices = [Double]()
         if products.count > 0 {

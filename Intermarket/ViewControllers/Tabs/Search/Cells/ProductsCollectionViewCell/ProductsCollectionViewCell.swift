@@ -45,7 +45,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     @IBAction func favoriteButtonPressed(_ sender: Any) {
         if let stateFavorite = isFavorite, let valueId = idCell {
             isFavorite = !stateFavorite
-            setFavoritesIcon(forStatusImage: !stateFavorite)
+            setFavoritesIcon(isFavoriteIcon: !stateFavorite)
             cellDelegate?.onTouchFavorites(isFavorite: !stateFavorite, id: valueId)
         }
     }
@@ -54,7 +54,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         titleProduct.text = data.title.maxLength(length: 30).breakLine()
         priceProduct.text = data.price.currency()
         setupImageProduct(image: data.thumbnail)
-        setFavoritesIcon(forStatusImage: data.isFavorite)
+        setFavoritesIcon(isFavoriteIcon: data.isFavorite)
         isFavorite = data.isFavorite
         idCell = data.id
     }
@@ -68,9 +68,9 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         self.layer.masksToBounds = false
     }
     
-    private func setFavoritesIcon(forStatusImage status: Bool?) {
-        if let value = status {
-            favoriteIcon.setImage( value ? Icons.FavoriteAdded : Icons.Favorite , for: .normal )
+    private func setFavoritesIcon(isFavoriteIcon: Bool?) {
+        if let favoriteIconState = isFavoriteIcon {
+            favoriteIcon.setImage( favoriteIconState ? Icons.FavoriteAdded : Icons.Favorite , for: .normal )
         }
     }
     

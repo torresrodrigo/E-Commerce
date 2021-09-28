@@ -60,4 +60,6 @@ struct Identifier {
     static let GoToConfirmation = "goToConfirmation"
     static let GoToProfile =  "goToProfile"
     static let GoToLogOut = "goToLogOut"
+    static let TabBarStoryboard = "TabBar"
+    static let TabBarController = "TabBarController"
 }

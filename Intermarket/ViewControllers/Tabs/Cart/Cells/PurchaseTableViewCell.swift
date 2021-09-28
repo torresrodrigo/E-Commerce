@@ -25,7 +25,7 @@ class PurchaseTableViewCell: UITableViewCell {
         
     }
     
-    func setupCell(forData data: DetailProduct) {
+    func setupCell(data: DetailProduct) {
         guard let quantity = data.quantity else { return }
         productImg.sd_setImage(with: URL(string: data.pictures[0].url))
         productTitle.text = data.title

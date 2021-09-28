@@ -41,7 +41,7 @@ class ProductsTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func setupCell(for data: DetailProduct) {
+    func setupCell(data: DetailProduct) {
         guard let quantityAvailable = data.quantityAvaibable , let quantitySelected = data.quantity  else { return }
         titleProduct.text = data.title
         priceProduct.text = data.price.currency()

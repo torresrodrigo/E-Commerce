@@ -13,8 +13,8 @@ final class UserDefaultsManager {
     static let sharedInstance = UserDefaultsManager()
     let userDefaults = UserDefaults.standard
     
-    func setFavorites(value: [Products]?) {
-        if let encodedData = try? JSONEncoder().encode(value) {
+    func setFavorites(favorites: [Products]?) {
+        if let encodedData = try? JSONEncoder().encode(favorites) {
             userDefaults.setValue(encodedData, forKey: UserDefaultsKeys.Favorites)
         }
     }
@@ -29,16 +29,16 @@ final class UserDefaultsManager {
         return data
     }
     
-    func setProductInCart(value: DetailProduct) {
-        let data = getProductInCar()
-        let newData = checkCart(forId: value.id, forData: data, forValue: value)
+    func setProductInCart(dataProduct: DetailProduct) {
+        let allProducts = getProductInCar()
+        let newData = checkCart(id: dataProduct.id, dataProducts: allProducts, product: dataProduct)
         if let encodedData = try? JSONEncoder().encode(newData) {
             userDefaults.setValue(encodedData, forKey: UserDefaultsKeys.ProductInCart)
         }
     }
     
-    func setProductsInCart(forValue value: [DetailProduct]) {
-        if let encodedData = try? JSONEncoder().encode(value) {
+    func setProductsInCart(totalProductsData: [DetailProduct]) {
+        if let encodedData = try? JSONEncoder().encode(totalProductsData) {
             userDefaults.setValue(encodedData, forKey: UserDefaultsKeys.ProductInCart)
         }
     }
@@ -52,25 +52,23 @@ final class UserDefaultsManager {
         return data
     }
     
-    
-    
     func remove(key: String) {
         userDefaults.removeObject(forKey: key)
     }
     
-    func checkCart(forId id: String, forData data: [DetailProduct], forValue value: DetailProduct) -> [DetailProduct] {
-        var newData = data
-        if data.isEmpty || data.contains(where: {$0.id != id}) {
-            newData.append(value)
+    func checkCart(id: String, dataProducts: [DetailProduct], product: DetailProduct) -> [DetailProduct] {
+        var allProductData = dataProducts
+        if dataProducts.isEmpty || dataProducts.contains(where: {$0.id != id}) {
+            allProductData.append(product)
         }
         else {
             print("This product is now in car")
         }
-        return newData
+        return allProductData
     }
     
-    func setImage(value: UIImage) {
-        if let png = value.pngData() {
+    func setImage(image: UIImage) {
+        if let png = image.pngData() {
             userDefaults.setValue(png, forKey: UserDefaultsKeys.ImgProfile)
         }
     }
