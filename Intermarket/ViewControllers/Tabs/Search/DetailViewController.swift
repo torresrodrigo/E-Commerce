@@ -37,6 +37,10 @@ class DetailViewController: UIViewController {
         getDetailProduct()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.perform(#selector(showUI), with: nil, afterDelay: 0.7)
+    }
+    
     @IBAction func backButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -50,9 +54,20 @@ class DetailViewController: UIViewController {
         setupCollectionView()
     }
     
+    @objc private func showUI() {
+        UIView.transition(with: scrollView,
+                          duration: 0.7,
+                          options: .transitionCrossDissolve,
+                          animations: { self.scrollView.isHidden = false })
+        
+        UIView.transition(with: addToCartButton,
+                          duration: 0.7,
+                          options: .transitionCrossDissolve,
+                          animations: { self.addToCartButton.isHidden = false })
+    }
+    
     private func setupDataProduct(productData: DetailProduct) {
         guard let quantity = productData.quantityAvaibable else { return }
-        //CHECK THIS
         productPrice.text = productData.price.currency()
         productTitle.text = productData.title
         quantityProduct.text = "\(quantity) unidades disponibles"
@@ -138,6 +153,12 @@ class DetailViewController: UIViewController {
         self.perform(#selector(dissapearSnackBar),with: nil,afterDelay: 3)
     }
     
+    func validateProduct(product: DetailProduct?) {
+        guard let data = product else { return }
+        let dataProductsCart = UserDefaultsManager.sharedInstance.getProductInCar()
+        dataProductsCart.contains(where: {$0.id == data.id}) ? showAlertAddProduct() : addToCartAction()
+    }
+    
     //Add products in to cart
     func addToCartAction() {
         products?.quantity = 1
@@ -145,12 +166,6 @@ class DetailViewController: UIViewController {
         snackBarView.isHidden = false
         addToCartButton.isHidden = true
         UserDefaultsManager.sharedInstance.setProductInCart(dataProduct: data)
-    }
-    
-    func validateProduct(product: DetailProduct?) {
-        guard let data = product else { return }
-        let dataProductsCart = UserDefaultsManager.sharedInstance.getProductInCar()
-        dataProductsCart.contains(where: {$0.id == data.id}) ? showAlertAddProduct() : addToCartAction()
     }
     
     private func showAlertAddProduct() {
@@ -161,7 +176,10 @@ class DetailViewController: UIViewController {
     }
     
     @objc private func dissapearSnackBar() {
-        snackBarView.isHidden = true
+        UIView.transition(with: snackBarView,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: {self.snackBarView.isHidden = true})
     }
     
     //Push to CartViewController
@@ -193,9 +211,17 @@ extension DetailViewController {
                     self.featuresTableView.reloadData()
                 }
             case .failure(let error):
-                print("Something is wrong. Error \(error.localizedDescription)")
+                print(error.localizedDescription)
+                self.alertErrorCallAPI()
             }
         }
+    }
+    
+    private func alertErrorCallAPI() {
+        let alert = UIAlertController(title: "Error", message: "Ha ocurrido un problema en InterMarket", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Continuar", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

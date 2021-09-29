@@ -41,8 +41,8 @@ class CartViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         totalPrice = 0.0
         getProductUserDefaults()
-        checkEmptyCart()
         checkTypeController()
+        checkEmptyCart()
         setTotalPrice()
         setTotalQuantityProducts()
         productsTableView.reloadData()
@@ -202,7 +202,6 @@ extension CartViewController: ProductsTableViewCellDelegate {
         setTotalQuantityProducts()
     }
     
-    //MARK- Mejorar
     func changeQuantity(id: String, valueQuantity: Int, maxQuantity: Int) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             if valueQuantity == 0 {
@@ -230,7 +229,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    //Action Delegate - Mejorar
+    //Action Delegate
     func deleteProduct(id: String) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             deleteProductAction(index: index)
@@ -246,7 +245,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         products.count > 0 ? checkProducts(isEmpty: false) : checkProducts(isEmpty: true)
     }
     
-    //Mejorar
+    
     func checkProducts(isEmpty: Bool) {
         if isEmpty {
             checkEmptyCart()
