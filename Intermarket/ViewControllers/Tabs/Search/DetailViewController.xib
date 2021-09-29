@@ -69,7 +69,7 @@
                         <constraint firstItem="To8-Ru-fH6" firstAttribute="leading" secondItem="WHv-wU-VKk" secondAttribute="leading" id="TYW-Wd-iFB"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsR-oA-f3i">
+                <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsR-oA-f3i">
                     <rect key="frame" x="0.0" y="127" width="414" height="769"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kj-iR-7Kb">
@@ -222,7 +222,7 @@ al carrito</string>
                         <constraint firstItem="UtW-H0-k6U" firstAttribute="leading" secondItem="64T-gT-vaK" secondAttribute="leading" constant="16" id="mdS-MV-mZu"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZa-Ya-OKV">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZa-Ya-OKV">
                     <rect key="frame" x="80" y="807" width="254" height="47"/>
                     <color key="backgroundColor" name="BarTint"/>
                     <constraints>

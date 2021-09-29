@@ -41,8 +41,8 @@ class CartViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         totalPrice = 0.0
         getProductUserDefaults()
-        checkEmptyCart()
         checkTypeController()
+        checkEmptyCart()
         setTotalPrice()
         setTotalQuantityProducts()
         productsTableView.reloadData()
@@ -65,10 +65,10 @@ class CartViewController: UIViewController {
     }
     
     func setupUI(isProductEmpty: Bool) {
-        titleLabel.isHidden = isProductEmpty
+        titleLabel.isHidden = isProductEmpty //
         imgSearch.isHidden = isProductEmpty
         stackView.isHidden = !isProductEmpty
-        productsTableView.isHidden = !isProductEmpty
+        productsTableView.isHidden = !isProductEmpty //
         totalView.isHidden = !isProductEmpty
         buttonQR.isHidden = !isProductEmpty
     }

@@ -133,6 +133,7 @@ extension SearchViewController: UISearchBarDelegate {
     
     private func setupSearchBar() {
         searchBar.delegate = self
+        searchBar.searchTextField.addTarget(self, action: #selector(aceleratedSearchAction), for: .editingChanged)
         setupUISearchBar()
     }
     
@@ -162,12 +163,7 @@ extension SearchViewController: UISearchBarDelegate {
         }
     }
     
-    //Acelerated Search
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        aceleratedSearchAction(searchBar: searchBar)
-    }
-    
-    func aceleratedSearchAction(searchBar: UISearchBar ) {
+    @objc func aceleratedSearchAction( ) {
         guard let count = searchBar.text?.count else { return }
         (count > 2) ? showSuggestion() : hideSuggestion()
     }
@@ -382,3 +378,4 @@ extension SearchViewController {
     }
     
 }
+ 
