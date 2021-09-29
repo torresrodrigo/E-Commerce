@@ -65,10 +65,10 @@ class CartViewController: UIViewController {
     }
     
     func setupUI(isProductEmpty: Bool) {
-        titleLabel.isHidden = isProductEmpty //
+        titleLabel.isHidden = isProductEmpty
         imgSearch.isHidden = isProductEmpty
         stackView.isHidden = !isProductEmpty
-        productsTableView.isHidden = !isProductEmpty //
+        productsTableView.isHidden = !isProductEmpty
         totalView.isHidden = !isProductEmpty
         buttonQR.isHidden = !isProductEmpty
     }
@@ -202,7 +202,6 @@ extension CartViewController: ProductsTableViewCellDelegate {
         setTotalQuantityProducts()
     }
     
-    //MARK- Mejorar
     func changeQuantity(id: String, valueQuantity: Int, maxQuantity: Int) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             if valueQuantity == 0 {
@@ -230,7 +229,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    //Action Delegate - Mejorar
+    //Action Delegate
     func deleteProduct(id: String) {
         if let index = products.firstIndex(where: {$0.id == id}) {
             deleteProductAction(index: index)
@@ -246,7 +245,7 @@ extension CartViewController: ProductsTableViewCellDelegate {
         products.count > 0 ? checkProducts(isEmpty: false) : checkProducts(isEmpty: true)
     }
     
-    //Mejorar
+    
     func checkProducts(isEmpty: Bool) {
         if isEmpty {
             checkEmptyCart()

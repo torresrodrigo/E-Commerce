@@ -211,9 +211,17 @@ extension DetailViewController {
                     self.featuresTableView.reloadData()
                 }
             case .failure(let error):
-                print("Something is wrong. Error \(error.localizedDescription)")
+                print(error.localizedDescription)
+                self.alertErrorCallAPI()
             }
         }
+    }
+    
+    private func alertErrorCallAPI() {
+        let alert = UIAlertController(title: "Error", message: "Ha ocurrido un problema en InterMarket", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Continuar", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
