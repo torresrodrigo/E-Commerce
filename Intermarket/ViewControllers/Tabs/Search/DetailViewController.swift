@@ -119,7 +119,7 @@ class DetailViewController: UIViewController {
     
     //Action to add new favorites to user defaults
     func addUserDefaults(id: String, isFavorite: Bool, favorites: [Products]) {
-        if favorites.isEmpty == true || favorites.contains(where: {$0.id != id}) {
+        if favorites.isEmpty || favorites.contains(where: {$0.id != id}) {
             validationUserDefaults(id: id, isFavorite: isFavorite, favorites: favorites)
         }
     }

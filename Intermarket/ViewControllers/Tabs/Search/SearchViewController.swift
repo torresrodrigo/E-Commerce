@@ -316,7 +316,7 @@ extension SearchViewController: ProductCollectionViewCellDelegate {
     
     func changeValueFavorites(isFavorite: Bool, id: String, products: [Products], favoritesUserDefaults: [Products]) {
         if let index = products.firstIndex(where: {$0.id == id}) {
-            if isFavorite == true {
+            if isFavorite {
                 validateFavoritesUserDefaults(index: index, isFavorite: isFavorite, userDefaults: favoritesUserDefaults, id: id)
             }
             else {
