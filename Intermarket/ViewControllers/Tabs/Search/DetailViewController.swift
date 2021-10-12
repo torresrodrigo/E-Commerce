@@ -201,19 +201,16 @@ extension DetailViewController {
     
     func getDetailProduct() {
         guard let id = productData?.id else { return }
-        NetworkService.shared.getDetailsProducts(query: id) { response in
-            switch response {
-            case .success(let response):
-                self.products = response
-                DispatchQueue.main.async {
-                    guard let data = self.products else { return }
-                    self.setupUI(dataDetailProduct: data)
-                    self.featuresTableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.alertErrorCallAPI()
+        NetworkService.shared.getDetailsProducts(query: id) { (detailProduct) in
+            self.products = detailProduct
+            DispatchQueue.main.async {
+                guard let data = self.products else { return }
+                self.setupUI(dataDetailProduct: data)
+                self.featuresTableView.reloadData()
             }
+        } failure: { (error) in
+            print(error.debugDescription)
+            self.alertErrorCallAPI()
         }
     }
     

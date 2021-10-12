@@ -80,21 +80,19 @@ class SearchViewController: UIViewController {
     //API call
     func getResultsSearch(query: String?) {
         guard let searchText = query else { return }
-        NetworkService.shared.getProducts(query: searchText) { response in
-            switch response {
-            case .success(let response):
-                self.products = self.setValuesOfFavorites(with: response.results)
-                self.suggestions = response.results
-                DispatchQueue.main.async {
-                    self.suggestionTableView.reloadData()
-                    self.checkFavoritesUserDefaults()
-                    self.productsCollectionView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.alertErrorCallAPI()
+        NetworkService.shared.getProducts(query: searchText) { (products) in
+            self.products = self.setValuesOfFavorites(with: products)
+            self.suggestions = products
+            DispatchQueue.main.async {
+                self.suggestionTableView.reloadData()
+                self.checkFavoritesUserDefaults()
+                self.productsCollectionView.reloadData()
             }
+        } failure: { (error) in
+            print(error.debugDescription)
+            self.alertErrorCallAPI()
         }
+
     }
     
     private func alertErrorCallAPI() {
