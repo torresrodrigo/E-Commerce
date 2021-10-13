@@ -31,7 +31,8 @@ class QRCodeViewController: UIViewController {
     private func backButtonAction() {
         if isNavigationController == false {
             self.navigationController?.popToRootViewController(animated: true)
-        } else {
+        }
+        else {
             dismiss(animated: true, completion: nil)
         }
     }

@@ -45,7 +45,6 @@ class ProfileViewController: UIViewController {
         imageSelected = img
         imageProfile.image = imageSelected
     }
-
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)

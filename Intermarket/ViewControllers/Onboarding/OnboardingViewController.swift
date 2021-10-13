@@ -54,11 +54,16 @@ class OnboardingViewController: UIViewController {
         if currentPage == slices.count - 1 {
             presentLogin(controller: LoginViewController())
         } else {
-            currentPage += 1
-            let indexPath = IndexPath(item: currentPage, section: 0)
-            slicesCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            changeTextButton(page: currentPage)
+            updatePage()
         }
+    }
+    
+    func updatePage() {
+        currentPage += 1
+        customPageControl.currentPage = currentPage
+        let indexPath = IndexPath(item: currentPage, section: 0)
+        slicesCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        changeTextButton(page: currentPage)
     }
     
     func presentLogin(controller: UIViewController ) {
@@ -72,23 +77,27 @@ class OnboardingViewController: UIViewController {
 extension OnboardingViewController {
     
     private func changeTextButton(page: Int) {
-        if page == 1 {
+//        if page == 1 {
+//            buttonStart.setTitle("Siguiente", for: .normal)
+//        } else if page == 2 {
+//            buttonStart.setTitle("Finalizar", for: .normal)
+//        } else {
+//            buttonStart.setTitle("Comenzar", for: .normal)
+//        }
+        switch page {
+        case 1:
             buttonStart.setTitle("Siguiente", for: .normal)
-        } else if page == 2 {
+        case 2:
             buttonStart.setTitle("Finalizar", for: .normal)
-        } else {
+        default:
             buttonStart.setTitle("Comenzar", for: .normal)
         }
     }
     
     private func getSlices() -> [Slices] {
-        var slicesArray = [Slices]()
-        let slices1 = Slices(title: "Buscá", subtitle: "Explorá productos y elegí el mejor", image: Images.Slice1!)
-        let slices2 = Slices(title: "Agregá al carrito", subtitle: "Ve la suma de dinero que gastarás", image: Images.Slice2!)
-        let slices3 = Slices(title: "Es tuyo", subtitle: "Confirma la compra", image: Images.Slice3!)
-        slicesArray.append(slices1)
-        slicesArray.append(slices2)
-        slicesArray.append(slices3)
+        let slicesArray = [Slices(title: "Buscá", subtitle: "Explorá productos y elegí el mejor", image: Images.Slice1!),
+                           Slices(title: "Agregá al carrito", subtitle: "Ve la suma de dinero que gastarás", image: Images.Slice2!),
+                           Slices(title: "Es tuyo", subtitle: "Confirma la compra", image: Images.Slice3!)]
         return slicesArray
     }
     
