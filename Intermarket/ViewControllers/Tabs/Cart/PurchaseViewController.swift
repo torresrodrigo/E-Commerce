@@ -31,7 +31,7 @@ class PurchaseViewController: UIViewController {
     }
     
     private func backButtonAction() {
-        if isNavigationController == false {
+        if !isNavigationController {
             self.navigationController?.popToRootViewController(animated: true)
         }
         else {

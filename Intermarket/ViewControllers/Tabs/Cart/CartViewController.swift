@@ -104,7 +104,7 @@ class CartViewController: UIViewController {
     
     //Validation for type of Controller to show back button
     func checkTypeController() {
-        if isNavigationController == false {
+        if !isNavigationController  {
             backButton.setImage(nil, for: .normal)
         }
     }
@@ -204,16 +204,15 @@ extension CartViewController: ProductsTableViewCellDelegate {
     
     func changeQuantity(id: String, valueQuantity: Int, maxQuantity: Int) {
         if let index = products.firstIndex(where: {$0.id == id}) {
-            if valueQuantity == 0 {
+            switch valueQuantity {
+            case 0:
                 products[index].quantity = 1
                 deleteProductAction(index: index)
-            }
-            else if valueQuantity == maxQuantity {
+            case maxQuantity:
                 showAlert()
-            }
-            else {
+            default:
                 products[index].quantity = valueQuantity
-            }
+             }
         }
         saveProductQuantity(productData: products)
     }
