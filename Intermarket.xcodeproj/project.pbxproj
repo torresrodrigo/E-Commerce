@@ -17,6 +17,7 @@
 		8811AB5A26D40BB000EEAEAA /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811AB5926D40BB000EEAEAA /* Double+Extensions.swift */; };
 		8811AB5D26D42A6B00EEAEAA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8811AB5C26D42A6B00EEAEAA /* SDWebImage */; };
 		88269F8F26D92AFF00E19EF8 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88269F8E26D92AFF00E19EF8 /* UserDefaultsManager.swift */; };
+		882B8A312716FEE4001BD135 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B8A302716FEE4001BD135 /* LoginService.swift */; };
 		8832620826C6FD5C009AEF98 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8832620726C6FD5B009AEF98 /* Poppins-ExtraBold.ttf */; };
 		8846C66426CD8F7D00F539BA /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C66326CD8F7D00F539BA /* MainTabViewController.swift */; };
 		8846C66726CD8FEB00F539BA /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846C66526CD8FEB00F539BA /* CategoriesViewController.swift */; };
@@ -90,6 +91,7 @@
 		8811AB5626D3FA6D00EEAEAA /* ProductsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductsCollectionViewCell.xib; sourceTree = "<group>"; };
 		8811AB5926D40BB000EEAEAA /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		88269F8E26D92AFF00E19EF8 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		882B8A302716FEE4001BD135 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		8832620726C6FD5B009AEF98 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		8846C66326CD8F7D00F539BA /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		8846C66526CD8FEB00F539BA /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				8811AB5026D3CB1A00EEAEAA /* NetworkService.swift */,
 				88269F8E26D92AFF00E19EF8 /* UserDefaultsManager.swift */,
+				882B8A302716FEE4001BD135 /* LoginService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				88DC00B426CBE163005B105C /* LoginViewController.swift in Sources */,
 				8811AB5326D3D3E200EEAEAA /* String+Extensions.swift in Sources */,
 				88AA324F26DD423F00668FD8 /* DetailViewController.swift in Sources */,
+				882B8A312716FEE4001BD135 /* LoginService.swift in Sources */,
 				8895808326F283EB00CD2AAA /* LogOutViewController.swift in Sources */,
 				88A974A226C703BE0085FFB2 /* UIView+Extensions.swift in Sources */,
 				88CCFB9126E9159900E50BF7 /* GIF+Extensions.swift in Sources */,

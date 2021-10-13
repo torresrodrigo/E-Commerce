@@ -39,8 +39,19 @@ class LogOutViewController: UIViewController {
     
     func logOutAction() {
         removeUserDefaults()
-        GIDSignIn.sharedInstance.signOut()
-        LoginManager().logOut()
+        checkTypeLogin()
+    }
+    
+    func checkTypeLogin() {
+        guard let typeLogin: LoginType = UserDefaultsManager.sharedInstance.getLoginType() else { return }
+        switch typeLogin  {
+        case .Google:
+            GIDSignIn.sharedInstance.signOut()
+        case .Apple:
+            firebaseLogOut()
+        case .Facebook:
+            LoginManager().logOut()
+        }
         firebaseLogOut()
     }
     
