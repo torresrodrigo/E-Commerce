@@ -13,6 +13,25 @@ final class UserDefaultsManager {
     static let sharedInstance = UserDefaultsManager()
     let userDefaults = UserDefaults.standard
     
+    //Login
+    func setLoggedUser() {
+        userDefaults.set(true, forKey: UserDefaultsKeys.LoggedUser)
+    }
+    
+    func setLoginType(loginType: LoginType) {
+        userDefaults.set(loginType.rawValue, forKey: UserDefaultsKeys.LoginType)
+        print(loginType)
+    }
+    
+    func getLoginType() -> LoginType? {
+        var data: LoginType?
+        if let LoginTypeRawValue = userDefaults.object(forKey: UserDefaultsKeys.LoginType) as? String {
+            data = LoginType(rawValue: LoginTypeRawValue)
+        }
+        return data
+    }
+    
+    //Favorites
     func setFavorites(favorites: [Products]?) {
         if let encodedData = try? JSONEncoder().encode(favorites) {
             userDefaults.setValue(encodedData, forKey: UserDefaultsKeys.Favorites)
@@ -29,6 +48,7 @@ final class UserDefaultsManager {
         return data
     }
     
+    //Cart
     func setProductInCart(dataProduct: DetailProduct) {
         let allProducts = getProductInCar()
         let newData = checkCart(id: dataProduct.id, dataProducts: allProducts, product: dataProduct)
@@ -67,6 +87,8 @@ final class UserDefaultsManager {
         return allProductData
     }
     
+    
+    //Image Profile
     func setImage(image: UIImage) {
         if let png = image.pngData() {
             userDefaults.setValue(png, forKey: UserDefaultsKeys.ImgProfile)

@@ -73,10 +73,10 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="touchsignInGoogleButton:" destination="-1" eventType="touchUpInside" id="aNU-MO-Qu9"/>
+                                <action selector="touchButtonSignIn:" destination="-1" eventType="touchUpInside" id="hFC-jr-phU"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E8-M5-SrN">
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E8-M5-SrN">
                             <rect key="frame" x="0.0" y="55" width="160" height="45"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -96,10 +96,10 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="touchSignInFacebookButton:" destination="-1" eventType="touchUpInside" id="UYY-CF-cpk"/>
+                                <action selector="touchButtonSignIn:" destination="-1" eventType="touchUpInside" id="FMb-Xz-IMZ"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZE-og-DEN">
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZE-og-DEN">
                             <rect key="frame" x="0.0" y="110" width="160" height="45"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -119,7 +119,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="touchSignInAppleButton:" destination="-1" eventType="touchUpInside" id="9O9-cX-DNY"/>
+                                <action selector="touchButtonSignIn:" destination="-1" eventType="touchUpInside" id="5pA-My-vGL"/>
                             </connections>
                         </button>
                     </subviews>
