@@ -77,7 +77,6 @@ class LoginViewController: UIViewController {
     
 }
 
-
     // Apple Sign in
 extension LoginViewController {
 

@@ -139,7 +139,8 @@ class CartViewController: UIViewController {
     private func prepareAction(segue: UIStoryboardSegue) {
         if segue.identifier == Identifier.GoToPurchase {
             goToPurchaseVC(segue: segue)
-        } else if segue.identifier == Identifier.GoToQRCode {
+        }
+        else if segue.identifier == Identifier.GoToQRCode {
             goToQrCodeVC(segue: segue)
         }
     }

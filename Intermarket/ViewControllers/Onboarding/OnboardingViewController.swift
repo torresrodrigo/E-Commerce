@@ -53,7 +53,8 @@ class OnboardingViewController: UIViewController {
     func touchStartButtonAction() {
         if currentPage == slices.count - 1 {
             presentLogin(controller: LoginViewController())
-        } else {
+        }
+        else {
             updatePage()
         }
     }
@@ -77,13 +78,6 @@ class OnboardingViewController: UIViewController {
 extension OnboardingViewController {
     
     private func changeTextButton(page: Int) {
-//        if page == 1 {
-//            buttonStart.setTitle("Siguiente", for: .normal)
-//        } else if page == 2 {
-//            buttonStart.setTitle("Finalizar", for: .normal)
-//        } else {
-//            buttonStart.setTitle("Comenzar", for: .normal)
-//        }
         switch page {
         case 1:
             buttonStart.setTitle("Siguiente", for: .normal)

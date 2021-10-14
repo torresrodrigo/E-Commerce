@@ -88,7 +88,7 @@ extension FavoritesViewController: ProductCollectionViewCellDelegate {
     //Abstraer
     func onTouchFavorites(isFavorite: Bool, id: String) {
         if let index = favorites.firstIndex(where: {$0.id == id}) {
-            if isFavorite == false {
+            if !isFavorite {
                 removeCell(id: id, isFavorites: isFavorite, index: index)
             }
         }

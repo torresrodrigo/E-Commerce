@@ -56,7 +56,6 @@ class ProfileViewController: UIViewController {
     
     func changePhotoButtonAction() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            print("Button capure")
             imagePicker.sourceType = .savedPhotosAlbum
             imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
