@@ -105,10 +105,9 @@ class SearchViewController: UIViewController {
     //Set all values false from API
     func setValuesOfFavorites(with products: [Products]) -> [Products] {
         var productData = products
-        if products.isEmpty == false {
+        if !products.isEmpty {
             for i in 0...products.count - 1 {
-                let value = false
-                productData[i].isFavorite = value
+                productData[i].isFavorite = false
             }
         }
         return productData
