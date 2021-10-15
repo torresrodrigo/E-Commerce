@@ -41,7 +41,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    
     private func setupUI() {
         setupButtons()
         self.navigationController?.navigationBar.isHidden = true
