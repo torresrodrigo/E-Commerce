@@ -115,29 +115,7 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-//    func requestPermission() {
-//        let auth = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
-//        switch(auth) {
-//        case .denied, .notDetermined, .restricted:
-//            showAlert()
-//        case .authorized:
-//            proceedWithCameraAccess()
-//        }
-//    }
-//
-//    //Permision to camera access
-//    func proceedWithCameraAccess(){
-//        AVCaptureDevice.requestAccess(for: .video) { success in
-//          if success {
-//            DispatchQueue.main.async {
-//                self.setConfiguration()
-//            }
-//          }
-//        }
-//      }
-    
-    
-    //Check Permission Camera
+    // Check Permission Camera
     func checkPermissionCamera() {
         let authorizationStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         switch authorizationStatus {
@@ -179,39 +157,6 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
         alert.addAction(settingsAction)
         present(alert, animated: true)
     }
-    
-//    //Executed camera
-//    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-//        if metadataObjects.count == 0 {
-//            qrView.frame = CGRect.zero
-//            qrLabel.text = "Escanéa el QR de un producto"
-//        }
-//
-//        let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-//
-//        if metadataObj.type == AVMetadataObject.ObjectType.qr {
-//            guard let barCodeObject = video.transformedMetadataObject(for: metadataObj) else {return }
-//            qrView.frame = barCodeObject.bounds
-//            qrLabel.text = "Producto entrado"
-//
-//            let alert = UIAlertController(title: "Producto encontrado", message: "¿Que deseas hacer?", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Agregar", style: .default, handler: { action in
-//                self.goToCart()
-//            }))
-//            alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: { action in
-//                self.qrLabel.text = "Escanéa el QR de un producto"
-//                self.session.startRunning()
-//            }))
-//            self.present(alert, animated: true, completion: nil)
-//
-//            if metadataObj.stringValue != nil {
-//                print("worked")
-//            }
-//        }
-//
-//        self.session.stopRunning()
-//
-//    }
     
     private func goToCart() {
         let storyboard = UIStoryboard(name: Identifier.TabBarStoryboard, bundle: nil)
