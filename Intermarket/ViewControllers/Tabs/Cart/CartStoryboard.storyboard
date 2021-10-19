@@ -448,11 +448,11 @@
                                     <constraint firstItem="Nsk-dZ-vvM" firstAttribute="centerY" secondItem="4r3-jK-g2a" secondAttribute="centerY" id="ynl-GM-u64"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hps-B4-8h2">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hps-B4-8h2">
                                 <rect key="frame" x="0.0" y="257" width="414" height="506"/>
                                 <color key="backgroundColor" name="White"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEH-ox-i67">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEH-ox-i67">
                                 <rect key="frame" x="120" y="787" width="174" height="48"/>
                                 <color key="backgroundColor" name="Primary"/>
                                 <constraints>
@@ -489,6 +489,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="UI6-5I-4th"/>
                     <connections>
+                        <outlet property="confirmationButton" destination="gEH-ox-i67" id="T4I-jf-DXP"/>
                         <outlet property="productsQuantity" destination="zqz-Yr-OI0" id="o39-sv-Uc7"/>
                         <outlet property="productsTableView" destination="Hps-B4-8h2" id="YYS-3I-39K"/>
                         <outlet property="productsTotalPrice" destination="Gcb-lZ-6Ty" id="MxO-7N-k1Q"/>

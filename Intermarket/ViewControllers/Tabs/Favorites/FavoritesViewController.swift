@@ -13,6 +13,7 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak var favoritesLabel: UILabel!
     @IBOutlet weak var favoritesEmpty: UIImageView!
     @IBOutlet weak var favoritesCollectionView: UICollectionView!
+    @IBOutlet weak var scrollView: UIScrollView!
     var favorites = [Products]()
     
     override func viewDidLoad() {
@@ -22,8 +23,21 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         getFavorites()
+        self.perform(#selector(showUI),with: nil, afterDelay: 0.5)
         checkEmptyCart()
         favoritesCollectionView.reloadData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        scrollView.isHidden = true
+    }
+    
+    @objc private func showUI() {
+        UIView.transition(with: scrollView,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: { self.scrollView.isHidden = false })
+        
     }
     
     //Validation to check if has products
