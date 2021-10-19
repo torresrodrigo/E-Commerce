@@ -13,6 +13,7 @@ class PurchaseViewController: UIViewController {
     @IBOutlet weak var productsQuantity: UILabel!
     @IBOutlet weak var productsTotalPrice: UILabel!
     @IBOutlet weak var productsTableView: UITableView!
+    @IBOutlet weak var confirmationButton: UIButton!
     
     var isNavigationController = false
     var productsPurchase = [DetailProduct]()
@@ -24,10 +25,32 @@ class PurchaseViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        showAnimationUI()
+    }
 
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        productsTableView.isHidden = true
+        confirmationButton.isHidden = true
+    }
+    
     //Actions
     @IBAction func backButton(_ sender: Any) {
         backButtonAction()
+    }
+    
+    func showAnimationUI() {
+        UIView.transition(with: productsTableView,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: { self.productsTableView.isHidden = false})
+        
+        UIView.transition(with: confirmationButton,
+                          duration: 1.5,
+                          options: .transitionCrossDissolve,
+                          animations: { self.confirmationButton.isHidden = false})
     }
     
     private func backButtonAction() {

@@ -194,8 +194,9 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     private func showResults() {
-        setSearchUI(isEmptyText: false)
-        suggestionView.isHidden = true
+//        setSearchUI(isEmptyText: false)
+        showAnimateUI()
+//        suggestionView.isHidden = true
     }
     
     private func suggestionAction() {
@@ -217,8 +218,9 @@ extension SearchViewController: UISearchBarDelegate {
             self.searchBar.resignFirstResponder()
             guard let searchText = self.searchBar.text?.remplaceTextInQuery() else { return }
             self.getResultsSearch(query: searchText)
-            self.setSearchUI(isEmptyText: false)
-            self.suggestionView.isHidden = true
+//            self.setSearchUI(isEmptyText: false)
+            self.showAnimateUI()
+//            self.suggestionView.isHidden = true
         }
     }
     
@@ -372,6 +374,29 @@ extension SearchViewController {
         if let index = products.firstIndex(where: {$0.id == id}) {
             products[index].isFavorite = isFavoriteState
         }
+    }
+    
+}
+
+// MARK: - Animations
+extension SearchViewController {
+    
+    private func showAnimateUI() {
+        self.perform(#selector(resultAnimate), with: nil, afterDelay: 0.5)
+    }
+    
+    @objc private func animateUI() {
+        
+    }
+    
+    @objc private func resultAnimate() {
+        UIView.transition(with: view,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: {
+                            self.setSearchUI(isEmptyText: false)
+                            self.suggestionView.isHidden = true
+                          })
     }
     
 }
